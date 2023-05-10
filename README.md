@@ -40,6 +40,7 @@ $(Posibles funciones extras que se desarrollaran)
   -React
   -Sass
   -Redux(Redux Toolkit)
+  -Axios
 
   
 ## STACK BackEnd:
