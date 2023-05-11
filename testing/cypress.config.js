@@ -3,6 +3,7 @@ const cypressSplit = require('cypress-split')
 
 module.exports = defineConfig({
   reporter: 'cypress-mochawesome-reporter',
+  projectId: "89sjgq",
   e2e: {
     setupNodeEvents(on, config) {
     require('cypress-mochawesome-reporter/plugin')(on);
