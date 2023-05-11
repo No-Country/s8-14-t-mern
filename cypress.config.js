@@ -13,7 +13,7 @@ module.exports = defineConfig({
     // specPattern:"cypress/e2e/features/*.feature",
     // reporter:'cypress-multi-reporters',
     reporterOptions:{
-      reportDir: 'cypress/results/json',
+      reportDir: 'testing/cypress/results/json',
       reportFilename: '[name].html',
       charts:true,
       overwrite:false,
