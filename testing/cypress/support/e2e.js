@@ -18,6 +18,7 @@
 // import '@applitools/eyes-cypress/commands'
 
 import './commands'
+import '@shelex/cypress-allure-plugin';
 import '@testing-library/cypress/add-commands'
 import 'cypress-mochawesome-reporter/register'
 import 'cypress-plugin-steps'
