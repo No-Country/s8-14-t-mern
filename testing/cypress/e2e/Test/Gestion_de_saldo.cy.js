@@ -7,7 +7,7 @@ describe('Seccion Gestion de Saldos', () => {
 
     it('Gestion_001 | Transferencia Exitosa', () => {
        cy.section('Y tengo saldo suficiente para realizar una transferencia')
-        cy.log('se valida la exitencia de saldo > 0 $')
+       cy.log('se valida la exitencia de saldo > 0 $')
        cy.section('Cuando ingreso la direccion de la billetera de destino y el monto de la transferencia')
        cy.section('Y confirmo la transferencia')
        cy.section('Entonces deberia ver un mensaje de exito indicando que la tranasferencia se ha realizado exitosamente')
