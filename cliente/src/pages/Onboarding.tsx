@@ -1,19 +1,10 @@
-import { useNavigate } from "react-router-dom"
+import { Link } from "react-router-dom"
 
-export default function Onboarding() {
-  const navigate = useNavigate();
-
-  const onHandleRegister = () => {
-    navigate('auth/register')
-  }
-
-  const onHandleLogin = () => {
-    navigate('auth/login')
-  }
+export default function Onboarding(): JSX.Element {
   return (
-    <div>
-      <button onClick={onHandleRegister}>Crear cuenta</button>
-      <button onClick={onHandleLogin}>Ya tengo cuenta</button>
+    <div style={{ display: "flex", gap: 10 }}>
+      <Link to="/auth/login" >Login</Link>
+      <Link to="/auth/register" >Register</Link>
     </div>
   )
 }

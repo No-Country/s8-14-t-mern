@@ -1,39 +1,31 @@
-import { Navigate, Route, Routes } from 'react-router-dom';
-import HomePage from '../pages/HomePage';
-import AuthRoutes from './AuthRoutes';
-import Onboarding from '../pages/Onboarding';
-import LoginPage from '../pages/LoginPage';
-import RegisterPage from '../pages/RegisterPage';
+import { Suspense, lazy } from "react"
+import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom';
+const Onboarding: React.LazyExoticComponent<() => JSX.Element> = lazy(() => import("../pages/Onboarding"))
+const AuthPage: React.LazyExoticComponent<() => JSX.Element> = lazy(() => import("../pages/AuthPage"))
+const HomePage: React.LazyExoticComponent<() => JSX.Element> = lazy(() => import("../pages/HomePage"))
 
-
-
-export default function AppRouter() {
-  // let status = 'loading'
-  // let status = 'yatengocuenta'
-  let status = 'notengocuenta'
-  // let status = 'authenticated'
+export default function AppRouter(): JSX.Element {
+  const user = false
   return (
-    <Routes>
-      {(status === 'loading') &&
-        <Route path='/' element={<Onboarding />} />
-      }
-
-      {(status === 'yatengocuenta') &&
-        <Route path='/auth/login' element={<LoginPage />} />
-      }
-
-      {(status === 'notengocuenta') &&
-        <Route path='/auth/register' element={<RegisterPage />} />
-      }
-
-      {
-        (status === 'authenticated') &&
-        <Route path='/home' element={<HomePage />} />
-      }
-      {/* Ruta de protecion, en caso de que el usuario quiera ir a una direccion que invente */}
-      {/* <Route path='/*' element={<Navigate to='auth/login' />} /> */}
-      {/* <Route path='*' element={<h1>404</h1>} /> */}
-    </Routes>
+    <Suspense fallback={<p>Loading...</p>}>
+      <BrowserRouter>
+        <Routes>
+          {!user &&
+            <>
+              <Route path='/' element={<Onboarding />} />
+              <Route path='/auth/:slug' element={<AuthPage />} />
+              <Route path='*' element={<Navigate to="/" />} />
+            </>
+          }
+          {user &&
+            <>
+              <Route path='/home' element={<HomePage />} />
+              <Route path='*' element={<Navigate to="/home" />} />
+            </>
+          }
+        </Routes>
+      </BrowserRouter>
+    </Suspense>
   )
 
 }
