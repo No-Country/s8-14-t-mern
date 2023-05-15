@@ -5,7 +5,7 @@ const AuthPage: React.LazyExoticComponent<() => JSX.Element> = lazy(() => import
 const HomePage: React.LazyExoticComponent<() => JSX.Element> = lazy(() => import("../pages/HomePage"))
 
 export default function AppRouter(): JSX.Element {
-  const user = false
+  const user = true
   return (
     <Suspense fallback={<p>Loading...</p>}>
       <BrowserRouter>

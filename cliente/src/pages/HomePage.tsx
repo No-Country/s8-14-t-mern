@@ -1,7 +1,8 @@
-import React from 'react'
-
+import { Card } from "@tremor/react";
 export default function HomePage() {
   return (
-    <div>HomePage</div>
-  )
+    <div>
+      HomePage<Card>card</Card>
+    </div>
+  );
 }
