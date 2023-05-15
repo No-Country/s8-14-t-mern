@@ -10,7 +10,7 @@ import { useNavigate } from 'react-router-dom';
 const LoginForm = (): JSX.Element => {
 
   const navigate = useNavigate();
-  const { values, handleChange, handleSubmit, errors } = useFormik({
+  const { values, handleChange, handleSubmit, errors, touched } = useFormik({
     initialValues: {
       email: '',
       password: '',
@@ -47,7 +47,7 @@ const LoginForm = (): JSX.Element => {
             value={values.email}
             className="input input-password"
           />
-          {errors.email && <div className="error">{errors.email}</div>}
+          {errors.email && touched.email && <div>{errors.email}</div>}
           <label htmlFor="Password" className="label">
             Password
           </label>
@@ -60,7 +60,7 @@ const LoginForm = (): JSX.Element => {
             value={values.password}
             className="input input-password"
           />
-          {errors.password && <div className="error">{errors.password}</div>} {/* Mostrar el mensaje de error */}
+          {errors.password && touched.password && <div className="error">{errors.password}</div>} {/* Mostrar el mensaje de error */}
           <button type="submit" className="primary-button login-button">
             Log in
           </button>

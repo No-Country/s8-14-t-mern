@@ -5,7 +5,7 @@ import '../styles/Login.scss';
 // nECESITAMOS CREAR BOTON VOLVER A ELEGIR
 const RegisterForm = (): JSX.Element => {
 
-  const { values, handleChange, handleSubmit, errors } = useFormik({
+  const { values, handleChange, handleSubmit, errors, touched } = useFormik({
     initialValues: {
       name: '',
       email: '',
@@ -47,7 +47,7 @@ const RegisterForm = (): JSX.Element => {
             value={values.name}
             className="input input-password"
           />
-          {errors.name && <div className="error">{errors.name}</div>}
+          {errors.name && touched.name && <div className="error">{errors.name}</div>}
 
 
           <input
@@ -59,7 +59,7 @@ const RegisterForm = (): JSX.Element => {
             value={values.email}
             className="input input-password"
           />
-          {errors.email && <div className="error">{errors.email}</div>}
+          {errors.email && touched.email && <div className="error">{errors.email}</div>}
 
           <input
             name="password"
@@ -70,7 +70,7 @@ const RegisterForm = (): JSX.Element => {
             value={values.password}
             className="input input-password"
           />
-          {errors.password && <div className="error">{errors.password}</div>}
+          {errors.password && touched.password && <div className="error">{errors.password}</div>}
 
 
           <input
@@ -82,7 +82,7 @@ const RegisterForm = (): JSX.Element => {
             value={values.password2}
             className="input input-password"
           />
-          {errors.password2 && <div className="error">{errors.password2}</div>}
+          {errors.password2 && touched.password2 && <div className="error">{errors.password2}</div>}
 
 
           <button type="submit" className="primary-button login-button">
