@@ -1,5 +1,7 @@
 import express, { Application } from 'express'
 import { json, urlencoded } from 'body-parser'
+import cors from 'cors'
+import morgan from 'morgan'
 import dataBase from './utils/database'
 import config from './config'
 import mainRouter from './routes'
@@ -16,7 +18,8 @@ class Server {
 	private config(): void {
 		this.app.use(json())
 		this.app.use(urlencoded({ extended: true }))
-		//TODO: install CORS, MORGAN
+		this.app.use(cors(config.corsOptions))
+		this.app.use(morgan('tiny'))
 		// Aquí se puede configurar cualquier otra opción de la aplicación
 	}
 

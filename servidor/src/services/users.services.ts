@@ -1,11 +1,9 @@
-class UserService {
-	get(): Promise<void> {
-		return new Promise((resolve) => {
-			setTimeout(() => {
-				resolve();
-			}, 3000);
-		});
-	}
+const fetchGet = () => {
+	return new Promise(resolve => {
+		setTimeout(() => {
+			resolve(true)
+		}, 3000)
+	})
 }
 
-export default UserService;
+export { fetchGet }
