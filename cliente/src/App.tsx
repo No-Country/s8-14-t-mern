@@ -1,10 +1,10 @@
+import AppRouter from './router/AppRouter'
 import './App.css'
 
-function App() {
+function App(): JSX.Element {
 
   return (
-    <>
-    </>
+    <AppRouter />
   )
 }
 
