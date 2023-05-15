@@ -4,9 +4,11 @@
   "description": "Billetera virtual ",
   "main": "index.js",
   "scripts": {
-    "start": "node ./src/index.js",
-    "dev": "nodemon ./src/index.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node dist/index.js",
+    "build": "tsc",
+    "dev": "nodemon ./src/index.ts  --exec ts-node",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "lint": "eslint --ignore-path .eslintignore --ext .js,.ts ."
   },
   "keywords": [
     "Nodejs",
@@ -24,6 +26,13 @@
     "mongoose": "^7.1.1"
   },
   "devDependencies": {
-    "nodemon": "^2.0.22"
+    "@types/express": "^4.17.17",
+    "@types/mongoose": "^5.11.97",
+    "@types/node": "^20.1.4",
+    "@typescript-eslint/eslint-plugin": "^5.59.6",
+    "@typescript-eslint/parser": "^5.59.6",
+    "eslint": "^8.40.0",
+    "nodemon": "^2.0.22",
+    "typescript": "^5.0.4"
   }
 }
