@@ -1,8 +1,7 @@
-import { PropsWithChildren, Suspense, lazy } from "react";
+import NavBar from "@/components/NavBar";
+import React from "react";
+import { Suspense, lazy } from "react";
 import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
-const Layout: React.LazyExoticComponent<
-  ({ children }: PropsWithChildren) => JSX.Element
-> = lazy(() => import("../utils/Layout"));
 const Onboarding: React.LazyExoticComponent<() => JSX.Element> = lazy(
   () => import("../pages/Onboarding")
 );
@@ -31,7 +30,9 @@ export default function AppRouter(): JSX.Element {
           )}
           {user && (
             <>
-              <Route path="/home" element={<HomePage />} />
+              <Route path="/home" element={<HomePage />}>
+                <Route path="" element={<NavBar />} />
+              </Route>
               <Route path="/profile" element={<ProfilePage />} />
               <Route path="*" element={<Navigate to="/home" />} />
             </>
