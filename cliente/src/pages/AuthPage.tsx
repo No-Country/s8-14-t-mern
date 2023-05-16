@@ -3,7 +3,7 @@ import LoginForm from "../components/LoginFormComponent"
 import RegisterForm from "../components/RegisterFormComponent"
 
 
-export default function AuthPage() {
+export default function AuthPage(): JSX.Element {
   const { slug } = useParams()
 
   return (
