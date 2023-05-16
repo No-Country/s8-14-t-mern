@@ -1,3 +1,4 @@
+import React from "react";
 import { ArrowsUpDownIcon, CreditCardIcon, HomeIcon, QrCodeIcon, UserIcon } from "@heroicons/react/24/solid";
 import { TabList, Tab } from "@tremor/react";
 import { useNavigate } from "react-router-dom";
