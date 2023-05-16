@@ -5,6 +5,7 @@ const Layout: React.LazyExoticComponent<({ children }: PropsWithChildren ) => JS
 const Onboarding: React.LazyExoticComponent<() => JSX.Element> = lazy(() => import("../pages/Onboarding"))
 const AuthPage: React.LazyExoticComponent<() => JSX.Element> = lazy(() => import("../pages/AuthPage"))
 const HomePage: React.LazyExoticComponent<() => JSX.Element> = lazy(() => import("../pages/HomePage"))
+const ProfilePage: React.LazyExoticComponent<() => JSX.Element> = lazy(() => import("../pages/ProfilePage"))
 
 export default function AppRouter(): JSX.Element {
   const user = true
@@ -25,6 +26,7 @@ export default function AppRouter(): JSX.Element {
             <Routes>
               <>
                 <Route path='/home' element={<HomePage />} />
+                <Route path='/profile' element={<ProfilePage />} />
                 <Route path='*' element={<Navigate to="/home" />} />
               </>
             </Routes>
