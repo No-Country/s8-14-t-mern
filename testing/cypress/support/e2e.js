@@ -22,13 +22,8 @@ import '@shelex/cypress-allure-plugin';
 import '@testing-library/cypress/add-commands'
 import 'cypress-mochawesome-reporter/register'
 import 'cypress-plugin-steps'
-
-
 // require('cypress-xpath')
-// import 'mochawesome'
 
-// Alternatively you can use CommonJS syntax:
-// require('./commands')
 
 import addContext from 'mochawesome/addContext'
 

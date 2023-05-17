@@ -35,7 +35,7 @@ module.exports = defineConfig({
       allureReuseAfterSpec: true,
     },
     specPattern: ["**/*.feature", "cypress/e2e/**/*.cy.{js,jsx,ts,tsx}"],
-    // reporter:'cypress-multi-reporters',
+    baseUrl: "https://dev.tahouse.casa/",
     reporterOptions:{
       reportDir: 'cypress/results/json',
       reportFilename: '[name].html',
@@ -44,7 +44,6 @@ module.exports = defineConfig({
       html:false,
       json:true,
       video:true,
-      // reporterDir:"cypress/mochawesome-report"
     },
       viewportHeight:670,
       viewportWidth:380,

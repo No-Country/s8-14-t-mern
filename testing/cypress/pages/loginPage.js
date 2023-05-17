@@ -15,13 +15,16 @@ class LoginPage {
     }
   
     clickLogin() {
-      this.elements.loginBtn().click();
+      this.elements.loginBtn().click({force:true});
+    }
+
+    errorMessage(text){
+      this.elements.errorMessage().should('have.text', text)
     }
   
     submitLogin(username,password){
       this.elements.usernameInput().type(username);
       this.elements.passwordInput().type(password);
-      this.elements.loginBtn().click({force:true});
     }
   }
   
