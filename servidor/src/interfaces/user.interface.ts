@@ -6,7 +6,8 @@ export enum rolType {
 }
 export enum IdentificationType {
   DNI = 'dni',
-  Cedula = 'cedula'
+  Cedula = 'cedula',
+  Pasaporte = 'pasaporte'
 }
 export interface IUser extends Document {
   firstName: string
@@ -24,4 +25,5 @@ export interface IUser extends Document {
   isActive: boolean
   rol: rolType
   token: string
+  repeatPassword: string
 }
