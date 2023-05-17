@@ -17,6 +17,9 @@ const ProfilePage: React.LazyExoticComponent<() => JSX.Element> = lazy(
 const PersonalDataPage: React.LazyExoticComponent<() => JSX.Element> = lazy(
   () => import("../pages/PersonalDataPage")
 );
+const ChangeName: React.LazyExoticComponent<() => JSX.Element> = lazy(
+  () => import("../pages/ChangeName")
+)
 
 export default function AppRouter(): JSX.Element {
   const user = true;
@@ -37,6 +40,7 @@ export default function AppRouter(): JSX.Element {
                 <Route path="" element={<NavBar />} />
               </Route>
               <Route path="/profile" element={<ProfilePage />} />
+              <Route path="/changename" element={<ChangeName />} />
               <Route path="/personalData" element={<PersonalDataPage />} />
               <Route path="*" element={<Navigate to="/home" />} />
             </>

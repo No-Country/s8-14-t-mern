@@ -1,6 +1,6 @@
 import { Navigate, Route, Routes } from 'react-router-dom'
-import LoginPage from '../pages/LoginPage'
-import RegisterPage from '../pages/RegisterPage'
+import LoginPage from '../pages/AuthPage'
+import RegisterPage from '../components/RegisterFormComponent'
 
 export default function AuthRoutes() {
   return (

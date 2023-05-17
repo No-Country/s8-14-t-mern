@@ -15,7 +15,7 @@ const MENU_ITEMS: ListItemType[] = [
   {
     title: "Nombre completo",
     subtitle: "Pablo Gómez",
-    href: "/editProfile?field=Pablo Gomez",
+    href: "/changename",
   },
   {
     title: "Email",
