@@ -1,8 +1,11 @@
-import { Card } from "@tremor/react";
+import Benefits from "@/components/BenefitHomeComponent";
+import PanelHome from "@/components/PanelHomeComponent";
+import { Button, Card } from "@tremor/react";
 export default function HomePage() {
   return (
     <div>
-      HomePage<Card>card</Card>
+      <Benefits />
+      <PanelHome/>
     </div>
   );
 }
