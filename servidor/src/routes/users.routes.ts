@@ -1,9 +1,13 @@
 import { Router } from 'express'
-import { getUserCtrl, postUserCtrl } from '../controller/users.controllers'
+import { getUserCtrl, putUserCtrl, postUserCtrl } from '../controller/users.controllers'
 
 const router = Router()
 
-router.route('/').get(getUserCtrl)
+router.route('/')
+
+router.get('/users', getUserCtrl)
+
+router.put('/edit', putUserCtrl)
 
 router.post('/register', postUserCtrl)
 

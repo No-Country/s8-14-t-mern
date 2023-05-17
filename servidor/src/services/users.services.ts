@@ -3,12 +3,22 @@
 import { IUser } from '../interfaces/user.interface'
 import User from '../models/users.models'
 
-const fetchGet = () => {
-  return new Promise(resolve => {
-    setTimeout(() => {
-      resolve(true)
-    }, 3000)
-  })
+const fetchGet = async() => {
+  try {
+    const users = await User.find({});
+    return { error: false, data: users };
+  } catch (error) {
+    return { error: true, data: error };
+  }
+}
+
+const fetchPut = async(user: any) => {
+  try {
+    
+    
+  } catch (error) {
+    
+  }
 }
 
 const fetchPost = async (user: IUser) => {
@@ -21,4 +31,4 @@ const fetchPost = async (user: IUser) => {
   }
 }
 
-export { fetchGet, fetchPost }
+export { fetchGet, fetchPut, fetchPost }
