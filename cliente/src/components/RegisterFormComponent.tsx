@@ -1,33 +1,44 @@
 import { useFormik } from 'formik';
+import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
 import * as Yup from 'yup';
 import '../styles/Login.scss';
 
 // nECESITAMOS CREAR BOTON VOLVER A ELEGIR
 const RegisterForm = (): JSX.Element => {
-
+  const navigate = useNavigate()
   const { values, handleChange, handleSubmit, errors, touched } = useFormik({
     initialValues: {
-      name: '',
+      firstName: '',
+      lastname: '',
       email: '',
       password: '',
-      password2: '',
+      repeatPassword: '',
     },
     validationSchema: Yup.object({
-      name: Yup.string().required('Name is required'),
+      firstName: Yup.string().required('Name is required'),
+      lastname: Yup.string().required('Lastname is required'),
       email: Yup.string().email('Enter a valid email').required('Email is required').max(50),
       password: Yup.string()
         .required('Password is required')
         .min(8, 'Password must contain at least 8 characters')
         .matches(/[A-Z]/, 'Password must contain at least one uppercase letter')
         .matches(/[!@#$%^&*(),.?":{}|<>]/, 'Password must contain at least one special character'),
-      password2: Yup.string().oneOf([Yup.ref('password')], 'Passwords must match').required('Password is required'),
+      repeatPassword: Yup.string().oneOf([Yup.ref('password')], 'Passwords must match').required('Password is required'),
     }
     ),
 
     onSubmit: async (values) => {
-      console.log(values);
-      // Hacer la peticion al bac
-      //Capeta servicio
+      try{
+        const response = await axios.post("http://localhost:9000/api/v1/pigmeo/users/register", values)
+        console.log('response', response.data);
+        localStorage.setItem("user", JSON.stringify(response.data))
+        navigate('/home')
+      } catch (err) {
+        console.error('Error', err)
+      }
+
+      
     },
   });
 
@@ -39,15 +50,25 @@ const RegisterForm = (): JSX.Element => {
         <form onSubmit={handleSubmit} className="form">
 
           <input
-            name="name"
-            id="name"
-            type="name"
+            name="firstName"
+            id="firstName"
+            type="firstName"
             placeholder="Name and Surname"
             onChange={handleChange}
-            value={values.name}
+            value={values.firstName}
             className="input input-password"
           />
-          {errors.name && touched.name && <div className="error">{errors.name}</div>}
+          {errors.firstName && touched.firstName && <div className="error">{errors.firstName}</div>}
+          <input
+            name="lastname"
+            id="lastname"
+            type="name"
+            placeholder="lastname"
+            onChange={handleChange}
+            value={values.lastname}
+            className="input input-password"
+          />
+          {errors.lastname && touched.lastname && <div className="error">{errors.lastname}</div>}
 
 
           <input
@@ -74,15 +95,15 @@ const RegisterForm = (): JSX.Element => {
 
 
           <input
-            name="password2"
-            id="password2"
+            name="repeatPassword"
+            id="repeatPassword"
             type="password"
             placeholder="Confirm password"
             onChange={handleChange}
-            value={values.password2}
+            value={values.repeatPassword}
             className="input input-password"
           />
-          {errors.password2 && touched.password2 && <div className="error">{errors.password2}</div>}
+          {errors.repeatPassword && touched.repeatPassword && <div className="error">{errors.repeatPassword}</div>}
 
 
           <button type="submit" className="primary-button login-button">

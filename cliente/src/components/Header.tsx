@@ -1,7 +1,7 @@
 import {Card, Metric, Text, Icon } from "@tremor/react"
 import { BellIcon, EyeIcon } from "@heroicons/react/outline"
 
-export default function Header() {
+export default function Header(): JSX.Element {
     return(
         <Card>
             <div className="flex  items-center">
