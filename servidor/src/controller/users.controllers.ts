@@ -21,6 +21,7 @@ const postUserCtrl = async (req: Request, res: Response) => {
   }
 }
 
+
 const loginUser = async (req: Request, res: Response) => {
   try {
     const { password, email } = req.body
