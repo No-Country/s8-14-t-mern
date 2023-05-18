@@ -1,13 +1,13 @@
 import { Given, When, Then, And } from "cypress-cucumber-preprocessor/steps";
 
-Given('abrir web de google',()=>{
-    cy.step('probando given')
+Given('paso 1',()=>{
+    cy.step('n1')
 })
 
 When('paso 2',()=>{
-    cy.step('probando when')
+    cy.step('n2')
 })
 
 Then('paso 3',()=>{
-    cy.step('probando then')
+    cy.step('n3')
 })
