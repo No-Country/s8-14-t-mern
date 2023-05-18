@@ -1,5 +1,5 @@
 import { Request, Response } from 'express'
-import { fetchGet, fetchUserId, fetchPut, fetchPost } from '../services/users.services'
+import { fetchGet, fetchLogin, fetchUserId, fetchPut, fetchPost } from '../services/users.services'
 
 const getUserCtrl = async(_req: Request, res: Response) => {
   try {
@@ -35,10 +35,20 @@ const postUserCtrl = async (req: Request, res: Response) => {
   try {
     const data = await fetchPost(req.body)
     res.status(201).json({ msg: 'User created succeful', data })
-  } catch (error: any) {
-    console.log('CONTROLADOR', error)
-    res.status(400).json({ error: error.message })
+  } catch (error) {
+    if (error instanceof Error) res.status(400).json({ error: error.message })
   }
 }
 
-export { getUserCtrl, getUserId, putUserCtrl, postUserCtrl }
+
+const loginUser = async (req: Request, res: Response) => {
+  try {
+    const { password, email } = req.body
+    const data = await fetchLogin(password, email)
+    res.status(201).json({ msg: 'User login succeful', data })
+  } catch (error) {
+    if (error instanceof Error) res.status(400).json({ error: error })
+  }
+}
+
+export { getUserCtrl, getUserId, putUserCtrl, postUserCtrl, loginUser }

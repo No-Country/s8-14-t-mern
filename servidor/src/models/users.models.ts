@@ -6,6 +6,8 @@ import {
   rolType
 } from '../interfaces/user.interface'
 
+//TODO: modificar el campo requerido para que solo sea nombre, apellido, email y contraseña
+//TODO: agregar datos para modificar perfil acorde al figma
 const userSchema = new Schema<IUser>(
   {
     firstName: {
@@ -18,24 +20,21 @@ const userSchema = new Schema<IUser>(
     },
     typeIdentification: {
       type: String,
-      enum: Object.values(IdentificationType),
-      required: true
+      enum: Object.values(IdentificationType)
     },
     numberIdentification: {
       type: Number,
-      required: true,
-      unique: true
+      unique: false
     },
     alias: {
       type: String,
       unique: true,
-      set: function (this: IUser) {
-        return `${this.firstName}.${this.lastname}.${this.numberIdentification}`
+      default: function (this: IUser) {
+        return `${this.firstName}.${this.lastname}.${this.email.slice(0, 5)}`
       }
     },
     phoneNumber: {
       type: String,
-      required: true,
       unique: true
     },
     email: {
@@ -45,12 +44,12 @@ const userSchema = new Schema<IUser>(
       lowercase: true
     },
     address: {
-      type: String,
-      required: false
+      type: String
     },
     avatar: {
       type: String,
-      required: false
+      required: false,
+      default: 'https://clipground.com/images/user-icon-vector-png-1.jpg'
     },
     password: {
       type: String,
@@ -81,7 +80,7 @@ const userSchema = new Schema<IUser>(
 )
 
 userSchema.set('toJSON', {
-  transform: (_document, returnedObject) => {
+  transform: (document, returnedObject) => {
     returnedObject.id = returnedObject._id.toString()
     delete returnedObject._id
     delete returnedObject.__v

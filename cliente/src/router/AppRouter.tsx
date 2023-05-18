@@ -1,6 +1,6 @@
 import NavBar from "@/components/NavBar";
-import React from "react";
-import { Suspense, lazy } from "react";
+import React, { useState } from "react";
+import { Suspense, lazy, useEffect } from "react";
 import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
 const Onboarding: React.LazyExoticComponent<() => JSX.Element> = lazy(
   () => import("../pages/Onboarding")
@@ -17,9 +17,24 @@ const ProfilePage: React.LazyExoticComponent<() => JSX.Element> = lazy(
 const PersonalDataPage: React.LazyExoticComponent<() => JSX.Element> = lazy(
   () => import("../pages/PersonalDataPage")
 );
+const ChangeName: React.LazyExoticComponent<() => JSX.Element> = lazy(
+  () => import("../pages/ChangeName")
+)
 
 export default function AppRouter(): JSX.Element {
-  const user = true;
+  const [user, setUser] = useState((false))
+  console.log("change");
+  useEffect(() => {
+  console.log("useEffect");
+  const storedUser = localStorage.getItem("user");
+  const token: any | null = storedUser ? JSON.parse(storedUser) : null;
+  if (token) {
+    console.log('show',token)
+     setUser(true);
+  }
+},[user])
+
+
   return (
     <Suspense fallback={<p>Loading...</p>}>
       <BrowserRouter>
@@ -37,6 +52,7 @@ export default function AppRouter(): JSX.Element {
                 <Route path="" element={<NavBar />} />
               </Route>
               <Route path="/profile" element={<ProfilePage />} />
+              <Route path="/changename" element={<ChangeName />} />
               <Route path="/personalData" element={<PersonalDataPage />} />
               <Route path="*" element={<Navigate to="/home" />} />
             </>
