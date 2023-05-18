@@ -1,5 +1,4 @@
 //TODO: Validaciones
-
 import { IUser } from '../interfaces/user.interface'
 import User from '../models/users.models'
 const bcrypt = require('bcryptjs')
@@ -55,7 +54,10 @@ const fetchLogin = async (password: string, email: string) => {
         email: user.email,
         id: user.id
       },
-      secretKey
+      secretKey,
+      {
+        expiresIn: '1d'
+      }
     )
     const response = {
       email: user.email,
