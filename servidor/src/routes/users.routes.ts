@@ -1,11 +1,11 @@
 import { Router } from 'express'
-import { getUserCtrl, putUserCtrl, postUserCtrl } from '../controller/users.controllers'
+import { getUserCtrl, getUserId, putUserCtrl, postUserCtrl } from '../controller/users.controllers'
 
 const router = Router()
 
-router.route('/')
+router.route('/').get(getUserCtrl)
 
-router.get('/users', getUserCtrl)
+router.get('/:id', getUserId)
 
 router.put('/edit', putUserCtrl)
 
