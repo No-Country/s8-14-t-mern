@@ -1,12 +1,15 @@
 import logo from "../assets/Pigmeo.png";
 import axios from "axios"
-import { useFormik } from "formik";
+import{useContext} from 'react'
+import { useFormik} from "formik";
 import * as Yup from "yup";
 import "../styles/Login.scss";
 import { useNavigate } from "react-router-dom";
+import UserContext from "../context/UserContex";
 
 // Aa1234567$ password example
 const LoginForm = (): JSX.Element => {
+  const { setUser } = useContext(UserContext)
   const navigate = useNavigate();
   const { values, handleChange, handleSubmit, errors, touched } = useFormik({
     initialValues: {
@@ -27,7 +30,7 @@ const LoginForm = (): JSX.Element => {
         ),
     }),
 
-    onSubmit: async (values) => {
+     onSubmit: async (values) => {
       try {
         const response = await axios.post(
           "http://localhost:9000/api/v1/pigmeo/users/login",
@@ -35,6 +38,7 @@ const LoginForm = (): JSX.Element => {
         );
         console.log("response", response.data);
         localStorage.setItem("user", JSON.stringify(response.data));
+        setUser(true)
         navigate("/home");
       } catch (err) {
         console.error("Error", err);

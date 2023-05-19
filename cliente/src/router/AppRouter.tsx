@@ -2,6 +2,7 @@ import NavBar from "@/components/NavBar";
 import React, { useState } from "react";
 import { Suspense, lazy, useEffect } from "react";
 import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
+import UserContext from "../context/UserContex";
 const Onboarding: React.LazyExoticComponent<() => JSX.Element> = lazy(
   () => import("../pages/Onboarding")
 );
@@ -22,22 +23,27 @@ const ChangeName: React.LazyExoticComponent<() => JSX.Element> = lazy(
 )
 
 export default function AppRouter(): JSX.Element {
-  const [user, setUser] = useState((false))
+  const [user, setUser] = useState<boolean | null>(null)
   console.log("change");
-  useEffect(() => {
+  useEffect(() => { 
+    async() => {
   console.log("useEffect");
   const storedUser = localStorage.getItem("user");
   const token: any | null = storedUser ? JSON.parse(storedUser) : null;
   if (token) {
     console.log('show',token)
-     setUser(true);
+     setUser(true)
+  }else{
+    setUser(false)
   }
-},[user])
+  }
+},[])
 
 
   return (
     <Suspense fallback={<p>Loading...</p>}>
       <BrowserRouter>
+      <UserContext.Provider value={{ user, setUser }}>
         <Routes>
           {!user && (
             <>
@@ -58,6 +64,7 @@ export default function AppRouter(): JSX.Element {
             </>
           )}
         </Routes>
+        </UserContext.Provider>
       </BrowserRouter>
     </Suspense>
   );
