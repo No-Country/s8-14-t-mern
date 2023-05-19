@@ -19,20 +19,23 @@ const PersonalDataPage: React.LazyExoticComponent<() => JSX.Element> = lazy(
 );
 const ChangeName: React.LazyExoticComponent<() => JSX.Element> = lazy(
   () => import("../pages/ChangeName")
-)
+);
+const ScannerQrPage: React.LazyExoticComponent<() => JSX.Element> = lazy(
+  () => import("../pages/ScannerQrPage")
+);
 
 export default function AppRouter(): JSX.Element {
   const [user, setUser] = useState((false))
   console.log("change");
   useEffect(() => {
-  console.log("useEffect");
-  const storedUser = localStorage.getItem("user");
-  const token: any | null = storedUser ? JSON.parse(storedUser) : null;
-  if (token) {
-    console.log('show',token)
-     setUser(true);
-  }
-},[user])
+    console.log("useEffect");
+    const storedUser = localStorage.getItem("user");
+    const token: any | null = storedUser ? JSON.parse(storedUser) : null;
+    if (token) {
+      console.log('show', token)
+      setUser(true);
+    }
+  }, [user])
 
 
   return (
@@ -54,6 +57,7 @@ export default function AppRouter(): JSX.Element {
               <Route path="/profile" element={<ProfilePage />} />
               <Route path="/changename" element={<ChangeName />} />
               <Route path="/personalData" element={<PersonalDataPage />} />
+              <Route path="/scanner" element={<ScannerQrPage />} />
               <Route path="*" element={<Navigate to="/home" />} />
             </>
           )}
