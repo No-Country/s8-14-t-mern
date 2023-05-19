@@ -31,7 +31,7 @@ export default function NavBar(): JSX.Element {
       />
       <Tab
         className="flex-1 justify-center items-center bg-slate-300 rounded-full max-h-[4rem] max-w-[4rem] h-[4rem] w-[4rem] mb-1"
-        value='/qr-code'
+        value='/scanner'
         text=''
         icon={() =>
           <QrcodeIcon
