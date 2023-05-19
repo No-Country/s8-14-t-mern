@@ -1,4 +1,4 @@
-import { ReactElement, ComponentType } from "react";
+import { ReactElement, ComponentType, SVGProps } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { Title, Subtitle, Text } from "@tremor/react";
 import { XIcon, ChevronRightIcon } from "@heroicons/react/solid";
@@ -13,11 +13,11 @@ import {
 interface ListItemType {
   title: string;
   href: string;
-  ListIcon: ComponentType<React.SVGProps<SVGSVGElement>>;
+  ListIcon: ComponentType<SVGProps<SVGSVGElement>>;
 }
 
 const MENU_ITEMS: ListItemType[] = [
-  { title: "Mis datos", href: "/home", ListIcon: UserIcon },
+  { title: "Mis datos", href: "/personalData", ListIcon: UserIcon },
   { title: "Invitar amigos", href: "/home", ListIcon: MailIcon },
   { title: "Chateá con nosotros", href: "/home", ListIcon: ChatIcon },
   {
@@ -57,7 +57,7 @@ function ProfilePage(): ReactElement {
   );
 }
 
-function ListItem({ title, href, ListIcon }: ListItemType) {
+function ListItem({ title, href, ListIcon }: ListItemType): ReactElement {
   const navigate = useNavigate();
   return (
     <li
@@ -65,7 +65,7 @@ function ListItem({ title, href, ListIcon }: ListItemType) {
       onClick={() => navigate(href)}
     >
       <ListIcon className="text-[#AA9D9D] w-6 h-6" />
-      <Text className="text-black text-base flex-grow">{title}</Text>
+      <Text className="text-[#262727]  text-base flex-grow">{title}</Text>
       <ChevronRightIcon className="text-[#AA9D9D] w-6 h-6 " />
     </li>
   );

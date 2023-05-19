@@ -1,32 +1,44 @@
-import logo from '../assets/Pigmeo.png';
-import { useFormik } from 'formik';
-import * as Yup from 'yup';
-import '../styles/Login.scss';
-import { useNavigate } from 'react-router-dom';
-
-
+import logo from "../assets/Pigmeo.png";
+import axios from "axios"
+import { useFormik } from "formik";
+import * as Yup from "yup";
+import "../styles/Login.scss";
+import { useNavigate } from "react-router-dom";
 
 // Aa1234567$ password example
 const LoginForm = (): JSX.Element => {
-
   const navigate = useNavigate();
   const { values, handleChange, handleSubmit, errors, touched } = useFormik({
     initialValues: {
-      email: '',
-      password: '',
+      email: "",
+      password: "",
     },
     validationSchema: Yup.object({
-      email: Yup.string().email('Enter a valid email').required('Email is required'),
+      email: Yup.string()
+        .email("Enter a valid email")
+        .required("Email is required"),
       password: Yup.string()
-        .required('Password is required')
-        .min(8, 'Password must contain at least 8 characters')
-        .matches(/[A-Z]/, 'Password must contain at least one uppercase letter')
-        .matches(/[!@#$%^&*(),.?":{}|<>]/, 'Password must contain at least one special character'),
+        .required("Password is required")
+        .min(8, "Password must contain at least 8 characters")
+        .matches(/[A-Z]/, "Password must contain at least one uppercase letter")
+        .matches(
+          /[!@#$%^&*(),.?":{}|<>]/,
+          "Password must contain at least one special character"
+        ),
     }),
 
     onSubmit: async (values) => {
-      console.log(values);
-      navigate('/home');
+      try {
+        const response = await axios.post(
+          "http://localhost:9000/api/v1/pigmeo/users/login",
+          values
+        );
+        console.log("response", response.data);
+        localStorage.setItem("user", JSON.stringify(response.data));
+        navigate("/home");
+      } catch (err) {
+        console.error("Error", err);
+      }
     },
   });
 
@@ -60,11 +72,13 @@ const LoginForm = (): JSX.Element => {
             value={values.password}
             className="input input-password"
           />
-          {errors.password && touched.password && <div className="error">{errors.password}</div>} {/* Mostrar el mensaje de error */}
+          {errors.password && touched.password && (
+            <div className="error">{errors.password}</div>
+          )}{" "}
+          {/* Mostrar el mensaje de error */}
           <button type="submit" className="primary-button login-button">
             Log in
           </button>
-
           <a href="/">forgot my password</a>
         </form>
       </div>
