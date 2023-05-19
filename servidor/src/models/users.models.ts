@@ -48,8 +48,9 @@ const userSchema = new Schema<IUser>(
     },
     avatar: {
       type: String,
-      required: false,
-      default: 'https://clipground.com/images/user-icon-vector-png-1.jpg'
+      required: false
+      // default:
+      //   'https://res.cloudinary.com/dnautzk6f/image/upload/v1684479601/User-Pigmeo_ucusuy.jpg'
     },
     password: {
       type: String,
