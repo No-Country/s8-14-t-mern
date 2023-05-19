@@ -83,8 +83,7 @@ const fetchPut = async (user: any) => {
 }
 
 const fetchPost = async (user: IUser) => {
-  const { repeatPassword, firstName, lastname, email } = user
-  let { password } = user
+  const { password, repeatPassword } = user
 
   if (password !== repeatPassword) {
     return 'password not match'
@@ -92,11 +91,23 @@ const fetchPost = async (user: IUser) => {
 
   const salt = await bcrypt.genSalt(10)
   const passwordHash = await bcrypt.hash(password, salt)
-  password = passwordHash
+
   try {
-    const newUser = await User.create({ password, firstName, lastname, email })
-    console.log(newUser)
-    return newUser
+    const newUser = await User.create({ ...user, password: passwordHash })
+    // const { password, ...rest } = newUser
+
+    const userModify = {
+      id: newUser.id,
+      firstName: newUser.firstName,
+      lastname: newUser.lastname,
+      email: newUser.email,
+      avatar: newUser.avatar,
+      balance: newUser.balance,
+      token: newUser.token,
+      alias: newUser.alias
+    }
+
+    return userModify
   } catch (e) {
     throw new Error(e as string)
   }

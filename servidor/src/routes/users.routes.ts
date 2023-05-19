@@ -16,7 +16,7 @@ router.get('/:id', getUserId)
 
 router.put('/edit', putUserCtrl)
 
-//TODO:
+//TODO: Realizar el controlador y service
 // router.put('/delete/:id',verifyToken)
 
 router.post('/register', postUserCtrl)
