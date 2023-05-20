@@ -113,6 +113,21 @@ const fetchPost = async (user: IUser) => {
   }
 }
 
+const fetchUpdate = async (id: any, data: Partial<IUser>) => {
+  try {
+    const user = await User.findById(id)
+    if(!user) {
+      throw new Error(`User with id: ${id} does not exist`)
+    }
+
+    Object.assign(user, data)
+    const userModified = await user.save()
+    return userModified
+  } catch (error) {
+    throw new Error(error as string)
+  }
+}
+
 const fetchLogin = async (password: string, email: string) => {
   try {
     if (!email || !password) {
@@ -153,4 +168,4 @@ const fetchLogin = async (password: string, email: string) => {
   }
 }
 
-export { fetchGet, fetchUserId, fetchPut, fetchPost, fetchLogin }
+export { fetchGet, fetchUserId, fetchPut, fetchPost, fetchLogin, fetchUpdate }
