@@ -20,7 +20,7 @@ router.post('/transfer-funds', postTransferController)
 
 router.get(
   '/get-all-transactions-by-user/:id',
-  verifyToken,
+  // verifyToken,
   getTransactionsController
 )
 
