@@ -56,7 +56,17 @@ const fecthGetTransfer = async (id: any) => {
       .sort({ createdAt: -1 })
       .populate('sender')
       .populate('receiver')
-    return transaction
+    const filterTrans = transaction.map(trans => {
+      if (trans.sender._id.equals(trans.receiver._id)) {
+        trans.transaction_type = 'deposit'
+      } else if (trans.sender._id.equals(user._id)) {
+        trans.transaction_type = 'debit'
+      } else {
+        trans.transaction_type = 'credit'
+      }
+      return trans
+    })
+    return filterTrans
   } catch (e) {
     throw new Error(e as string)
   }
