@@ -26,6 +26,10 @@ const ChangeName: React.LazyExoticComponent<() => JSX.Element> = lazy(
 const ScannerQrPage: React.LazyExoticComponent<() => JSX.Element> = lazy(
   () => import("../pages/ScannerQrPage")
 );
+const NewTransferReceiverPage: React.LazyExoticComponent<() => JSX.Element> =
+  lazy(() => import("../pages/NewTransfer.receiver"));
+const NewTransferAmountPage: React.LazyExoticComponent<() => JSX.Element> =
+  lazy(() => import("../pages/NewTransfer.amount"));
 
 export default function AppRouter(): JSX.Element {
   const [user, setUser] = useState(true);
@@ -39,7 +43,6 @@ export default function AppRouter(): JSX.Element {
       setUser(true);
     }
   }, [user]); */
-  <Route path="/changename" element={<ChangeName />} />
 
   return (
     <Suspense fallback={<p>Loading...</p>}>
@@ -61,6 +64,14 @@ export default function AppRouter(): JSX.Element {
                 <Route path="/personalData" element={<PersonalDataPage />} />
                 <Route path="/changename" element={<ChangeName />} />
               </Route>
+              <Route
+                path="/newTransfer/receiver"
+                element={<NewTransferReceiverPage />}
+              />
+              <Route
+                path="/newTransfer/amount"
+                element={<NewTransferAmountPage />}
+              />
               <Route path="/scanner" element={<ScannerQrPage />} />
               <Route path="*" element={<Navigate to="/home" />} />
             </>
