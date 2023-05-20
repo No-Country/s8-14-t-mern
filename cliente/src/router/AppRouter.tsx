@@ -2,6 +2,9 @@ import NavBar from "@/components/NavBar";
 import React, { useState } from "react";
 import { Suspense, lazy, useEffect } from "react";
 import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
+
+import MainLayout from "@/utils/Layout";
+
 const Onboarding: React.LazyExoticComponent<() => JSX.Element> = lazy(
   () => import("../pages/Onboarding")
 );
@@ -25,18 +28,18 @@ const ScannerQrPage: React.LazyExoticComponent<() => JSX.Element> = lazy(
 );
 
 export default function AppRouter(): JSX.Element {
-  const [user, setUser] = useState((false))
+  const [user, setUser] = useState(true);
   console.log("change");
-  useEffect(() => {
+  /* useEffect(() => {
     console.log("useEffect");
     const storedUser = localStorage.getItem("user");
     const token: any | null = storedUser ? JSON.parse(storedUser) : null;
     if (token) {
-      console.log('show', token)
+      console.log("show", token);
       setUser(true);
     }
-  }, [user])
-
+  }, [user]); */
+  <Route path="/changename" element={<ChangeName />} />
 
   return (
     <Suspense fallback={<p>Loading...</p>}>
@@ -51,16 +54,18 @@ export default function AppRouter(): JSX.Element {
           )}
           {user && (
             <>
-              <Route path="/home" element={<HomePage />}>
-                <Route path="" element={<NavBar />} />
+              <Route path="/" element={<MainLayout />}>
+                <Route index element={<HomePage />} />
+                <Route path="/home" element={<HomePage />} />
+                <Route path="/profile" element={<ProfilePage />} />
+                <Route path="/personalData" element={<PersonalDataPage />} />
+                <Route path="/changename" element={<ChangeName />} />
               </Route>
-              <Route path="/profile" element={<ProfilePage />} />
-              <Route path="/changename" element={<ChangeName />} />
-              <Route path="/personalData" element={<PersonalDataPage />} />
               <Route path="/scanner" element={<ScannerQrPage />} />
               <Route path="*" element={<Navigate to="/home" />} />
             </>
           )}
+          <Route path="*" element={<h1>404</h1>} />
         </Routes>
       </BrowserRouter>
     </Suspense>
