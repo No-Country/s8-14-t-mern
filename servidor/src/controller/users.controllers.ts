@@ -26,13 +26,6 @@ const getUserCtrl = async (_req: Request, res: Response) => {
 const getUserId = async (req: Request, res: Response) => {
   const { id } = req.params
   try {
-    if (!req.files || !req.files.image) {
-      const { ...userData } = req.body
-      const link =
-        'https://res.cloudinary.com/dnautzk6f/image/upload/v1684479601/User-Pigmeo_ucusuy.jpg'
-      const data = await fetchPost({ ...userData, avatar: link })
-      res.status(201).json({ msg: 'User created succeful', data })
-    }
     const userId = await fetchUserId(id)
     res.status(200).json(userId)
   } catch (error) {
