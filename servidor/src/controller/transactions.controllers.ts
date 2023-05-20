@@ -33,7 +33,8 @@ const postTransferController = async (req: Request, res: Response) => {
 
 const getTransactionsController = async (req: Request, res: Response) => {
   try {
-    const transactions = await fecthGetTransfer()
+    const { id } = req.params
+    const transactions = await fecthGetTransfer(id)
     res
       .status(201)
       .json({ msg: 'Transactions by User', data: transactions, success: true })

@@ -44,12 +44,37 @@ const fecthTransfer = async (transaction: ITransactions) => {
 
 // get all transactions for a user
 
-const fecthGetTransfer = async () => {
+const fecthGetTransfer = async (id: any) => {
   try {
-    console.log('transaction list')
+    const user = await User.findById(id)
+    if (!user) {
+      throw new Error('Account not found')
+    }
+    const transaction = await Transaction.find({
+      $or: [{ sender: id }, { receiver: id }]
+    })
+      .sort({ createdAt: -1 })
+      .populate('sender')
+      .populate('receiver')
+    return transaction
   } catch (e) {
     throw new Error(e as string)
   }
 }
 
-export { fecthVerifyAccount, fecthTransfer, fecthGetTransfer }
+// deposit funds using stripe
+
+const fecthDepositStripe = async () => {
+  try {
+    console.log('API INTEGRATION DEPOSIT')
+  } catch (e) {
+    throw new Error(e as string)
+  }
+}
+
+export {
+  fecthVerifyAccount,
+  fecthTransfer,
+  fecthGetTransfer,
+  fecthDepositStripe
+}
