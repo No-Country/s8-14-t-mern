@@ -4,7 +4,8 @@ import {
   getUserId,
   putUserCtrl,
   postUserCtrl,
-  loginUser
+  loginUser,
+  patchUserCtrl
 } from '../controller/users.controllers'
 // import { verifyToken } from '../middlewares/authMiddleware'
 
@@ -25,6 +26,8 @@ router.post('/login', loginUser)
 
 //TODO: hacer ruta findById para user
 
+router.route('/:id')
+  .patch(patchUserCtrl)
 // .put(...)
 // .post(...)
 

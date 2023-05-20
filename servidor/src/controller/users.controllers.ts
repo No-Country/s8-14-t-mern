@@ -10,8 +10,10 @@ import {
   fetchLogin,
   fetchUserId,
   fetchPut,
-  fetchPost
+  fetchPost,
+  fetchUpdate
 } from '../services/users.services'
+import { IUser } from '../interfaces/user.interface'
 
 const getUserCtrl = async (_req: Request, res: Response) => {
   try {
@@ -42,6 +44,26 @@ const putUserCtrl = async (req: Request, res: Response) => {
   }
 }
 
+const patchUserCtrl = async (req: Request, res: Response) => {
+  try {
+    const id = req.params.id
+    const { typeIdentification, phoneNumber, email, address, password } = req.body
+
+    const data: Partial<IUser> = {}
+    if (typeIdentification) data.typeIdentification = typeIdentification
+    if (phoneNumber) data.phoneNumber = phoneNumber
+    if (email) data.email = email
+    if (address) data.address = address
+    if (password) data.password = password
+
+    const userModified = await fetchUpdate(id, data)
+
+    res.status(200).json({ msg: `User with id: ${id} edited succesfully`, userModified })
+  } catch (error) {
+    if (error instanceof Error) res.status(400).json({ error: error.message })
+  }
+}
+
 const postUserCtrl = async (req: Request, res: Response) => {
   try {
     if (!req.files || !req.files.image) {
@@ -65,4 +87,4 @@ const loginUser = async (req: Request, res: Response) => {
     if (error instanceof Error) res.status(400).json({ error: error })
   }
 }
-export { getUserCtrl, getUserId, putUserCtrl, postUserCtrl, loginUser }
+export { getUserCtrl, getUserId, putUserCtrl, postUserCtrl, loginUser, patchUserCtrl }
