@@ -1,16 +1,21 @@
 import { Request, Response } from 'express'
+import { v2 as cloudinary } from 'cloudinary'
+// import User from '../models/users.models'
+// import fs from 'fs-extra'
+import config from '../config'
+cloudinary.config(config.cloudinary as unknown as any)
+// import dataBase from '../utils/database'
+import { IUser } from '../interfaces/user.interface'
 import {
   fetchDelete,
   fetchGet,
   fetchLogin,
   fetchPost,
   fetchPut,
+  fetchUpdate,
   fetchUserId
 } from '../services/users.services'
-import {
-  httpErrorHandler,
-  instanceOfError
-} from '../utils/validations/httpErrorHandler'
+import { instanceOfError } from '../utils/validations/httpErrorHandler'
 
 const getUserCtrl = async (_req: Request, res: Response) => {
   try {
@@ -51,12 +56,40 @@ const deleteUserCtrl = async ({ params: { id } }: Request, res: Response) => {
   }
 }
 
-const postUserCtrl = async (req: Request, res: Response) => {
+const patchUserCtrl = async (req: Request, res: Response) => {
   try {
-    const data = await fetchPost(req.body)
-    res.status(201).json({ msg: 'User created succeful', data })
+    const id = req.params.id
+    const { typeIdentification, phoneNumber, email, address, password } =
+      req.body
+
+    const data: Partial<IUser> = {}
+    if (typeIdentification) data.typeIdentification = typeIdentification
+    if (phoneNumber) data.phoneNumber = phoneNumber
+    if (email) data.email = email
+    if (address) data.address = address
+    if (password) data.password = password
+
+    const userModified = await fetchUpdate(id, data)
+
+    res
+      .status(200)
+      .json({ msg: `User with id: ${id} edited succesfully`, userModified })
   } catch (error) {
     if (error instanceof Error) res.status(400).json({ error: error.message })
+  }
+}
+
+const postUserCtrl = async (req: Request, res: Response) => {
+  try {
+    if (!req.files || !req.files.image) {
+      const { ...userData } = req.body
+      const link =
+        'https://res.cloudinary.com/dnautzk6f/image/upload/v1684479601/User-Pigmeo_ucusuy.jpg'
+      const data = await fetchPost({ ...userData, avatar: link })
+      res.status(201).json({ msg: 'User created succeful', data })
+    }
+  } catch (error) {
+    instanceOfError(res, error, 400)
   }
 }
 
@@ -66,8 +99,7 @@ const loginUser = async (req: Request, res: Response) => {
     const data = await fetchLogin(password, email)
     res.status(201).json({ msg: 'User login succeful', data })
   } catch (error) {
-    if (error instanceof Error)
-      httpErrorHandler(res, { message: error.message }, 400)
+    instanceOfError(res, error, 400)
   }
 }
 
@@ -76,6 +108,7 @@ export {
   getUserCtrl,
   getUserId,
   loginUser,
+  patchUserCtrl,
   postUserCtrl,
   putUserCtrl
 }

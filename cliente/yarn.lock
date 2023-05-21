@@ -589,6 +589,27 @@
     "@babel/plugin-transform-react-jsx-source" "^7.19.6"
     react-refresh "^0.14.0"
 
+"@yudiel/react-qr-scanner@^1.1.8":
+  version "1.1.8"
+  resolved "https://registry.npmjs.org/@yudiel/react-qr-scanner/-/react-qr-scanner-1.1.8.tgz"
+  integrity sha512-Noq29aLdelQy3whKLWIXTm9dugAVlnVZdq/vFLFmHzsotDTeFXg0a8SGRZ7BXBNJOVgwkydKXgw4jow5VtnyRg==
+  dependencies:
+    "@zxing/library" "^0.20.0"
+
+"@zxing/library@^0.20.0":
+  version "0.20.0"
+  resolved "https://registry.npmjs.org/@zxing/library/-/library-0.20.0.tgz"
+  integrity sha512-6Ev6rcqVjMakZFIDvbUf0dtpPGeZMTfyxYg4HkVWioWeN7cRcnUWT3bU6sdohc82O1nPXcjq6WiGfXX2Pnit6A==
+  dependencies:
+    ts-custom-error "^3.2.1"
+  optionalDependencies:
+    "@zxing/text-encoding" "~0.9.0"
+
+"@zxing/text-encoding@~0.9.0":
+  version "0.9.0"
+  resolved "https://registry.npmjs.org/@zxing/text-encoding/-/text-encoding-0.9.0.tgz"
+  integrity sha512-U/4aVJ2mxI0aDNI8Uq0wEhMgY+u4CNtEb0om3+y3+niDAsoTCOB33UF0sxpzqzdqXLqmvc+vZyAt4O8pPdfkwA==
+
 acorn-jsx@^5.3.2:
   version "5.3.2"
   resolved "https://registry.npmjs.org/acorn-jsx/-/acorn-jsx-5.3.2.tgz"
@@ -1837,7 +1858,7 @@ queue-microtask@^1.2.2:
   resolved "https://registry.npmjs.org/queue-microtask/-/queue-microtask-1.2.3.tgz"
   integrity sha512-NuaNSa6flKT5JaSYQzJok04JzTL1CA6aGhv5rfLW3PgqA+M2ChpZQnAC8h8i4ZFkBS8X5RqkDBHA7r4hej3K9A==
 
-"react-dom@^15.0.0 || ^16.0.0 || ^17.0.0 || ^18.0.0", "react-dom@^16.0.0 || ^17.0.0 || ^18.0.0", "react-dom@^16.8 || ^17.0 || ^18.0", react-dom@^18.2.0, react-dom@>=15.0.0, react-dom@>=16, react-dom@>=16.6.0, react-dom@>=16.8, react-dom@>=16.8.0:
+"react-dom@^15.0.0 || ^16.0.0 || ^17.0.0 || ^18.0.0", "react-dom@^16.0.0 || ^17.0.0 || ^18.0.0", "react-dom@^16.8 || ^17.0 || ^18.0", react-dom@^18.0.0, react-dom@^18.2.0, react-dom@>=15.0.0, react-dom@>=16, react-dom@>=16.6.0, react-dom@>=16.8, react-dom@>=16.8.0:
   version "18.2.0"
   resolved "https://registry.npmjs.org/react-dom/-/react-dom-18.2.0.tgz"
   integrity sha512-6IMTriUmvsjHUjNtEDudZfuDQUoWXVxKHhlEGSk81n4YFS+r/Kl99wXiwlVXtPBtJenozv2P+hxDsw9eA7Xo6g==
@@ -2252,6 +2273,11 @@ toposort@^2.0.2:
   version "2.0.2"
   resolved "https://registry.npmjs.org/toposort/-/toposort-2.0.2.tgz"
   integrity sha512-0a5EOkAUp8D4moMi2W8ZF8jcga7BgZd91O/yabJCFY8az+XSzeGyTKs0Aoo897iV1Nj6guFq8orWDS96z91oGg==
+
+ts-custom-error@^3.2.1:
+  version "3.3.1"
+  resolved "https://registry.npmjs.org/ts-custom-error/-/ts-custom-error-3.3.1.tgz"
+  integrity sha512-5OX1tzOjxWEgsr/YEUWSuPrQ00deKLh6D7OTWcvNHm12/7QPyRh8SYpyWvA4IZv8H/+GQWQEh/kwo95Q9OVW1A==
 
 ts-interface-checker@^0.1.9:
   version "0.1.13"

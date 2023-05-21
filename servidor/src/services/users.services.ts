@@ -1,9 +1,9 @@
 //TODO: Validaciones
+import bcrypt from 'bcryptjs'
+import jwt from 'jsonwebtoken'
 import { IUser } from '../interfaces/user.interface'
 import User from '../models/users.models'
-const bcrypt = require('bcryptjs')
-const jwt = require('jsonwebtoken')
-const secretKey = process.env.SECRET_KEY || 'pigmeo123'
+const secretKey = 'pigmeo123'
 
 const findUser = async (id: string) => {
   try {
@@ -91,8 +91,7 @@ const fetchDelete = async (id: string) => {
 }
 
 const fetchPost = async (user: IUser) => {
-  const { repeatPassword, firstName, lastname, email } = user
-  let { password } = user
+  const { password, repeatPassword } = user
 
   if (password !== repeatPassword) {
     return 'password not match'
@@ -100,13 +99,40 @@ const fetchPost = async (user: IUser) => {
 
   const salt = await bcrypt.genSalt(10)
   const passwordHash = await bcrypt.hash(password, salt)
-  password = passwordHash
+
   try {
-    const newUser = await User.create({ password, firstName, lastname, email })
-    console.log(newUser)
-    return newUser
+    const newUser = await User.create({ ...user, password: passwordHash })
+    // const { password, ...rest } = newUser
+
+    const userModify = {
+      id: newUser.id,
+      firstName: newUser.firstName,
+      lastname: newUser.lastname,
+      email: newUser.email,
+      avatar: newUser.avatar,
+      balance: newUser.balance,
+      token: newUser.token,
+      alias: newUser.alias
+    }
+
+    return userModify
   } catch (e) {
     throw new Error(e as string)
+  }
+}
+
+const fetchUpdate = async (id: any, data: Partial<IUser>) => {
+  try {
+    const user = await User.findById(id)
+    if (!user) {
+      throw new Error(`User with id: ${id} does not exist`)
+    }
+
+    Object.assign(user, data)
+    const userModified = await user.save()
+    return userModified
+  } catch (error) {
+    throw new Error(error as string)
   }
 }
 
@@ -150,4 +176,12 @@ const fetchLogin = async (password: string, email: string) => {
   }
 }
 
-export { fetchDelete, fetchGet, fetchLogin, fetchPost, fetchPut, fetchUserId }
+export {
+  fetchDelete,
+  fetchGet,
+  fetchLogin,
+  fetchPost,
+  fetchPut,
+  fetchUpdate,
+  fetchUserId
+}
