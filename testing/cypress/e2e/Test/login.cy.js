@@ -71,7 +71,7 @@ describe('Login en Sistema', () => {
         cy.assertionCheck('required')
     });
     
-    it.only('Login_001 | ID_04 | Campo de Email Invalido', () => {
+    it('Login_001 | ID_04 | Campo de Email Invalido', () => {
         // Dado estoy en la página de inicio de sesión
         // Cuando el usuario ingresa Email invalido y password
         loginPage.submitLogin('user3.ma','password5')
