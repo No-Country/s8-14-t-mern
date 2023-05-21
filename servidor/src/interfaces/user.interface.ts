@@ -1,3 +1,4 @@
+import { Request } from 'express'
 import { Document } from 'mongoose'
 
 export enum rolType {
@@ -26,4 +27,8 @@ export interface IUser extends Document {
   rol: rolType
   token: string
   repeatPassword: string
+}
+
+export interface CustomRequest extends Request {
+  user?: IUser // Reemplazar 'any' con el tipo adecuado para el objeto 'user'
 }

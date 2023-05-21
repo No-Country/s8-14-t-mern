@@ -1,12 +1,19 @@
 import { Router } from 'express'
-import { getUserCtrl, getUserId, putUserCtrl, postUserCtrl, loginUser } from '../controller/users.controllers'
-
+import {
+  deleteUserCtrl,
+  getUserCtrl,
+  getUserId,
+  loginUser,
+  postUserCtrl,
+  putUserCtrl
+} from '../controller/users.controllers'
+import { checkUser } from '../middlewares/validations'
 
 const router = Router()
 
 router.route('/').get(getUserCtrl)
 
-router.get('/:id', getUserId)
+router.route('/:id').get(checkUser, getUserId).delete(checkUser, deleteUserCtrl)
 
 router.put('/edit', putUserCtrl)
 
