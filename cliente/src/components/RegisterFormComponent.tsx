@@ -1,12 +1,13 @@
 import { useFormik } from 'formik';
-import { useNavigate } from 'react-router-dom';
-import axios from 'axios';
 import * as Yup from 'yup';
 import '../styles/Login.scss';
+import { register } from '@/services/register';
+import { useContext } from 'react';
+import { UserContext } from '@/context/ReactContext';
 
 // nECESITAMOS CREAR BOTON VOLVER A ELEGIR
 const RegisterForm = (): JSX.Element => {
-  const navigate = useNavigate()
+  const { isLogin } = useContext(UserContext)
   const { values, handleChange, handleSubmit, errors, touched } = useFormik({
     initialValues: {
       firstName: '',
@@ -28,19 +29,14 @@ const RegisterForm = (): JSX.Element => {
     }
     ),
 
-    onSubmit: async (values) => {
-      try{
-        const response = await axios.post("http://localhost:9000/api/v1/pigmeo/users/register", values)
-        console.log('response', response.data);
-        localStorage.setItem("user", JSON.stringify(response.data))
-        navigate('/home')
-      } catch (err) {
-        console.error('Error', err)
-      }
-
-      
-    },
-  });
+    onSubmit: () => {
+      (async () => {
+        const state = await register(values)
+        isLogin.current = state
+        location.reload()
+      })()
+    }
+  })
 
   return (
     <div className="Login">

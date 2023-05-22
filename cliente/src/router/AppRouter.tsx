@@ -1,9 +1,9 @@
-import NavBar from "@/components/NavBar";
-import React, { useState } from "react";
-import { Suspense, lazy, useEffect } from "react";
+import React, { useContext} from "react";
+import { Suspense, lazy } from "react";
 import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
 
 import MainLayout from "@/utils/Layout";
+import { UserContext } from "@/context/ReactContext";
 
 const Onboarding: React.LazyExoticComponent<() => JSX.Element> = lazy(
   () => import("../pages/Onboarding")
@@ -32,30 +32,19 @@ const NewTransferAmountPage: React.LazyExoticComponent<() => JSX.Element> =
   lazy(() => import("../pages/NewTransfer.amount"));
 
 export default function AppRouter(): JSX.Element {
-  const [user, setUser] = useState(true);
-  console.log("change");
-  /* useEffect(() => {
-    console.log("useEffect");
-    const storedUser = localStorage.getItem("user");
-    const token: any | null = storedUser ? JSON.parse(storedUser) : null;
-    if (token) {
-      console.log("show", token);
-      setUser(true);
-    }
-  }, [user]); */
-
+  const {user} = useContext(UserContext)
   return (
     <Suspense fallback={<p>Loading...</p>}>
       <BrowserRouter>
         <Routes>
-          {!user && (
+          {!user.data.id && (
             <>
               <Route path="/" element={<Onboarding />} />
               <Route path="/auth/:slug" element={<AuthPage />} />
               <Route path="*" element={<Navigate to="/" />} />
             </>
           )}
-          {user && (
+          {user.data.id && (
             <>
               <Route path="/" element={<MainLayout />}>
                 <Route index element={<HomePage />} />
