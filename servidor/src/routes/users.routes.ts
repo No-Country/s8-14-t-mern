@@ -1,6 +1,13 @@
 import { Router } from 'express'
-import { getUserCtrl, getUserId, putUserCtrl, postUserCtrl, loginUser } from '../controller/users.controllers'
-
+import {
+  getUserCtrl,
+  getUserId,
+  putUserCtrl,
+  postUserCtrl,
+  loginUser,
+  patchUserCtrl
+} from '../controller/users.controllers'
+// import { verifyToken } from '../middlewares/authMiddleware'
 
 const router = Router()
 
@@ -10,14 +17,17 @@ router.get('/:id', getUserId)
 
 router.put('/edit', putUserCtrl)
 
+//TODO: Realizar el controlador y service
+// router.put('/delete/:id',verifyToken)
+
 router.post('/register', postUserCtrl)
 
 router.post('/login', loginUser)
 
 //TODO: hacer ruta findById para user
 
-// put - delete
-// router.route('/:id')
+router.route('/:id')
+  .patch(patchUserCtrl)
 // .put(...)
 // .post(...)
 

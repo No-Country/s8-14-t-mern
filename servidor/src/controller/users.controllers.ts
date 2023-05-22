@@ -1,18 +1,32 @@
 import { Request, Response } from 'express'
-import { fetchGet, fetchLogin, fetchUserId, fetchPut, fetchPost } from '../services/users.services'
+// import User from '../models/users.models'
+// import fs from 'fs-extra'
+import config from '../config'
+import { v2 as cloudinary } from 'cloudinary'
+cloudinary.config(config.cloudinary as unknown as any)
+// import dataBase from '../utils/database'
+import {
+  fetchGet,
+  fetchLogin,
+  fetchUserId,
+  fetchPut,
+  fetchPost,
+  fetchUpdate
+} from '../services/users.services'
+import { IUser } from '../interfaces/user.interface'
 
-const getUserCtrl = async(_req: Request, res: Response) => {
+const getUserCtrl = async (_req: Request, res: Response) => {
   try {
     const allUser = await fetchGet()
-    if(allUser)res.status(200).json(allUser)
+    if (allUser) res.status(200).json(allUser)
     else res.status(404).json({ status: 'not found' })
   } catch (error) {
     res.status(400).json({ error: 'Doesnt exist Users' })
   }
 }
 
-const getUserId = async(_req: Request, res: Response) => {
-  const { id } = _req.params
+const getUserId = async (req: Request, res: Response) => {
+  const { id } = req.params
   try {
     const userId = await fetchUserId(id)
     res.status(200).json(userId)
@@ -25,21 +39,44 @@ const putUserCtrl = async (req: Request, res: Response) => {
   try {
     const data = await fetchPut(req.body)
     res.status(201).json({ msg: 'user updated', data })
-  } catch (error: any) {
-    console.log('CONTROLADOR', error)
-    res.status(400).json({ error: error.message })
-  }
-}
-
-const postUserCtrl = async (req: Request, res: Response) => {
-  try {
-    const data = await fetchPost(req.body)
-    res.status(201).json({ msg: 'User created succeful', data })
   } catch (error) {
     if (error instanceof Error) res.status(400).json({ error: error.message })
   }
 }
 
+const patchUserCtrl = async (req: Request, res: Response) => {
+  try {
+    const id = req.params.id
+    const { typeIdentification, phoneNumber, email, address, password } = req.body
+
+    const data: Partial<IUser> = {}
+    if (typeIdentification) data.typeIdentification = typeIdentification
+    if (phoneNumber) data.phoneNumber = phoneNumber
+    if (email) data.email = email
+    if (address) data.address = address
+    if (password) data.password = password
+
+    const userModified = await fetchUpdate(id, data)
+
+    res.status(200).json({ msg: `User with id: ${id} edited succesfully`, userModified })
+  } catch (error) {
+    if (error instanceof Error) res.status(400).json({ error: error.message })
+  }
+}
+
+const postUserCtrl = async (req: Request, res: Response) => {
+  try {
+    if (!req.files || !req.files.image) {
+      const { ...userData } = req.body
+      const link =
+        'https://res.cloudinary.com/dnautzk6f/image/upload/v1684479601/User-Pigmeo_ucusuy.jpg'
+      const data = await fetchPost({ ...userData, avatar: link })
+      res.status(201).json({ msg: 'User created succeful', data })
+    }
+  } catch (error) {
+    if (error instanceof Error) res.status(400).json({ error: error.message })
+  }
+}
 
 const loginUser = async (req: Request, res: Response) => {
   try {
@@ -50,5 +87,4 @@ const loginUser = async (req: Request, res: Response) => {
     if (error instanceof Error) res.status(400).json({ error: error })
   }
 }
-
-export { getUserCtrl, getUserId, putUserCtrl, postUserCtrl, loginUser }
+export { getUserCtrl, getUserId, putUserCtrl, postUserCtrl, loginUser, patchUserCtrl }

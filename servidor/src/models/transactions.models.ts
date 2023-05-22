@@ -21,6 +21,10 @@ const transactionSchema = new Schema<ITransactions>(
       type: String,
       required: true
     },
+    transaction_type: {
+      type: String,
+      default: null
+    },
     status: {
       type: String,
       required: true

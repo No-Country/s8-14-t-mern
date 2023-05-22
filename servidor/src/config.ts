@@ -4,9 +4,8 @@ dotenv.config()
 const config = {
   port: process.env.PORT || 9000,
   nodeENV: process.env.NODE_ENV || 'development',
-  database:
-    process.env.DB_URI ||
-    'mongodb+srv://marda_devback:gU5IY2ckVUJsRfo0@cluster0.hqaetjz.mongodb.net/pigmeo',
+  database: process.env.DB_URI,
+  cloudinary: process.env.CLOUDINARY_URL, 
   corsOptions: {
     origin: '*',
     methods: ['GET', 'PUT', 'POST', 'DELETE'],
