@@ -27,7 +27,7 @@ const transactionSchema = new Schema<ITransactions>(
     },
     status: {
       type: String,
-      required: true
+      default: "success"
     }
   },
   { timestamps: true }
