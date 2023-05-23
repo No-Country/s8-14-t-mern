@@ -1,9 +1,13 @@
 import { Request, Response } from 'express'
 import {
-  fecthVerifyAccount,
+  fecthGetTransfer,
   fecthTransfer,
-  fecthGetTransfer
+  fecthVerifyAccount
 } from '../services/transactions.services'
+
+/**
+ * Controlador para manejar las operaciones relacionadas con los usuarios.
+ */
 
 const postVeryfyController = async (req: Request, res: Response) => {
   try {
@@ -19,13 +23,11 @@ const postVeryfyController = async (req: Request, res: Response) => {
 const postTransferController = async (req: Request, res: Response) => {
   try {
     const newTransaction = await fecthTransfer(req.body)
-    res
-      .status(201)
-      .json({
-        msg: 'Transaction successfully',
-        data: newTransaction,
-        success: true
-      })
+    res.status(201).json({
+      msg: 'Transaction successfully',
+      data: newTransaction,
+      success: true
+    })
   } catch (error) {
     if (error instanceof Error) res.status(400).json({ error: error.message })
   }
@@ -44,7 +46,7 @@ const getTransactionsController = async (req: Request, res: Response) => {
 }
 
 export {
-  postVeryfyController,
+  getTransactionsController,
   postTransferController,
-  getTransactionsController
+  postVeryfyController
 }
