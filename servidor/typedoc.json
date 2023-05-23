@@ -1,0 +1,16 @@
+{
+  "entryPoints": ["./src"],
+  "entryPointStrategy": "expand",
+  "out": "docs",
+  "tsconfig": "./tsconfig.json",
+  "name": "Pigmeo",
+  "categoryOrder": ["Controller", "*"],
+  "groupOrder": ["Controllers", "Functions", "*"],
+  "exclude": [
+    "**/*+(index|.spec|.e2e).ts",
+    "index.ts",
+    "./node_modules",
+    "./routes/**"
+  ],
+  "externalPattern": ["**/node_modules/**", "./routes/**"]
+}
