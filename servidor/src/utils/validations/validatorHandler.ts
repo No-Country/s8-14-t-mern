@@ -1,6 +1,5 @@
 import { type NextFunction, type Request, type Response } from 'express'
 import { validationResult } from 'express-validator'
-
 import { httpErrorHandler } from './httpErrorHandler'
 
 const validateResults = (req: Request, res: Response, next: NextFunction) => {

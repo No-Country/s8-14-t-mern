@@ -1,3 +1,6 @@
+/**
+ * Controlador para manejar las operaciones relacionadas con los usuarios.
+ */
 import { Request, Response } from 'express'
 import { v2 as cloudinary } from 'cloudinary'
 // import User from '../models/users.models'
@@ -5,7 +8,7 @@ import { v2 as cloudinary } from 'cloudinary'
 import config from '../config'
 cloudinary.config(config.cloudinary as unknown as any)
 // import dataBase from '../utils/database'
-import { IUser } from '../interfaces/user.interface'
+import { IUser, UserRequestI } from '../interfaces/user.interface'
 import {
   fetchDelete,
   fetchGet,
@@ -13,7 +16,10 @@ import {
   fetchPost,
   fetchPut,
   fetchUpdate,
-  fetchUserId
+  fetchUserId,
+  forgotPsw,
+  newPassword,
+  verifyUserAccount
 } from '../services/users.services'
 import { instanceOfError } from '../utils/validations/httpErrorHandler'
 
@@ -86,11 +92,64 @@ const postUserCtrl = async (req: Request, res: Response) => {
       const link =
         'https://res.cloudinary.com/dnautzk6f/image/upload/v1684479601/User-Pigmeo_ucusuy.jpg'
       const data = await fetchPost({ ...userData, avatar: link })
-      res.status(201).json({ msg: 'User created succeful', data })
+      res.status(201).json(data)
     }
   } catch (error) {
     instanceOfError(res, error, 400)
   }
+}
+
+/**
+ * Toma el req.user que setea el middleware y llama al servicio para procesar
+ * la validacion de la cuenta del usuario
+ * @param user: UserRequestI
+ * @param res: Response
+ * @return void
+ */
+const verifyUserCtrl = ({ user }: UserRequestI, res: Response) => {
+  verifyUserAccount(user)
+    .then(msg => res.status(200).json(msg))
+    .catch(error => {
+      instanceOfError(res, error, 500)
+    })
+}
+
+const forgotPasswordCtrl = (
+  { body: { email } }: Request,
+  res: Response
+): void => {
+  forgotPsw(email)
+    .then(msg => res.json(msg))
+    .catch(error => {
+      instanceOfError(res, error, 500)
+    })
+}
+
+/**
+ * Despues de pasar por el middleware para validar el token del usuario,
+ * limpia el req.user y envia msg
+ * @param user: UserRequestI
+ * @param res: Response
+ * @return Response<any, Record<string, any>> | undefined
+ */
+const verifyTokenPswCtrl = ({ user }: UserRequestI, res: Response) => {
+  if (user) {
+    user = undefined
+    return res.send('Token verificado')
+  }
+}
+
+const newPswCtrl = (
+  { body: { password }, user }: UserRequestI,
+  res: Response
+) => {
+  newPassword(password, user)
+    .then(msg => {
+      res.json(msg)
+    })
+    .catch(error => {
+      instanceOfError(res, error, 500)
+    })
 }
 
 const loginUser = async (req: Request, res: Response) => {
@@ -105,10 +164,14 @@ const loginUser = async (req: Request, res: Response) => {
 
 export {
   deleteUserCtrl,
+  forgotPasswordCtrl,
   getUserCtrl,
   getUserId,
   loginUser,
+  newPswCtrl,
   patchUserCtrl,
   postUserCtrl,
-  putUserCtrl
+  putUserCtrl,
+  verifyTokenPswCtrl,
+  verifyUserCtrl
 }

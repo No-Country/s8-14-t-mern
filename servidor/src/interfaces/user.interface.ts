@@ -20,6 +20,7 @@ export interface IUser extends Document {
   typeIdentification: IdentificationType
   numberIdentification: number
   address: string
+  country: string
   city: string
   password: string
   balance: number
@@ -29,6 +30,6 @@ export interface IUser extends Document {
   repeatPassword: string
 }
 
-export interface CustomRequest extends Request {
+export interface UserRequestI extends Request {
   user?: IUser // Reemplazar 'any' con el tipo adecuado para el objeto 'user'
 }
