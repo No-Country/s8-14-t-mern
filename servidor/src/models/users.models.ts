@@ -1,8 +1,8 @@
+import { model, Schema } from 'mongoose'
 import { v4 as uuidv4 } from 'uuid'
-import { Schema, model } from 'mongoose'
 import {
-  IUser,
   IdentificationType,
+  IUser,
   rolType
 } from '../interfaces/user.interface'
 
@@ -43,6 +43,12 @@ const userSchema = new Schema<IUser>(
       unique: true,
       lowercase: true
     },
+    country: {
+      type: String
+    },
+    city: {
+      type: String
+    },
     address: {
       type: String
     },
@@ -64,12 +70,11 @@ const userSchema = new Schema<IUser>(
     },
     isActive: {
       type: Boolean,
-      default: true
+      default: false
     },
     rol: {
       type: String,
       enum: Object.values(rolType),
-      required: true,
       default: rolType.user
     },
     token: {
@@ -81,7 +86,7 @@ const userSchema = new Schema<IUser>(
 )
 
 userSchema.set('toJSON', {
-  transform: (document, returnedObject) => {
+  transform: (_document, returnedObject) => {
     returnedObject.id = returnedObject._id.toString()
     delete returnedObject._id
     delete returnedObject.__v

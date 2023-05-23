@@ -22,6 +22,9 @@
     })
     
 //
+Cypress.Commands.add('assertionCheck',(text)=>{
+    cy.contains(text).should('contain',text)
+})
 // -- This is a parent command --
 // Cypress.Commands.add('login', (email, password) => { ... })
 //

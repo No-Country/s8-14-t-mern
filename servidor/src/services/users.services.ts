@@ -1,9 +1,27 @@
 //TODO: Validaciones
-import { IUser } from '../interfaces/user.interface'
-import User from '../models/users.models'
-import bcrypt from 'bcryptjs'
 import jwt from 'jsonwebtoken'
+import { v4 as uuidv4 } from 'uuid'
+import User from '../models/users.models'
+import { sendMailForgotPassword, sendVerifyMail } from '../utils/handleEmail'
+import { encrypt, verifyHash } from '../utils/handlePassword'
+import { IUser } from './../interfaces/user.interface'
 const secretKey = 'pigmeo123'
+
+/**
+ * Retorna el usuario encontrado por id o email recibido.
+ * @param id: string
+ * @param email: string
+ * @returns Promise<(Document<unknown, {}, IUser> & Omit<IUser &
+ * {_id: Types.ObjectId;}, never>) | null | undefined>
+ */
+const findUser = async (id?: string, email?: string) => {
+  try {
+    if (email) return await User.findOne({ email })
+    if (id) return await User.findById(id)
+  } catch (error) {
+    throw new Error(`User not Found! - ${error}`)
+  }
+}
 
 const fetchGet = async () => {
   try {
@@ -16,16 +34,8 @@ const fetchGet = async () => {
   }
 }
 
-const fetchUserId = async (id: any) => {
-  try {
-    const userId = await User.findById(id)
-    console.log(userId)
-    if (userId) {
-      return userId
-    }
-  } catch (error) {
-    throw new Error('error')
-  }
+const fetchUserId = async (id: string) => {
+  return await findUser(id)
 }
 
 const fetchPut = async (user: any) => {
@@ -82,75 +92,163 @@ const fetchPut = async (user: any) => {
   }
 }
 
-const fetchPost = async (user: IUser) => {
-  const { password, repeatPassword } = user
-
-  if (password !== repeatPassword) {
-    return 'password not match'
+/**
+ * Consulta existencia del usuario por id,
+ * lo desactiva y guarda los cambios
+ */
+const fetchDelete = async (id: string) => {
+  const user = await findUser(id)
+  if (user) {
+    user.isActive = false
+    return await user.save()
   }
+}
 
-  const salt = await bcrypt.genSalt(10)
-  const passwordHash = await bcrypt.hash(password, salt)
+/**
+ * Hashea la contraseña, registra el usuario.
+ * Envia un email para confirmar la cuenta. Retorna mensaje.
+ */
+const fetchPost = async (user: IUser) => {
+  const { password } = user
 
+  const passwordHash = await encrypt(password)
   try {
     const newUser = await User.create({ ...user, password: passwordHash })
-    // const { password, ...rest } = newUser
+    if (newUser === null) throw new Error('Error al registrar el usuario')
+    //enviar email para verificacion de cuenta
+    await sendVerifyMail(newUser.email, newUser.firstName, newUser.token)
 
-    const userModify = {
-      id: newUser.id,
-      firstName: newUser.firstName,
-      lastname: newUser.lastname,
-      email: newUser.email,
-      avatar: newUser.avatar,
-      balance: newUser.balance,
-      token: newUser.token,
-      alias: newUser.alias
+    return {
+      msg: 'Usuario creado correctamente. Por favor, verifique su correo para activar su cuenta.'
     }
-
-    return userModify
   } catch (e) {
     throw new Error(e as string)
   }
 }
 
-const fetchLogin = async (password: string, email: string) => {
+/**
+ * Activa el usuario, borra token, guarda los cambios.
+ * Pasa req.user a undefined y retorna mensaje
+ */
+const verifyUserAccount = async (user?: IUser) => {
   try {
-    if (!email || !password) {
-      throw new Error('mandatory data are missing')
+    if (user) {
+      user.isActive = true
+      user.token = ''
+      await user.save()
     }
-    const user = await User.findOne({ email })
+    user = undefined
+    return { msg: 'Cuenta de usuario verificado correctamente' }
+  } catch (e) {
+    throw new Error(e as string)
+  }
+}
 
+/**
+ * Valida la existencia del usuario por email, genera un nuevo token,
+ * guarda los cambios. Envia email para realizar el reseteo de psw.
+ * Retorna mensaje
+ */
+const forgotPsw = async (email: string) => {
+  try {
+    const usuario = await findUser(undefined, email)
+    if (usuario) {
+      usuario.token = uuidv4()
+      await usuario.save()
+
+      await sendMailForgotPassword(
+        usuario.email,
+        usuario.firstName,
+        usuario.token
+      )
+    }
+
+    return {
+      msg: 'Se ha enviado un correo electrónico para restablecer su contraseña.'
+    }
+  } catch (e) {
+    throw new Error(e as string)
+  }
+}
+
+/**
+ * Recibe el usuario del req.user, la nueva contraseña.
+ * Hashea la nueva contraseña, borra el token.
+ * Guarda los cambios y envia mensaje.
+ */
+const newPassword = async (password: string, user?: IUser) => {
+  try {
+    if (user) {
+      user.password = await encrypt(password)
+      user.token = ''
+      await user.save()
+    }
+    user = undefined
+
+    return { msg: 'Contraseña actualizada correctamente' }
+  } catch (e) {
+    const error: string = e as string
+    throw new Error(error)
+  }
+}
+
+const fetchUpdate = async (id: string, data: Partial<IUser>) => {
+  try {
+    const user = await User.findById(id)
     if (!user) {
-      return 'user not found'
+      throw new Error(`User with id: ${id} does not exist`)
     }
 
-    const comparaPass = await bcrypt.compare(password, user.password)
-    if (!comparaPass) {
-      throw new Error('invalid email or password')
-    }
-
-    const token = jwt.sign(
-      {
-        email: user.email,
-        id: user.id
-      },
-      secretKey,
-      {
-        expiresIn: '1d'
-      }
-    )
-    const response = {
-      email: user.email,
-      id: user.id,
-      firstName: user.firstName,
-      lastName: user.lastname,
-      alias: user.alias,
-      token
-    }
-    return response
+    Object.assign(user, data)
+    const userModified = await user.save()
+    return userModified
   } catch (error) {
     throw new Error(error as string)
   }
 }
 
-export { fetchGet, fetchUserId, fetchPut, fetchPost, fetchLogin }
+const fetchLogin = async (password: string, email: string) => {
+  try {
+    const user = await findUser(undefined, email)
+    if (user) {
+      const comparaPass = await verifyHash(password, user.password)
+      if (!comparaPass) {
+        throw new Error('invalid email or password')
+      }
+      const token = jwt.sign(
+        {
+          email: user.email,
+          id: user.id
+        },
+        secretKey,
+        {
+          expiresIn: '1d'
+        }
+      )
+      const response = {
+        email: user.email,
+        id: user.id,
+        firstName: user.firstName,
+        lastName: user.lastname,
+        alias: user.alias,
+        token
+      }
+      return response
+    }
+  } catch (error) {
+    throw new Error(error as string)
+  }
+}
+
+export {
+  fetchDelete,
+  fetchGet,
+  fetchLogin,
+  fetchPost,
+  fetchPut,
+  fetchUpdate,
+  fetchUserId,
+  forgotPsw,
+  newPassword,
+  verifyUserAccount
+}

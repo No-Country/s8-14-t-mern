@@ -46,9 +46,10 @@ module.exports = defineConfig({
       video:true,
       // reporterDir:"cypress/mochawesome-report"
     },
-      viewportHeight:670,
-      viewportWidth:380,
+      viewportHeight:848,
+      viewportWidth:390,
       // chromeWebSecurity:false
   },
 });
 
+require('@applitools/eyes-cypress')(module);

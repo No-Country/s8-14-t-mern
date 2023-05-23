@@ -1,10 +1,14 @@
 import { Request, Response } from 'express'
 import {
-  fecthVerifyAccount,
-  fecthTransfer,
   fecthGetTransfer,
-  fecthDepositStripe
+  fecthTransfer, 
+  fecthDepositStripe,
+  fecthVerifyAccount
 } from '../services/transactions.services'
+
+/**
+ * Controlador para manejar las operaciones relacionadas con los usuarios.
+ */
 
 const postVeryfyController = async (req: Request, res: Response) => {
   try {
@@ -62,9 +66,10 @@ const postDepositStripeCtrl = async (req: Request, res: Response) => {
   }
 }
 
-export {
-  postVeryfyController,
+export {  
   postTransferController,
   getTransactionsController,
-  postDepositStripeCtrl
+  postDepositStripeCtrl,
+  postVeryfyController
+
 }
