@@ -25,7 +25,7 @@ const ScannerQrPage: React.LazyExoticComponent<() => JSX.Element> = lazy(
 );
 
 export default function AppRouter(): JSX.Element {
-  const [user, setUser] = useState((false))
+  const [user, setUser] = useState((true))
   console.log("change");
   useEffect(() => {
     console.log("useEffect");
