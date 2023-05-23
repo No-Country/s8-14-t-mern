@@ -3,11 +3,8 @@
  */
 import { Request, Response } from 'express'
 import { v2 as cloudinary } from 'cloudinary'
-// import User from '../models/users.models'
-// import fs from 'fs-extra'
 import config from '../config'
-cloudinary.config(config.cloudinary as unknown as any)
-// import dataBase from '../utils/database'
+cloudinary.config({ cloudinary: config.cloudinary })
 import { IUser, UserRequestI } from '../interfaces/user.interface'
 import {
   fetchDelete,
@@ -47,9 +44,8 @@ const putUserCtrl = async (req: Request, res: Response) => {
   try {
     const data = await fetchPut(req.body)
     res.status(201).json({ msg: 'user updated', data })
-  } catch (error: any) {
-    console.log('CONTROLADOR', error)
-    res.status(400).json({ error: error.message })
+  } catch (error) {
+    instanceOfError(res, error, 400)
   }
 }
 
@@ -85,9 +81,39 @@ const patchUserCtrl = async (req: Request, res: Response) => {
   }
 }
 
+const putImage = async (req: Request, res: Response) => {
+  try {
+    const { id } = req.params
+
+    if (!req.files || !req.files.avatar) {
+      return res.status(400).json({ error: 'No avatar file provided' })
+    }
+
+    const avatarFile = req.files.avatar as any
+
+    const uploadedImage = await cloudinary.uploader.upload(
+      avatarFile.tempFilePath,
+      {
+        folder: 'Pigmeo/users',
+        use_filename: true,
+        unique_filename: false
+      }
+    )
+
+    const avatarUrl = uploadedImage.secure_url
+
+    const updatedUser = await fetchUpdate(id, { avatar: avatarUrl })
+    res
+      .status(200)
+      .json({ msg: `User with id: ${id} edited succesfully`, updatedUser })
+  } catch (error) {
+    if (error instanceof Error) res.status(400).json({ error: error.message })
+  }
+}
+
 const postUserCtrl = async (req: Request, res: Response) => {
   try {
-    if (!req.files || !req.files.image) {
+    if (!req.files || !req.files.avatar) {
       const { ...userData } = req.body
       const link =
         'https://res.cloudinary.com/dnautzk6f/image/upload/v1684479601/User-Pigmeo_ucusuy.jpg'
@@ -171,6 +197,7 @@ export {
   newPswCtrl,
   patchUserCtrl,
   postUserCtrl,
+  putImage,
   putUserCtrl,
   verifyTokenPswCtrl,
   verifyUserCtrl

@@ -1,4 +1,5 @@
 import express, { Application } from 'express'
+import fileUpload from 'express-fileupload'
 import cors from 'cors'
 import morgan from 'morgan'
 import config from './config'
@@ -19,6 +20,13 @@ class Server {
     this.app.use(express.urlencoded({ extended: true }))
     this.app.use(cors(config.corsOptions))
     this.app.use(morgan('tiny'))
+    this.app.use(
+      fileUpload({
+        useTempFiles: true,
+        tempFileDir: './assets/tmp',
+        createParentPath: true
+      })
+    )
     // Aquí se puede configurar cualquier otra opción de la aplicación
   }
 

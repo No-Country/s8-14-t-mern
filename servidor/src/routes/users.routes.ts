@@ -8,6 +8,7 @@ import {
   newPswCtrl,
   patchUserCtrl,
   postUserCtrl,
+  putImage,
   putUserCtrl,
   verifyTokenPswCtrl,
   verifyUserCtrl
@@ -19,19 +20,7 @@ import {
   validatorTokenAccount
 } from '../middlewares/validations'
 
-/**
- * Rutas del usuario
- */
 const router = Router()
-
-router.route('/').get(getUserCtrl)
-
-router.route('/:id').get(checkUser, getUserId).delete(checkUser, deleteUserCtrl)
-
-router.put('/edit', putUserCtrl)
-
-//TODO: Realizar el controlador y service
-// router.put('/delete/:id',verifyToken)
 
 router.post('/login', validatorLogin, loginUser)
 router.post('/register', validatorRegister, postUserCtrl)
@@ -44,8 +33,14 @@ router
   .get(validatorTokenAccount, verifyTokenPswCtrl)
   .post(validatorTokenAccount, newPswCtrl)
 
-//TODO: hacer ruta findById para user
+router.route('/').get(getUserCtrl)
+
+router.route('/:id').get(checkUser, getUserId).delete(checkUser, deleteUserCtrl)
+
+router.put('/edit', putUserCtrl)
 
 router.route('/:id').patch(patchUserCtrl)
+
+router.put('/:id/image', putImage)
 
 export { router }
