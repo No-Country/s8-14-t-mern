@@ -5,13 +5,13 @@ const LocalHostUrl_login = 'http://localhost:3000/auth/login'
 
 describe('Login en Sistema', () => {
     beforeEach(() => {
-        cy.visit(LocalHostUrl)
+        cy.visit(LocalHostUrl_login)
         expect(cy.config('viewportWidth')).to.equal(390)
         expect(cy.config('viewportHeight')).to.equal(848)
     });
 
     
-    it('Login_001 | ID_01 | Login Exitoso', () => {
+    it.only('Login_001 | ID_01 | Login Exitoso', () => {
         // Dado estoy en la página de inicio de sesión
         // Cuando Ingreso Email y password
         loginPage.submitLogin('user@mail.com','Abcd1234*')
