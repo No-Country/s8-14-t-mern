@@ -1,10 +1,9 @@
 import { Request, Response } from 'express'
-// import User from '../models/users.models'
-// import fs from 'fs-extra'
+import fileUpload, {UploadedFile} from 'express-fileupload'
+import { readFileSync } from 'fs'
 import config from '../config'
-import { v2 as cloudinary } from 'cloudinary'
-cloudinary.config(config.cloudinary as unknown as any)
-// import dataBase from '../utils/database'
+import {v2 as cloudinary} from 'cloudinary'
+cloudinary.config({ cloudinary: config.cloudinary })
 import {
   fetchGet,
   fetchLogin,
@@ -64,9 +63,35 @@ const patchUserCtrl = async (req: Request, res: Response) => {
   }
 }
 
+const putImage = async (req: Request, res: Response) => {
+  try {
+    const { id } = req.params;
+
+    if (!req.files || !req.files.avatar) {
+      return res.status(400).json({ error: 'No avatar file provided' });
+    }
+
+    const avatarFile = req.files.avatar as any;
+
+    const uploadedImage = await cloudinary.uploader.upload(avatarFile.tempFilePath, {
+      folder: 'Pigmeo/users',
+      use_filename: true,
+      unique_filename: false
+    });
+
+    const avatarUrl = uploadedImage.secure_url;
+
+    const updatedUser = await fetchUpdate(id, { avatar: avatarUrl });
+    res.status(200).json({ msg: `User with id: ${id} edited succesfully`, updatedUser })
+
+  } catch (error) {
+    if (error instanceof Error) res.status(400).json({ error: error.message })
+  }
+}
+
 const postUserCtrl = async (req: Request, res: Response) => {
   try {
-    if (!req.files || !req.files.image) {
+    if (!req.files || !req.files.avatar) {
       const { ...userData } = req.body
       const link =
         'https://res.cloudinary.com/dnautzk6f/image/upload/v1684479601/User-Pigmeo_ucusuy.jpg'
@@ -87,4 +112,4 @@ const loginUser = async (req: Request, res: Response) => {
     if (error instanceof Error) res.status(400).json({ error: error })
   }
 }
-export { getUserCtrl, getUserId, putUserCtrl, postUserCtrl, loginUser, patchUserCtrl }
+export { getUserCtrl, getUserId, putUserCtrl, postUserCtrl, loginUser, patchUserCtrl, putImage }

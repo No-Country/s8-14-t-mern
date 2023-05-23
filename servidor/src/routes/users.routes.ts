@@ -5,7 +5,8 @@ import {
   putUserCtrl,
   postUserCtrl,
   loginUser,
-  patchUserCtrl
+  patchUserCtrl,
+  putImage
 } from '../controller/users.controllers'
 // import { verifyToken } from '../middlewares/authMiddleware'
 
@@ -31,6 +32,7 @@ router.route('/:id')
 // .put(...)
 // .post(...)
 
+router.put('/:id/image', putImage)
 //TODO:
 /*
 	/login
