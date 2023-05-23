@@ -30,6 +30,10 @@ const NewTransferReceiverPage: React.LazyExoticComponent<() => JSX.Element> =
   lazy(() => import("../pages/NewTransfer.receiver"));
 const NewTransferAmountPage: React.LazyExoticComponent<() => JSX.Element> =
   lazy(() => import("../pages/NewTransfer.amount"));
+const NewTransferCategoryPage: React.LazyExoticComponent<() => JSX.Element> =
+  lazy(() => import("../pages/NewTransfer.category"))
+const NewTransferSendPage: React.LazyExoticComponent<() => JSX.Element> = 
+  lazy(() => import("../pages/NewTransfer.send"))
 
 export default function AppRouter(): JSX.Element {
   const {user} = useContext(UserContext)
@@ -61,6 +65,14 @@ export default function AppRouter(): JSX.Element {
                 path="/newTransfer/amount"
                 element={<NewTransferAmountPage />}
               />
+              <Route
+                path="/newTransfer/category"
+                element={<NewTransferCategoryPage />}
+                />
+                <Route
+                path="/newTransfer/send"
+                element={<NewTransferSendPage />}
+                />
               <Route path="/scanner" element={<ScannerQrPage />} />
               <Route path="*" element={<Navigate to="/home" />} />
             </>
