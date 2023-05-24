@@ -5,6 +5,7 @@ import { register } from '@/services/register';
 import { useContext } from 'react';
 import { UserContext } from '@/context/ReactContext';
 
+
 // nECESITAMOS CREAR BOTON VOLVER A ELEGIR
 const RegisterForm = (): JSX.Element => {
   const { isLogin } = useContext(UserContext)
@@ -15,6 +16,7 @@ const RegisterForm = (): JSX.Element => {
       email: '',
       password: '',
       repeatPassword: '',
+      country: '',
     },
     validationSchema: Yup.object({
       firstName: Yup.string().required('Name is required'),
@@ -26,9 +28,8 @@ const RegisterForm = (): JSX.Element => {
         .matches(/[A-Z]/, 'Password must contain at least one uppercase letter')
         .matches(/[!@#$%^&*(),.?":{}|<>]/, 'Password must contain at least one special character'),
       repeatPassword: Yup.string().oneOf([Yup.ref('password')], 'Passwords must match').required('Password is required'),
-    }
-    ),
-
+      country: Yup.string().required('Country is required'),
+    }),
     onSubmit: () => {
       (async () => {
         const state = await register(values)
@@ -37,6 +38,13 @@ const RegisterForm = (): JSX.Element => {
       })()
     }
   })
+
+  const countryOptions = [
+    { value: 'Argentina', label: 'Argentina' },
+    { value: 'Brazil', label: 'Brazil' },
+    { value: 'Mexico', label: 'Mexico' },
+    { value: 'Colombia', label: 'Colombia' },
+  ];
 
   return (
     <div className="Login">
@@ -77,6 +85,23 @@ const RegisterForm = (): JSX.Element => {
             className="input input-password"
           />
           {errors.email && touched.email && <div className="error">{errors.email}</div>}
+
+
+          <select
+            name="country"
+            id="country"
+            onChange={handleChange}
+            value={values.country}
+            className="input input-country"
+          >
+            <option value="">Moneda</option>
+            {countryOptions.map((option) => (
+              <option key={option.value} value={option.value}>
+                {option.label}
+              </option>
+            ))}
+          </select>
+          {errors.country && touched.country && <div className="error">{errors.country}</div>}
 
           <input
             name="password"
