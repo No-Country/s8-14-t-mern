@@ -1,13 +1,13 @@
 import { Given, When, Then, And } from "cypress-cucumber-preprocessor/steps";
 
-Given('paso 1',()=>{
-    cy.step('n1')
+Given('que estoy en la página de inicio de sesión ',()=>{
+    
 })
 
-When('paso 2',()=>{
-    cy.step('n2')
+When('ingreso mi correo electrónico y contraseña',()=>{
+    
 })
 
-Then('paso 3',()=>{
-    cy.step('n3')
+Then('se me redirige a la página de inicio',()=>{
+    
 })

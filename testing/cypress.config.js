@@ -45,9 +45,10 @@ module.exports = defineConfig({
       json:true,
       video:true,
     },
-      viewportHeight:670,
-      viewportWidth:380,
+      viewportHeight:848,
+      viewportWidth:390,
       // chromeWebSecurity:false
   },
 });
 
+require('@applitools/eyes-cypress')(module);

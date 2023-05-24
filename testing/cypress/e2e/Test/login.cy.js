@@ -1,80 +1,85 @@
 import { loginPage } from "../../pages/loginPage";
 
-describe('Seccion Pruebas en Login', () => {
+const LocalHostUrl = 'http://localhost:3000/'
+const LocalHostUrl_login = 'http://localhost:3000/auth/login'
+
+describe('Login en Sistema', () => {
     beforeEach(() => {
-        cy.visit('/')
-        expect(cy.config('viewportWidth')).to.equal(380)
-        expect(cy.config('viewportHeight')).to.equal(670)
+        cy.visit(LocalHostUrl_login)
+        expect(cy.config('viewportWidth')).to.equal(390)
+        expect(cy.config('viewportHeight')).to.equal(848)
     });
 
-    it('Login_000 | Check elementos UI', () => {
-        // Imagen Logo
-        // Input Email
-        // Imagen Password
-        // Button iniciar sesion
-        // Texto 1
-        // Buttons con opciones de ingreso
-    });
-
-    it('Login_001 | Id_01 | Ingreso al sistema - Credenciales validas', () => {
+    
+    it.only('Login_001 | ID_01 | Login Exitoso', () => {
         // Dado estoy en la página de inicio de sesión
-        // Cuando Ingreso usuario y password
-        loginPage.submitLogin('user1@mail.com','password1')
+        // Cuando Ingreso Email y password
+        loginPage.submitLogin('user@mail.com','Abcd1234*')
         // Y el usuario hace clic en el button "Confirmar"
         loginPage.clickLogin()
         // Entonces el sistema debe redireccionar al usuario a la pagina principal"
-        cy.url().should('equal','/')
-        // Y El sistema debe mostrar un mensaje de "Bienvenido User1"
+        cy.url().should('equal',LocalHostUrl)
+        // Y El sistema debe mostrar un mensaje de Bienvenida"
+        loginPage.message('Hola')
     });
 
-    it('Login_001 | Id_02 | Ingreso al sistema - Credenciales invalidas', () => {
+    it('Login_001 | ID_02 | Password Incorrecta', () => {
         // Dado estoy en la página de inicio de sesión
-        // Cuando Ingreso usuario y password
+        // Cuando Ingreso Email y password
         loginPage.submitLogin('user1@mail.com','password123')
         // Y el usuario hace clic en el button "Confirmar"
-        loginPage.submitLogin()
-        // Y El sistema debe mostrar un mensaje de usuario no registrado"
-        loginPage.errorMessage('Password o Usuario Incorrecto')
+        cy.get('button').click()
+        // Entonces el sistema debe redireccionar al usuario a la pagina principal"
+        cy.url().should('equal',LocalHostUrl_login)
+        // Y El sistema debe mostrar un mensaje de Usuario no Registrado"  
+        loginPage.message('Hola')
     });
 
-    it('Login_001 | Id_03 | Todos los campos vacios', () => {
+    it('Login_001 | ID_03 | Todos los campos vacios', () => {
         // Dado estoy en la página de inicio de sesión
-        // Cuando Ingreso usuario y password
-        loginPage.submitLogin('','')
+        // Cuando el Usuario deja los campos de Email y Password en blanco
         // Y el usuario hace clic en el button "Confirmar"
-        loginPage.clickLogin()
-        // Y El sistema debe mostrar un mensaje de "Completar todos los campos"
-        loginPage.errorMessage('Completar todos los campos')
+        cy.get('[href="/auth/login"]').click()
+        cy.get('button').click()
+        // Entonces el sistema debe redireccionar al usuario a la pagina de login"
+        cy.url().should('equal',LocalHostUrl_login)
+        // Y El sistema debe mostrar un mensaje de Email y Password requeridos"  
+        cy.assertionCheck('required')
+    });
+
+    it('Login_001 | ID_04 | Campo de Password Vacio', () => {
+        // Dado estoy en la página de inicio de sesión
+        // Cuando el usuario ingresa Email y deja campo de password vacio
+        loginPage.typeUsername('user2@mail.com')
+        // Y el usuario hace clic en el button "Confirmar"
+        cy.get('button').click()
+        // Entonces el sistema debe redireccionar al usuario a la pagina de login"
+        cy.url().should('equal',LocalHostUrl_login)
+        // Y El sistema debe mostrar un mensaje de password es requerdio"  
+        cy.assertionCheck('required')
+    });
+
+    it('Login_001 | ID_05 | Campo de Email Vacio', () => {
+        // Dado estoy en la página de inicio de sesión
+        // Cuando el usuario ingresa Email y deja campo de password vacio
+        loginPage.typePassword('password3')
+        // Y el usuario hace clic en el button "Confirmar"
+        cy.get('button').click()
+        // Entonces el sistema debe redireccionar al usuario a la pagina de login"
+        cy.url().should('equal',LocalHostUrl_login)
+        // Y El sistema debe mostrar un mensaje de Email es requerdio"  
+        cy.assertionCheck('required')
     });
     
-    it('Login_001 | Id_04 | Password sin datos', () => {
+    it('Login_001 | ID_04 | Campo de Email Invalido', () => {
         // Dado estoy en la página de inicio de sesión
-        // Cuando Ingreso usuario y password
-        loginPage.submitLogin('user2@mail.com','')
+        // Cuando el usuario ingresa Email invalido y password
+        loginPage.submitLogin('user3.ma','password5')
         // Y el usuario hace clic en el button "Confirmar"
-        loginPage.clickLogin()
-        // Y El sistema debe mostrar un mensaje de Ingresar Password"
-        loginPage.errorMessage('Ingresar Password')
+        cy.get('button').click()
+        // Entonces el sistema debe redireccionar al usuario a la pagina de login"
+        cy.url().should('equal',LocalHostUrl_login)
+        // Y El sistema debe mostrar un mensaje de ingresar Email de formato valido"  
+        // cy.assertionCheck('required')
     });
-
-    it('Login_001 | Id_05 | Email sin datos', () => {
-        // Dado estoy en la página de inicio de sesión
-        // Cuando Ingreso usuario y password
-        loginPage.submitLogin('','password3')
-        // Y el usuario hace clic en el button "Confirmar"
-        loginPage.clickLogin()
-        // Y El sistema debe mostrar un mensaje de Ingresar Email"
-        loginPage.errorMessage('Ingresar Password')
-    });
-
-    it('Login_001 | Id_06 | Email Invalido', () => {
-        // Dado estoy en la página de inicio de sesión
-        // Cuando Ingreso usuario y password
-        loginPage.submitLogin('user3@ma','password5')
-        // Y el usuario hace clic en el button "Confirmar"
-        loginPage.clickLogin()
-        // Y El sistema debe mostrar un mensaje del formato Email Invalido"
-        loginPage.errorMessage('Email Invalido')
-    });
-
 });

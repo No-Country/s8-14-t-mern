@@ -5,7 +5,7 @@ class RegisterPage {
       passwordInput: () => cy.get('[name="password"]'),
       passwordRepeatInput: () => cy.get(''),
       loginBtn: () => cy.get('button').eq(1),
-      message: () => cy.get('h3[data-test="error"]'),
+      Message: () => cy.get('h3[data-test="error"]'),
     };
   
     typeEmail(email) {
@@ -24,12 +24,12 @@ class RegisterPage {
       this.elements.nameInput().type(name)  
     }
   
-    clickButton() {
-      this.elements.loginBtn().click({force:true});
+    clickLogin() {
+      this.elements.loginBtn().click();
     }
 
-    typemessage(text){
-      this.elements.message().type(text)
+    typeMessage(message){
+      this.elements.Message(message)
     }
   
     submitRegister(email,name,password,repeatPassword){

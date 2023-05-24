@@ -1,7 +1,8 @@
 {
-  "name": "cliente",
+  "name": "pigmeo",
+  "version": "1.0.0",
+  "description": "Billetera virtual ",
   "private": true,
-  "version": "0.0.0",
   "type": "module",
   "scripts": {
     "dev": "vite --port 3000 --host",
@@ -10,26 +11,36 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@heroicons/react": "1.0.6",
     "@reduxjs/toolkit": "^1.9.5",
+    "@tremor/react": "^2.6.1",
+    "@yudiel/react-qr-scanner": "^1.1.8",
     "axios": "^1.4.0",
+    "formik": "^2.2.9",
     "moment": "^2.29.4",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-hot-toast": "^2.4.1",
     "react-redux": "^8.0.5",
     "react-router-dom": "^6.11.1",
+    "react-select": "^5.7.3",
     "sass": "^1.62.1",
-    "styled-components": "^6.0.0-rc.1"
+    "swiper": "^9.3.2",
+    "yup": "^1.1.1"
   },
   "devDependencies": {
+    "@types/node": "^20.1.4",
     "@types/react": "^18.0.28",
     "@types/react-dom": "^18.0.11",
     "@typescript-eslint/eslint-plugin": "^5.57.1",
     "@typescript-eslint/parser": "^5.57.1",
     "@vitejs/plugin-react": "^4.0.0",
+    "autoprefixer": "^10.4.14",
     "eslint": "^8.38.0",
     "eslint-plugin-react-hooks": "^4.6.0",
     "eslint-plugin-react-refresh": "^0.3.4",
+    "postcss": "^8.4.23",
+    "tailwindcss": "^3.3.2",
     "typescript": "^5.0.2",
     "vite": "^4.3.2"
   }
