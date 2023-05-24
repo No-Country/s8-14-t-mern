@@ -1,4 +1,4 @@
-import React, { useContext} from "react";
+import React, { useContext } from "react";
 import { Suspense, lazy } from "react";
 import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
 
@@ -31,12 +31,18 @@ const NewTransferReceiverPage: React.LazyExoticComponent<() => JSX.Element> =
 const NewTransferAmountPage: React.LazyExoticComponent<() => JSX.Element> =
   lazy(() => import("../pages/NewTransfer.amount"));
 const NewTransferCategoryPage: React.LazyExoticComponent<() => JSX.Element> =
-  lazy(() => import("../pages/NewTransfer.category"))
-const NewTransferSendPage: React.LazyExoticComponent<() => JSX.Element> = 
-  lazy(() => import("../pages/NewTransfer.send"))
+  lazy(() => import("../pages/NewTransfer.category"));
+const NewTransferSendPage: React.LazyExoticComponent<() => JSX.Element> = lazy(
+  () => import("../pages/NewTransfer.send")
+);
+const AddFundsMenuPage: React.LazyExoticComponent<() => JSX.Element> = lazy(
+  () => import("@/pages/AddFundsMenuPage")
+);
+const AddFundsByTransferPage: React.LazyExoticComponent<() => JSX.Element> =
+  lazy(() => import("@/pages/AddFundsByTransferPage"));
 
 export default function AppRouter(): JSX.Element {
-  const {user} = useContext(UserContext)
+  const { user } = useContext(UserContext);
   return (
     <Suspense fallback={<p>Loading...</p>}>
       <BrowserRouter>
@@ -68,11 +74,20 @@ export default function AppRouter(): JSX.Element {
               <Route
                 path="/newTransfer/category"
                 element={<NewTransferCategoryPage />}
-                />
-                <Route
+              />
+              <Route
                 path="/newTransfer/send"
                 element={<NewTransferSendPage />}
-                />
+              />
+              <Route path="/addFunds" element={<AddFundsMenuPage />} />
+              <Route
+                path="/addFunds/transfer"
+                element={<AddFundsByTransferPage />}
+              />
+              <Route
+                path="/addFunds/cash"
+                element={<AddFundsByTransferPage />}
+              />
               <Route path="/scanner" element={<ScannerQrPage />} />
               <Route path="*" element={<Navigate to="/home" />} />
             </>
