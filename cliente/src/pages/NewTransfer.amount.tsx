@@ -3,7 +3,7 @@ import { ReactElement } from "react";
 import { Button, Subtitle, Text, Title, TextInput, Flex } from "@tremor/react";
 
 import HeaderBackButton from "@/components/HeaderBackButton";
-import ContinueButton from "@/components/Buttonc";
+import Buttonc from "@/components/Buttonc";
 
 function NewTransfer(): ReactElement {
   return (
@@ -24,12 +24,12 @@ function NewTransfer(): ReactElement {
           <Text>Mínimo $20</Text>
         </div>
       </Flex>
-      <ContinueButton styled={true} action="Continuar?">
+      <Buttonc styled={true} action="continuar" href="/newTransfer/category">
         Continuar
-      </ContinueButton>
-      <ContinueButton styled={false} action="cancelar">
+      </Buttonc>
+      <Buttonc styled={false}  href="/home">
         Cancelar
-      </ContinueButton>
+      </Buttonc>
     </>
   );
 }
