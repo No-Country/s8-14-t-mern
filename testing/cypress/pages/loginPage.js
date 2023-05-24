@@ -26,7 +26,6 @@ class LoginPage {
 
     
     submitLogin(username,password){
-      cy.get('[href="/auth/login"]').click()
       this.elements.usernameInput().type(username);
       this.elements.passwordInput().type(password);
       

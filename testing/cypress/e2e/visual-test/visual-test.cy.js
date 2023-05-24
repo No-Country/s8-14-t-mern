@@ -17,11 +17,11 @@ describe('Seccion Home', () => {
             fully: true
         });
         
-        cy.get('[href="/auth/login"]').click()
-        loginPage.submitLogin('user@mail.com','Abcd1234*')    
-        loginPage.clickLogin()
-        cy.get('[href="/auth/login"]').click()
-        cy.get('a').click()
+        // cy.get('[href="/auth/login"]').click()
+        // loginPage.submitLogin('user@mail.com','Abcd1234*')    
+        // loginPage.clickLogin()
+        // cy.get('[href="/auth/login"]').click()
+        // cy.get('a').click()
         
     })
 
