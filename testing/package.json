@@ -7,8 +7,9 @@
     "cypress:runner": "cypress open --e2e --browser chrome",
     "cypress:execution": "cypress run --spec cypress/e2e/Test/*",
     "test:chrome": "cypress run --browser chrome",
-    "cypress:chrome": "cypress run --browser chrome --spec cypress/e2e/Test/*.cy.js",
-    "cypress:open": "cypress open"
+    "cypress:chrome": "cypress run --browser chrome --spec cypress/e2e/**/*.cy.js",
+    "cypress:open": "cypress open",
+    "newman:run": "newman run download/LocalHost-Pigmeo.postman_collection.json -e download/LocalHost.postman_environment.json -r htmlextra"
   },
   "repository": {
     "type": "git",
