@@ -41,14 +41,14 @@ export default function AppRouter(): JSX.Element {
     <Suspense fallback={<p>Loading...</p>}>
       <BrowserRouter>
         <Routes>
-          {!user.data.id && (
+          {user.data.id && (
             <>
               <Route path="/" element={<Onboarding />} />
               <Route path="/auth/:slug" element={<AuthPage />} />
               <Route path="*" element={<Navigate to="/" />} />
             </>
           )}
-          {user.data.id && (
+          {!user.data.id && (
             <>
               <Route path="/" element={<MainLayout />}>
                 <Route index element={<HomePage />} />

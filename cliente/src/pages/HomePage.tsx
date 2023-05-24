@@ -7,8 +7,8 @@ export default function HomePage(): JSX.Element {
   return (
     <>
       <Header />
-      <Benefits />
       <PanelHome />
+      <Benefits />
       <Lists />
     </>
   );
