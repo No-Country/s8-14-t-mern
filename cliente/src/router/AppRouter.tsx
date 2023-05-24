@@ -4,6 +4,7 @@ import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
 
 import MainLayout from "@/utils/Layout";
 import { UserContext } from "@/context/ReactContext";
+import ResponsPage from "@/pages/ResponsPage";
 
 const Onboarding: React.LazyExoticComponent<() => JSX.Element> = lazy(
   () => import("../pages/Onboarding")
@@ -47,14 +48,14 @@ export default function AppRouter(): JSX.Element {
     <Suspense fallback={<p>Loading...</p>}>
       <BrowserRouter>
         <Routes>
-          {!user.data.id && (
+          {user.data.id && (
             <>
               <Route path="/" element={<Onboarding />} />
               <Route path="/auth/:slug" element={<AuthPage />} />
               <Route path="*" element={<Navigate to="/" />} />
             </>
           )}
-          {user.data.id && (
+          {!user.data.id && (
             <>
               <Route path="/" element={<MainLayout />}>
                 <Route index element={<HomePage />} />
@@ -90,6 +91,10 @@ export default function AppRouter(): JSX.Element {
               />
               <Route path="/scanner" element={<ScannerQrPage />} />
               <Route path="*" element={<Navigate to="/home" />} />
+              <Route
+                path="/response"
+                element={<ResponsPage backmsg="Tu envio se realizo con exito" />}
+              />
             </>
           )}
           <Route path="*" element={<h1>404</h1>} />

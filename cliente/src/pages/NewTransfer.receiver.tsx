@@ -3,7 +3,7 @@ import { ReactElement } from "react";
 import { Subtitle, Text, Title, TextInput, Flex } from "@tremor/react";
 
 import HeaderBackButton from "@/components/HeaderBackButton";
-import ContinueButton from "@/components/Buttonc";
+import Buttonc from "@/components/Buttonc";
 
 const contacts: { name: string }[] = [
   { name: "Raúl Perez" },
@@ -37,12 +37,12 @@ function NewTransfer(): ReactElement {
           ))}
         </ul>
       </Flex>
-      <ContinueButton styled={true} action="Continuar?">
+      <Buttonc styled={true} action="continuar" href="/newTransfer/amount">
         Continuar
-      </ContinueButton>
-      <ContinueButton styled={false} action="cancelar">
-        Cancelar
-      </ContinueButton>
+      </Buttonc>
+      <Buttonc styled={false} href="/home">
+        Cancerl
+      </Buttonc>
     </>
   );
 }
