@@ -18,9 +18,9 @@ interface ActionItem {
 }
 
 const ACTION_ITEMS: ActionItem[] = [
-  { title: "Agregar dinero", href: "/newTransfer/amount", ListIcon: PlusIcon },
-  { title: "Transferir dinero", href: "/Transfer", ListIcon: PaperAirplaneIcon },
-  { title: "Locales con QE", href: "/Location", ListIcon: OfficeBuildingIcon },
+  { title: "Agregar dinero", href: "/addFunds", ListIcon: PlusIcon },
+  { title: "Transferir dinero", href: "/newTransfer/receiver", ListIcon: PaperAirplaneIcon },
+  { title: "Locales con QR", href: "/Location", ListIcon: OfficeBuildingIcon },
   { title: "Recarga ", href: "/Recharge", ListIcon: ArrowsExpandIcon }
 ]
 

@@ -25,7 +25,7 @@ export default function ResponsPage({ backmsg }: Props): JSX.Element {
               {backmsg}
         </Text>
       </Col>
-      <Buttonc styled={true} action="volver">
+      <Buttonc styled={true} action="volver" href='/home'>
         Volver a inicio
       </Buttonc>
     </Grid>
