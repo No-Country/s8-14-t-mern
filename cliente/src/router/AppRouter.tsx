@@ -2,8 +2,9 @@ import React, { useContext } from "react";
 import { Suspense, lazy } from "react";
 import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
 
+import { useUserData } from "@/context/UserContext";
+
 import MainLayout from "@/utils/Layout";
-import { UserContext } from "@/context/ReactContext";
 import ResponsPage from "@/pages/ResponsPage";
 
 const Onboarding: React.LazyExoticComponent<() => JSX.Element> = lazy(
@@ -45,19 +46,19 @@ const TransactionsPage: React.LazyExoticComponent<() => JSX.Element> =
   lazy(() => import("@/pages/TransactionsPage"));
 
 export default function AppRouter(): JSX.Element {
-  const { user } = useContext(UserContext);
+  const { isAuthenticated } = useUserData();
   return (
     <Suspense fallback={<p>Loading...</p>}>
       <BrowserRouter>
         <Routes>
-          {user.data.id && (
+          {!isAuthenticated && (
             <>
               <Route path="/" element={<Onboarding />} />
               <Route path="/auth/:slug" element={<AuthPage />} />
               <Route path="*" element={<Navigate to="/" />} />
             </>
           )}
-          {!user.data.id && (
+          {isAuthenticated && (
             <>
               <Route path="/" element={<MainLayout />}>
                 <Route index element={<HomePage />} />
@@ -96,7 +97,9 @@ export default function AppRouter(): JSX.Element {
               <Route path="*" element={<Navigate to="/home" />} />
               <Route
                 path="/response"
-                element={<ResponsPage backmsg="Tu envio se realizo con exito" />}
+                element={
+                  <ResponsPage backmsg="Tu envio se realizo con exito" />
+                }
               />
             </>
           )}

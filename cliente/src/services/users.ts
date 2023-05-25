@@ -52,8 +52,11 @@ interface ChangePassword {
   password: string;
   token: string;
 }
+export function checkNewPasswordToken(token: string) {
+  return axios.get(`/users/reset-password/${token}`);
+}
 export function changePassword({ password, token }: ChangePassword) {
-  return axios.post(`/users/forgot-password/${token}`, { password });
+  return axios.post(`/users/reset-password/${token}`, { password });
 }
 
 export function getUsers() {
@@ -68,6 +71,10 @@ export default {
   registerUser,
   editUser,
   updateUserImage,
+  activateUserAccount,
+  requestPasswordReset,
+  checkNewPasswordToken,
+  changePassword,
   getUsers,
   getUser,
 };

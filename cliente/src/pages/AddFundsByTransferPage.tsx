@@ -29,7 +29,6 @@ function AddFundsByTransfer(): ReactElement {
           </button>
         </div>
       </div>
-      <Toaster position="bottom-center" />
     </>
   );
 }
