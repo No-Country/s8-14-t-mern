@@ -41,6 +41,8 @@ const AddFundsMenuPage: React.LazyExoticComponent<() => JSX.Element> = lazy(
 );
 const AddFundsByTransferPage: React.LazyExoticComponent<() => JSX.Element> =
   lazy(() => import("@/pages/AddFundsByTransferPage"));
+const TransactionsPage: React.LazyExoticComponent<() => JSX.Element> =
+  lazy(() => import("@/pages/TransactionsPage"));
 
 export default function AppRouter(): JSX.Element {
   const { user } = useContext(UserContext);
@@ -89,6 +91,7 @@ export default function AppRouter(): JSX.Element {
                 path="/addFunds/cash"
                 element={<AddFundsByTransferPage />}
               />
+              <Route path="/transactions" element={<TransactionsPage />} />
               <Route path="/scanner" element={<ScannerQrPage />} />
               <Route path="*" element={<Navigate to="/home" />} />
               <Route
