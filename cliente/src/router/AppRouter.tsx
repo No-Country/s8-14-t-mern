@@ -41,8 +41,18 @@ const AddFundsMenuPage: React.LazyExoticComponent<() => JSX.Element> = lazy(
 );
 const AddFundsByTransferPage: React.LazyExoticComponent<() => JSX.Element> =
   lazy(() => import("@/pages/AddFundsByTransferPage"));
-const TransactionsPage: React.LazyExoticComponent<() => JSX.Element> =
-  lazy(() => import("@/pages/TransactionsPage"));
+const TransactionsPage: React.LazyExoticComponent<() => JSX.Element> = lazy(
+  () => import("@/pages/TransactionsPage")
+);
+const RechargePage: React.LazyExoticComponent<React.FC> = lazy(
+  () => import("../pages/Recharge")
+);
+const RechargeAmountPage: React.LazyExoticComponent<() => JSX.Element> = lazy(
+  () => import("../pages/Recharge.amount")
+);
+const RechargeSendPage: React.LazyExoticComponent<React.FC> = lazy(
+  () => import("../pages/Recharge.send")
+);
 
 export default function AppRouter(): JSX.Element {
   const { user } = useContext(UserContext);
@@ -92,11 +102,17 @@ export default function AppRouter(): JSX.Element {
                 element={<AddFundsByTransferPage />}
               />
               <Route path="/transactions" element={<TransactionsPage />} />
+              <Route path="/recharge" element={<RechargePage />} />
+              <Route path="/recharge/amount" element={<RechargeAmountPage />} />
+              <Route path="/recharge/send" element={<RechargeSendPage />} />
+
               <Route path="/scanner" element={<ScannerQrPage />} />
               <Route path="*" element={<Navigate to="/home" />} />
               <Route
                 path="/response"
-                element={<ResponsPage backmsg="Tu envio se realizo con exito" />}
+                element={
+                  <ResponsPage backmsg="Tu envio se realizo con exito" />
+                }
               />
             </>
           )}
