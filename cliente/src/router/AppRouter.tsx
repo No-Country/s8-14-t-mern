@@ -2,8 +2,10 @@ import React, { useContext } from "react";
 import { Suspense, lazy } from "react";
 import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
 
+import { useUserData } from "@/context/UserContext";
+
 import MainLayout from "@/utils/Layout";
-import { UserContext } from "@/context/ReactContext";
+import ResponsPage from "@/pages/ResponsPage";
 
 const Onboarding: React.LazyExoticComponent<() => JSX.Element> = lazy(
   () => import("../pages/Onboarding")
@@ -40,21 +42,33 @@ const AddFundsMenuPage: React.LazyExoticComponent<() => JSX.Element> = lazy(
 );
 const AddFundsByTransferPage: React.LazyExoticComponent<() => JSX.Element> =
   lazy(() => import("@/pages/AddFundsByTransferPage"));
+const TransactionsPage: React.LazyExoticComponent<() => JSX.Element> = lazy(
+  () => import("@/pages/TransactionsPage")
+);
+const RechargePage: React.LazyExoticComponent<React.FC> = lazy(
+  () => import("../pages/Recharge")
+);
+const RechargeAmountPage: React.LazyExoticComponent<() => JSX.Element> = lazy(
+  () => import("../pages/Recharge.amount")
+);
+const RechargeSendPage: React.LazyExoticComponent<React.FC> = lazy(
+  () => import("../pages/Recharge.send")
+);
 
 export default function AppRouter(): JSX.Element {
-  const { user } = useContext(UserContext);
+  const { isAuthenticated } = useUserData();
   return (
     <Suspense fallback={<p>Loading...</p>}>
       <BrowserRouter>
         <Routes>
-          {!user.data.id && (
+          {!isAuthenticated && (
             <>
               <Route path="/" element={<Onboarding />} />
               <Route path="/auth/:slug" element={<AuthPage />} />
               <Route path="*" element={<Navigate to="/" />} />
             </>
           )}
-          {user.data.id && (
+          {isAuthenticated && (
             <>
               <Route path="/" element={<MainLayout />}>
                 <Route index element={<HomePage />} />
@@ -88,8 +102,19 @@ export default function AppRouter(): JSX.Element {
                 path="/addFunds/cash"
                 element={<AddFundsByTransferPage />}
               />
+              <Route path="/transactions" element={<TransactionsPage />} />
+              <Route path="/recharge" element={<RechargePage />} />
+              <Route path="/recharge/amount" element={<RechargeAmountPage />} />
+              <Route path="/recharge/send" element={<RechargeSendPage />} />
+
               <Route path="/scanner" element={<ScannerQrPage />} />
               <Route path="*" element={<Navigate to="/home" />} />
+              <Route
+                path="/response"
+                element={
+                  <ResponsPage backmsg="Tu envio se realizo con exito" />
+                }
+              />
             </>
           )}
           <Route path="*" element={<h1>404</h1>} />

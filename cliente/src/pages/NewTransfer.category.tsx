@@ -1,7 +1,7 @@
 
 import Select from "react-select";
 import HeaderBackButton from "@/components/HeaderBackButton";
-import ContinueButton from "@/components/Buttonc";
+import Buttonc from "@/components/Buttonc";
 
 interface Option {
   value: string;
@@ -46,8 +46,12 @@ const Category = (): JSX.Element => {
           placeholder=""
         />
       </div>
-      <ContinueButton children="Continuar" styled={true} action={""} />
-      <ContinueButton children="Cancelar" styled={false} action={"cancelar"} />
+      <Buttonc styled={true} action="continuar" href="/newTransfer/send">
+        Continuar
+      </Buttonc>
+      <Buttonc styled={false}  href="/home">
+        Cancelar
+      </Buttonc>
     </>
   );
 };
