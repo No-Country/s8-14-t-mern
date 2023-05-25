@@ -18,7 +18,7 @@ describe('Registro en Sistema', () => {
     it.only('Registro_001 | ID_01 | Registro exitoso de usuario', () => {
         // Dado que el usuario a ingresado a la página de registro
         // Cuando el usuario ingresa Nombre, Email, Password y Repeat Password
-        registerPage.submitRegister('userA@mail.com','ApellidoA','NombreA','Abcd1234*','Abcd1234*')
+        registerPage.submitRegister('userAA@mail.com','ApellidoA','NombreA','Abcd1234*','Abcd1234*')
         // Entonces el usuario debería poder hacer click en el botón de Registrar
         registerPage.clickCreate()
         // y debería recibir una confirmación de Hola "Irene"

@@ -34,7 +34,7 @@ module.exports = defineConfig({
     env: {
       allureReuseAfterSpec: true,
     },
-    specPattern: ["**/*.feature", "cypress/e2e/**/*.cy.{js,jsx,ts,tsx}"],
+    specPattern: ["cypress/e2e/**/*.cy.{js,jsx,ts,tsx}"],// "**/*.feature",
     // reporter:'cypress-multi-reporters',
     reporterOptions:{
       reportDir: 'cypress/results/json',

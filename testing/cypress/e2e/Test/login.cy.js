@@ -1,6 +1,5 @@
 import { loginPage } from "../../pages/loginPage";
 
-
 const LocalHostUrl = 'http://localhost:3000/home'
 const LocalHostUrl_login = 'http://localhost:3000/auth/login'
 
