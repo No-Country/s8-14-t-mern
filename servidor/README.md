@@ -9,7 +9,7 @@
    - EMAIL_PORT= port host provider
    - EMAIL_USER= user host provider
    - EMAIL_PASS= password host provider
-2. **Install the dependencies with npm i**
+2. **Install dependencies with npm i**
 3. **Run the server with npm run dev (development) or npm start (production)**
    **If you want run the server with npm start, you must build it first with npm run build**
 

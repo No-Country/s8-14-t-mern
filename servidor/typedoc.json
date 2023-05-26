@@ -8,9 +8,8 @@
   "groupOrder": ["Controllers", "Functions", "*"],
   "exclude": [
     "**/*+(index|.spec|.e2e).ts",
-    "index.ts",
-    "./node_modules",
-    "./routes/**"
+    "src/index.ts",
+    "src/routes/index.ts"
   ],
   "externalPattern": ["**/node_modules/**", "./routes/**"]
 }
