@@ -1,4 +1,5 @@
 import { useFormik } from "formik";
+import { Link } from "react-router-dom";
 import { useUserData } from "@/context/UserContext";
 import apiUsers from "@/services/users";
 
@@ -82,7 +83,7 @@ const LoginForm = (): JSX.Element => {
           <button type="submit" className="primary-button login-button">
             Log in
           </button>
-          <a href="/">forgot my password</a>
+          <Link to="/resetPassword/request">forgot my password</Link>
         </form>
       </div>
     </div>
