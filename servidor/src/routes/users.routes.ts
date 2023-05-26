@@ -21,11 +21,19 @@ import {
 } from '../middlewares/validations'
 
 const router = Router()
-
+//TODO: Agregar en los Get de user
+//"address": "Pablo.swistoniuk.Pigmeo",
+//"email": "antonio.ayola.cortes@gmail.com"
+//"phoneNumber": "(52)5522222222",
+//"typeIdentification": "dni"
+//TODO: agregar validacion para no dejar ingresar un mail invalido.
+//TODO: en login agregar imagen y balance al loguearse
+//TODO: agregar verificacion que este activo, sino no deja loguearse
 router.post('/login', validatorLogin, loginUser)
 router.post('/register', validatorRegister, postUserCtrl)
 router.get('/confirm/:token', validatorTokenAccount, verifyUserCtrl)
 //forgot psw
+//TODO: validad que el mail exista o enviar error
 router.post('/forgot-password', forgotPasswordCtrl)
 //reset psw
 router

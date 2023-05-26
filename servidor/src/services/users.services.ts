@@ -226,6 +226,8 @@ const fetchLogin = async (password: string, email: string) => {
         }
       )
       const response = {
+        avatar: user.avatar,
+        balance: user.balance,
         email: user.email,
         id: user.id,
         firstName: user.firstName,
