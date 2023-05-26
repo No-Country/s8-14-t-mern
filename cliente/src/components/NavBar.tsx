@@ -40,7 +40,7 @@ export default function NavBar(): JSX.Element {
       />
       <Tab
         className="flex-1 justify-center items-center p-0 my-auto border-none"
-        value='/cards'
+        value='/benefit'
         text=''
         icon={() =>
           <CreditCardIcon
