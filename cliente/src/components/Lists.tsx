@@ -1,6 +1,17 @@
-import { Card, Text , Title, List, ListItem } from "@tremor/react";
+import { Card, Title, List, ListItem } from "@tremor/react";
+interface Transferencia {
+  nombre: string;
+  hora: Date;
+  monto: number;
+  type: string
+}
 
-export default function Lists():JSX.Element {
+const transferencias: Transferencia[] = [
+  { nombre: "Juan", hora: new Date(), monto: 100, type: "in" },
+  { nombre: "María", hora: new Date(), monto: 200, type: "out" },
+  { nombre: "Pedro", hora: new Date(), monto: 150, type: "out" },
+];
+export default function Lists(): JSX.Element {
   return (
     <div className="mx-4">
       <div className="flex justify-between ">
@@ -9,12 +20,21 @@ export default function Lists():JSX.Element {
       </div>
       <Card>
         <Title>Hoy</Title>
-        <List>
-            <ListItem className="flex items-center">
-              <Card className="bg-black w-5" ></Card>
-              <span className="absolute left-24">Envio a lucas</span>
-              <span>-$2800</span>
+        <List className="bg-slate-200 rounded-md">
+          {transferencias.map(({ nombre, monto, type }) =>
+            <ListItem className="py-2 px-4 flex ">
+              <span className="w-[25px] aspect-square bg-slate-50 my-1 mr-3 rounded-md" />
+              <div className='mr-auto'>
+                <p className=" text-black">{nombre}</p>
+              </div>
+              {type === "in" &&
+                <p className=" text-green-500">+${monto}</p>
+              }
+              {type === "out" &&
+                <p className=" text-red-500">-${monto}</p>
+              }
             </ListItem>
+          )}
         </List>
       </Card>
     </div>

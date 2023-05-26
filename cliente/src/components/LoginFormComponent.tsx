@@ -1,13 +1,16 @@
-import logo from "../assets/Pigmeo.png";
-import axios from "axios"
 import { useFormik } from "formik";
-import * as Yup from "yup";
-import "../styles/Login.scss";
-import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
+import { useUserData } from "@/context/UserContext";
+import apiUsers from "@/services/users";
 
-// Aa1234567$ password example
+import * as Yup from "yup";
+import toast from "react-hot-toast";
+import logo from "../assets/Pigmeo.png";
+import "../styles/Login.scss";
+
 const LoginForm = (): JSX.Element => {
-  const navigate = useNavigate();
+  // Aa1234567$ password example
+  const { setUserData } = useUserData();
   const { values, handleChange, handleSubmit, errors, touched } = useFormik({
     initialValues: {
       email: "",
@@ -17,27 +20,28 @@ const LoginForm = (): JSX.Element => {
       email: Yup.string()
         .email("Enter a valid email")
         .required("Email is required"),
-      password: Yup.string()
-        .required("Password is required")
-        .min(8, "Password must contain at least 8 characters")
+      password: Yup.string().required("Password is required"),
+      /* .min(8, "Password must contain at least 8 characters")
         .matches(/[A-Z]/, "Password must contain at least one uppercase letter")
         .matches(
           /[!@#$%^&*(),.?":{}|<>]/,
           "Password must contain at least one special character"
-        ),
+        ), */
     }),
 
     onSubmit: async (values) => {
       try {
-        const response = await axios.post(
-          "http://localhost:9000/api/v1/pigmeo/users/login",
-          values
-        );
-        console.log("response", response.data);
-        localStorage.setItem("user", JSON.stringify(response.data));
-        navigate("/home");
-      } catch (err) {
-        console.error("Error", err);
+        const {
+          data: { data },
+        } = await apiUsers.loginUser(values);
+
+        if (!data) {
+          throw new Error("Error al iniciar sesión");
+        }
+        setUserData(data);
+      } catch (error: any) {
+        console.log(error);
+        toast.error(error?.response?.data || "Error al iniciar sesión");
       }
     },
   });
@@ -79,7 +83,7 @@ const LoginForm = (): JSX.Element => {
           <button type="submit" className="primary-button login-button">
             Log in
           </button>
-          <a href="/">forgot my password</a>
+          <Link to="/resetPassword/request">forgot my password</Link>
         </form>
       </div>
     </div>

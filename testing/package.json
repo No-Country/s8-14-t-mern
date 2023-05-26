@@ -17,6 +17,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@applitools/eyes-cypress": "^3.32.2",
     "@badeball/cypress-cucumber-preprocessor": "^17.1.0",
     "chai": "^4.3.7",
     "cy-spok": "^1.5.2",

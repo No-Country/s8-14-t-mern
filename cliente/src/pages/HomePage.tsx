@@ -1,4 +1,3 @@
-import { Outlet } from "react-router-dom";
 import Benefits from "@/components/BenefitHomeComponent";
 import PanelHome from "@/components/PanelHomeComponent";
 import Header from "../components/Header";
@@ -7,13 +6,11 @@ import Popup from "@/components/Popup";
 
 export default function HomePage(): JSX.Element {
   return (
-    <div>
+    <>
       <Header />
-      <Benefits />
       <PanelHome />
+      <Benefits />
       <Lists />
-      <Outlet />
-      <Popup/>
-    </div>
+    </>
   );
 }

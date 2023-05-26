@@ -8,7 +8,6 @@
   "arrowParens": "avoid",
   "jsxSingleQuote": true,
   "bracketSameLine": false,
-  "importOrder": ["^components/(.*)$", "^[./]"],
-  "importOrderSeparation": true,
-  "importOrderSortSpecifiers": true
+  "endOfLine": "auto",
+  "newline-before-member-expression": true
 }
