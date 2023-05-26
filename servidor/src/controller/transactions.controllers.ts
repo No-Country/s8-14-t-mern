@@ -7,8 +7,8 @@ import {
 
 /**
  * Controlador para manejar las operaciones relacionadas con los usuarios.
+ *
  */
-
 const postVeryfyController = async (req: Request, res: Response) => {
   try {
     const data = await fecthVerifyAccount(req.body)
