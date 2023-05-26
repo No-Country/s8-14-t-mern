@@ -6,12 +6,21 @@ import { useUserData } from "@/context/UserContext";
 
 import MainLayout from "@/utils/Layout";
 import ResponsPage from "@/pages/ResponsPage";
+import BenefitPage from "@/pages/BenefitPage";
 
 const Onboarding: React.LazyExoticComponent<() => JSX.Element> = lazy(
   () => import("../pages/Onboarding")
 );
 const AuthPage: React.LazyExoticComponent<() => JSX.Element> = lazy(
   () => import("../pages/AuthPage")
+);
+const ResetPasswordRequestPage: React.LazyExoticComponent<() => JSX.Element> =
+  lazy(() => import("../pages/ResetPassword.request"));
+const ResetPasswordPage: React.LazyExoticComponent<() => JSX.Element> = lazy(
+  () => import("../pages/ResetPassword")
+);
+const VerifyAccountPage: React.LazyExoticComponent<() => JSX.Element> = lazy(
+  () => import("../pages/VerifyAccountPage")
 );
 const HomePage: React.LazyExoticComponent<() => JSX.Element> = lazy(
   () => import("../pages/HomePage")
@@ -65,6 +74,15 @@ export default function AppRouter(): JSX.Element {
             <>
               <Route path="/" element={<Onboarding />} />
               <Route path="/auth/:slug" element={<AuthPage />} />
+              <Route
+                path="/resetPassword/request"
+                element={<ResetPasswordRequestPage />}
+              />
+              <Route
+                path="/olvide-password/:token"
+                element={<ResetPasswordPage />}
+              />
+              <Route path="/confirmar/:token" element={<VerifyAccountPage />} />
               <Route path="*" element={<Navigate to="/" />} />
             </>
           )}
@@ -76,6 +94,7 @@ export default function AppRouter(): JSX.Element {
                 <Route path="/profile" element={<ProfilePage />} />
                 <Route path="/personalData" element={<PersonalDataPage />} />
                 <Route path="/changename" element={<ChangeName />} />
+                <Route path="/benefit" element={<BenefitPage />} />
               </Route>
               <Route
                 path="/newTransfer/receiver"
