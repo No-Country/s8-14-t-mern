@@ -6,6 +6,7 @@ import { useUserData } from "@/context/UserContext";
 
 import MainLayout from "@/utils/Layout";
 import ResponsPage from "@/pages/ResponsPage";
+import BenefitPage from "@/pages/BenefitPage";
 
 const Onboarding: React.LazyExoticComponent<() => JSX.Element> = lazy(
   () => import("../pages/Onboarding")
@@ -76,6 +77,7 @@ export default function AppRouter(): JSX.Element {
                 <Route path="/profile" element={<ProfilePage />} />
                 <Route path="/personalData" element={<PersonalDataPage />} />
                 <Route path="/changename" element={<ChangeName />} />
+                <Route path="/benefit" element={<BenefitPage />} />
               </Route>
               <Route
                 path="/newTransfer/receiver"
