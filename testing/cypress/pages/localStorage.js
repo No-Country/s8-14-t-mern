@@ -1,4 +1,3 @@
-
 class LocalStorage {
     elements = {
         elementsLocalStorage:(user)=> cy.window().then((win) => {
@@ -17,6 +16,5 @@ class LocalStorage {
         this.elements.elementsLocalStorage(user)
     }
 }
-
 export const localStorage = new LocalStorage();
 
