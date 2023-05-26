@@ -1,42 +1,54 @@
-import { useFormik } from 'formik';
-import * as Yup from 'yup';
-import '../styles/Login.scss';
-import { register } from '@/services/register';
-import { useContext } from 'react';
-import { UserContext } from '@/context/ReactContext';
+import { useFormik } from "formik";
+import * as Yup from "yup";
+import "../styles/Login.scss";
+import toast from "react-hot-toast";
+
+import apiUsers from "@/services/users";
 
 // nECESITAMOS CREAR BOTON VOLVER A ELEGIR
 const RegisterForm = (): JSX.Element => {
-  const { isLogin } = useContext(UserContext)
   const { values, handleChange, handleSubmit, errors, touched } = useFormik({
     initialValues: {
-      firstName: '',
-      lastname: '',
-      email: '',
-      password: '',
-      repeatPassword: '',
+      firstName: "",
+      lastname: "",
+      email: "",
+      password: "",
+      repeatPassword: "",
     },
     validationSchema: Yup.object({
-      firstName: Yup.string().required('Name is required'),
-      lastname: Yup.string().required('Lastname is required'),
-      email: Yup.string().email('Enter a valid email').required('Email is required').max(50),
+      firstName: Yup.string().required("Name is required"),
+      lastname: Yup.string().required("Lastname is required"),
+      email: Yup.string()
+        .email("Enter a valid email")
+        .required("Email is required")
+        .max(50),
       password: Yup.string()
-        .required('Password is required')
-        .min(8, 'Password must contain at least 8 characters')
-        .matches(/[A-Z]/, 'Password must contain at least one uppercase letter')
-        .matches(/[!@#$%^&*(),.?":{}|<>]/, 'Password must contain at least one special character'),
-      repeatPassword: Yup.string().oneOf([Yup.ref('password')], 'Passwords must match').required('Password is required'),
-    }
-    ),
+        .required("Password is required")
+        .min(8, "Password must contain at least 8 characters")
+        .matches(/[A-Z]/, "Password must contain at least one uppercase letter")
+        .matches(
+          /[!@#$%^&*(),.?":{}|<>]/,
+          "Password must contain at least one special character"
+        ),
+      repeatPassword: Yup.string()
+        .oneOf([Yup.ref("password")], "Passwords must match")
+        .required("Password is required"),
+    }),
 
-    onSubmit: () => {
-      (async () => {
-        const state = await register(values)
-        isLogin.current = state
-        location.reload()
-      })()
-    }
-  })
+    onSubmit: async (values) => {
+      try {
+        const response = await apiUsers.registerUser(values);
+        console.log(response);
+        toast.success(
+          response?.data?.msg || "Registro existoso, verifica tu cuenta",
+          { duration: 10000 }
+        );
+      } catch (error: any) {
+        console.log(error);
+        toast.error("Error al Registrar");
+      }
+    },
+  });
 
   return (
     <div className="Login">
@@ -44,7 +56,6 @@ const RegisterForm = (): JSX.Element => {
         <h1 className="Title">Create your account</h1>
         <h6 className="Title">fill in your profile</h6>
         <form onSubmit={handleSubmit} className="form">
-
           <input
             name="firstName"
             id="firstName"
@@ -54,7 +65,9 @@ const RegisterForm = (): JSX.Element => {
             value={values.firstName}
             className="input input-password"
           />
-          {errors.firstName && touched.firstName && <div className="error">{errors.firstName}</div>}
+          {errors.firstName && touched.firstName && (
+            <div className="error">{errors.firstName}</div>
+          )}
           <input
             name="lastname"
             id="lastname"
@@ -64,8 +77,9 @@ const RegisterForm = (): JSX.Element => {
             value={values.lastname}
             className="input input-password"
           />
-          {errors.lastname && touched.lastname && <div className="error">{errors.lastname}</div>}
-
+          {errors.lastname && touched.lastname && (
+            <div className="error">{errors.lastname}</div>
+          )}
 
           <input
             name="email"
@@ -76,7 +90,9 @@ const RegisterForm = (): JSX.Element => {
             value={values.email}
             className="input input-password"
           />
-          {errors.email && touched.email && <div className="error">{errors.email}</div>}
+          {errors.email && touched.email && (
+            <div className="error">{errors.email}</div>
+          )}
 
           <input
             name="password"
@@ -87,8 +103,9 @@ const RegisterForm = (): JSX.Element => {
             value={values.password}
             className="input input-password"
           />
-          {errors.password && touched.password && <div className="error">{errors.password}</div>}
-
+          {errors.password && touched.password && (
+            <div className="error">{errors.password}</div>
+          )}
 
           <input
             name="repeatPassword"
@@ -99,8 +116,9 @@ const RegisterForm = (): JSX.Element => {
             value={values.repeatPassword}
             className="input input-password"
           />
-          {errors.repeatPassword && touched.repeatPassword && <div className="error">{errors.repeatPassword}</div>}
-
+          {errors.repeatPassword && touched.repeatPassword && (
+            <div className="error">{errors.repeatPassword}</div>
+          )}
 
           <button type="submit" className="primary-button login-button">
             Create

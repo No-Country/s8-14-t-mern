@@ -3,13 +3,14 @@ import { ReactElement } from "react";
 import { Button, Subtitle, Text, Title, TextInput, Flex } from "@tremor/react";
 
 import HeaderBackButton from "@/components/HeaderBackButton";
+import Buttonc from "@/components/Buttonc";
 
 function NewTransfer(): ReactElement {
   return (
     <>
       <HeaderBackButton title="Transferencia" />
       <Flex
-        className="p-5 gap-7 h-[calc(100vh-44px)]"
+        className="p-5 gap-7 h-[calc(100vh-250px)]"
         flexDirection="col"
         alignItems="start"
       >
@@ -23,6 +24,12 @@ function NewTransfer(): ReactElement {
           <Text>Mínimo $20</Text>
         </div>
       </Flex>
+      <Buttonc styled={true} action="continuar" href="/newTransfer/category">
+        Continuar
+      </Buttonc>
+      <Buttonc styled={false}  href="/home">
+        Cancelar
+      </Buttonc>
     </>
   );
 }
