@@ -31,5 +31,5 @@ export interface IUser extends Document {
 }
 
 export interface UserRequestI extends Request {
-  user?: IUser // Reemplazar 'any' con el tipo adecuado para el objeto 'user'
+  user?: IUser
 }

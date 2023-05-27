@@ -2,15 +2,25 @@ import React, { useContext } from "react";
 import { Suspense, lazy } from "react";
 import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
 
+import { useUserData } from "@/context/UserContext";
+
 import MainLayout from "@/utils/Layout";
-import { UserContext } from "@/context/ReactContext";
 import ResponsPage from "@/pages/ResponsPage";
+import BenefitPage from "@/pages/BenefitPage";
 
 const Onboarding: React.LazyExoticComponent<() => JSX.Element> = lazy(
   () => import("../pages/Onboarding")
 );
 const AuthPage: React.LazyExoticComponent<() => JSX.Element> = lazy(
   () => import("../pages/AuthPage")
+);
+const ResetPasswordRequestPage: React.LazyExoticComponent<() => JSX.Element> =
+  lazy(() => import("../pages/ResetPassword.request"));
+const ResetPasswordPage: React.LazyExoticComponent<() => JSX.Element> = lazy(
+  () => import("../pages/ResetPassword")
+);
+const VerifyAccountPage: React.LazyExoticComponent<() => JSX.Element> = lazy(
+  () => import("../pages/VerifyAccountPage")
 );
 const HomePage: React.LazyExoticComponent<() => JSX.Element> = lazy(
   () => import("../pages/HomePage")
@@ -41,23 +51,42 @@ const AddFundsMenuPage: React.LazyExoticComponent<() => JSX.Element> = lazy(
 );
 const AddFundsByTransferPage: React.LazyExoticComponent<() => JSX.Element> =
   lazy(() => import("@/pages/AddFundsByTransferPage"));
-const TransactionsPage: React.LazyExoticComponent<() => JSX.Element> =
-  lazy(() => import("@/pages/TransactionsPage"));
+const TransactionsPage: React.LazyExoticComponent<() => JSX.Element> = lazy(
+  () => import("@/pages/TransactionsPage")
+);
+const RechargePage: React.LazyExoticComponent<React.FC> = lazy(
+  () => import("../pages/Recharge")
+);
+const RechargeAmountPage: React.LazyExoticComponent<() => JSX.Element> = lazy(
+  () => import("../pages/Recharge.amount")
+);
+const RechargeSendPage: React.LazyExoticComponent<React.FC> = lazy(
+  () => import("../pages/Recharge.send")
+);
 
 export default function AppRouter(): JSX.Element {
-  const { user } = useContext(UserContext);
+  const { isAuthenticated } = useUserData();
   return (
     <Suspense fallback={<p>Loading...</p>}>
       <BrowserRouter>
         <Routes>
-          {user.data.id && (
+          {!isAuthenticated && (
             <>
               <Route path="/" element={<Onboarding />} />
               <Route path="/auth/:slug" element={<AuthPage />} />
+              <Route
+                path="/resetPassword/request"
+                element={<ResetPasswordRequestPage />}
+              />
+              <Route
+                path="/olvide-password/:token"
+                element={<ResetPasswordPage />}
+              />
+              <Route path="/confirmar/:token" element={<VerifyAccountPage />} />
               <Route path="*" element={<Navigate to="/" />} />
             </>
           )}
-          {!user.data.id && (
+          {isAuthenticated && (
             <>
               <Route path="/" element={<MainLayout />}>
                 <Route index element={<HomePage />} />
@@ -65,6 +94,7 @@ export default function AppRouter(): JSX.Element {
                 <Route path="/profile" element={<ProfilePage />} />
                 <Route path="/personalData" element={<PersonalDataPage />} />
                 <Route path="/changename" element={<ChangeName />} />
+                <Route path="/benefit" element={<BenefitPage />} />
               </Route>
               <Route
                 path="/newTransfer/receiver"
@@ -92,11 +122,17 @@ export default function AppRouter(): JSX.Element {
                 element={<AddFundsByTransferPage />}
               />
               <Route path="/transactions" element={<TransactionsPage />} />
+              <Route path="/recharge" element={<RechargePage />} />
+              <Route path="/recharge/amount" element={<RechargeAmountPage />} />
+              <Route path="/recharge/send" element={<RechargeSendPage />} />
+
               <Route path="/scanner" element={<ScannerQrPage />} />
               <Route path="*" element={<Navigate to="/home" />} />
               <Route
                 path="/response"
-                element={<ResponsPage backmsg="Tu envio se realizo con exito" />}
+                element={
+                  <ResponsPage backmsg="Tu envio se realizo con exito" />
+                }
               />
             </>
           )}

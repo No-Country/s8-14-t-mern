@@ -1,25 +1,49 @@
-import { Request, Response, NextFunction } from 'express'
-import jwt, { TokenExpiredError } from 'jsonwebtoken'
-//const jwt = require('jsonwebtoken');
+import { NextFunction, Response } from 'express'
+import jwt from 'jsonwebtoken'
 const secretKey = process.env.SECRET_KEY || 'pigmeo123'
 import dotenv from 'dotenv'
+import { UserRequestI } from '../interfaces/user.interface'
+import User from '../models/users.models'
+import { httpErrorHandler } from '../utils/validations/httpErrorHandler'
 dotenv.config()
 
-// decode token
+interface JwtPayloadI {
+  email: string
+  id: string
+  iat: number
+  exp: number
+}
 
-const verifyToken = async (req: Request, res: Response, next: NextFunction) => {
+// decode token
+const verifyToken = async (
+  req: UserRequestI,
+  res: Response,
+  next: NextFunction
+) => {
   try {
     const authHeader = req.headers.authorization
-    console.log('HEADER', authHeader)
     if (authHeader && authHeader !== 'null') {
       const token = authHeader.split(' ')[1]
-      jwt.verify(token, secretKey, (err: jwt.VerifyErrors | null) => {
-        if (err) {
+      jwt.verify(token, secretKey, (err: jwt.VerifyErrors | null, decoded) => {
+        const payload = decoded as JwtPayloadI
+        if (err || new Date() >= new Date(payload.exp * 1000)) {
           return res
             .status(403)
             .send({ success: false, message: 'Token Expired' })
         }
-        next()
+
+        User.findById(payload.id)
+          .select('-password -createdAt -updatedAt')
+          .then(user => {
+            if (!user) {
+              return httpErrorHandler(res, { message: 'User not found' })
+            }
+            req.user = user
+            next()
+          })
+          .catch(error => {
+            httpErrorHandler(res, error)
+          })
       })
     } else {
       res.status(403).json({ success: false, message: 'UnAuthorized' })
