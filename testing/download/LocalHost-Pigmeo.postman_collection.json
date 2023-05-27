@@ -1,0 +1,630 @@
+{
+	"info": {
+		"_postman_id": "ddcbd68e-6e01-43c1-a33b-4a81999c4e8f",
+		"name": "LocalHost - Pigmeo",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "25254146",
+		"_collection_link": "https://www.postman.com/blue-firefly-829336/workspace/s8-14-t-mern/collection/25254146-ddcbd68e-6e01-43c1-a33b-4a81999c4e8f?action=share&creator=25254146&source=collection_link"
+	},
+	"item": [
+		{
+			"name": "LocalHost Test | Login User",
+			"item": [
+				{
+					"name": "Api_002 | Autorizacion y Autenticacion",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 201, Credenciales Correctas\", function () {\r",
+									"    pm.response.to.have.status(201);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Comprobamos en Body si el elemento 'token' existe\", function () {\r",
+									"    pm.expect(pm.response.text()).to.include(\"token\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Comprobamos que 'token' sea un String\", function () {\r",
+									"    var jsonData = pm.response.json(); \r",
+									"     pm.expect(jsonData.data.token).to.be.a('string')\r",
+									"});\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n \"email\":\"user@mail.com\",\r\n \"password\":\"Abcd1234*\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{login_user}}",
+							"host": [
+								"{{login_user}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Api_004 | Propiedades en Header",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Validacion protocolo Http://\", function () {\r",
+									"    const url = pm.request.url.toString()\r",
+									"    pm.expect(url).to.include('https://')\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Content-Type is present in header\", function () {\r",
+									"    pm.response.to.have.header(\"Content-Type\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Limite de Consultas is present in header < 50 x min\", function () {\r",
+									"    pm.response.to.have.header(\"x-ratelimit-limit\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Respuestas CORS que permiten metodos GET/POST/PUT/DELETE\", function () {\r",
+									"    pm.response.to.have.header(\"Access-Control-Allow-Methods\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Respuestas CORS que indica encabezados personalizados 'Access-Control-Allow-Headers'\", function () {\r",
+									"    pm.response.to.have.header(\"Access-Control-Allow-Headers\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Respuestas CORS que indica encabezados personalizados\", function () {\r",
+									"    pm.response.to.have.header(\"Access-Control-Allow-Origin\");\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n \"email\":\"user@mail.com\",\r\n \"password\":\"Abcd1234*\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{login_user}}",
+							"host": [
+								"{{login_user}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Api_003 | Validacion de Datos y Parametros",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var responseBody = pm.response.json().data\r",
+									"console.log(responseBody)\r",
+									"\r",
+									"const id = \"64668cdc42bfb9ddf4edb59e\"\r",
+									"const email = 'user@mail.com'\r",
+									"const firstName = 'user'\r",
+									"const lastName = 'user1'\r",
+									"const alias = \"user\"\r",
+									"\r",
+									"const myTest = {\r",
+									"    \"id\" : id,\r",
+									"    \"email\":email,\r",
+									"    \"firstName\":firstName,\r",
+									"    \"lastName\":lastName,\r",
+									"    \"alias\":alias\r",
+									"};\r",
+									"\r",
+									"pm.test(\"Comprobamos el parametro 'Id'\", function () {\r",
+									"    pm.expect(pm.response.text()).to.include(myTest.id);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Comprobamos que el valor 'Id' sea un String\", function () {\r",
+									"     pm.expect(responseBody.id).to.be.a('string')\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Comprobamos el parametro 'Email'\", function () {\r",
+									"    pm.expect(pm.response.text()).to.include(myTest.email);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Comprobamos que el valor 'Email' sea un String\", function () {\r",
+									"    pm.expect(responseBody.email).to.be.a('string')\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Comprobamos el parametro 'firstName'\", function () {\r",
+									"    pm.expect(pm.response.text()).to.include(myTest.firstName);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Comprobamos que el valor 'firstName' sea un String\", function () {\r",
+									"    pm.expect(responseBody.firstName).to.be.a('string')\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Comprobamos el parametro 'lastName'\", function () {\r",
+									"    pm.expect(pm.response.text()).to.include(myTest.lastName);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Comprobamos que el valor 'lastName' sea un String\", function () {\r",
+									"    pm.expect(responseBody.lastName).to.be.a('string')\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Comprobamos el parametro 'alias'\", function () {\r",
+									"    pm.expect(pm.response.text()).to.include(myTest.alias);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Comprobamos que el valor 'alias' sea un String\", function () {\r",
+									"    pm.expect(responseBody.alias).to.be.a('string')\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n \"email\":\"user@mail.com\",\r\n \"password\":\"Abcd1234*\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{login_user}}",
+							"host": [
+								"{{login_user}}"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "LocalHost Test | Registro User",
+			"item": [
+				{
+					"name": "Api_005 | Register New User",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"firstName\": \"usuario2\",\r\n    \"lastname\": \"user2\",\r\n    \"email\": \"userx2@mail.com\",\r\n    \"password\": \"password123\",\r\n    \"repeatPassword\": \"password123\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{register_user}}",
+							"host": [
+								"{{register_user}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Api_007 | Propiedades Header",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Validacion protocolo Http://\", function () {\r",
+									"    const url = pm.request.url.toString()\r",
+									"    pm.expect(url).to.include('https://')\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Content-Type is present in header\", function () {\r",
+									"    pm.response.to.have.header(\"Content-Type\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Limite de Consultas is present in header < 50 x min\", function () {\r",
+									"    pm.response.to.have.header(\"x-ratelimit-limit\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Respuestas CORS que permiten metodos GET/POST/PUT/DELETE\", function () {\r",
+									"    pm.response.to.have.header(\"Access-Control-Allow-Methods\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Respuestas CORS 'Access-Control-Allow-Headers'\", function () {\r",
+									"    pm.response.to.have.header(\"Access-Control-Allow-Headers\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Respuestas CORS 'Access-Control-Allow-Origin'\", function () {\r",
+									"    pm.response.to.have.header(\"Access-Control-Allow-Origin\");\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"firstName\": \"usuario2\",\r\n    \"lastname\": \"user2\",\r\n    \"email\": \"userx2@mail.com\",\r\n    \"password\": \"password123\",\r\n    \"repeatPassword\": \"password123\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{register_user}}",
+							"host": [
+								"{{register_user}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Api_008 | Validacion de Datos y Parametros",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var responseBody = pm.response.json()[0]\r",
+									"var preRequestBody = pm.globals.get('bodyUsers')[0]\r",
+									"\r",
+									"const id = preRequestBody.id\r",
+									"const email = preRequestBody.email\r",
+									"const firstName = preRequestBody.firstName\r",
+									"const lastName = preRequestBody.lastName\r",
+									"const alias = preRequestBody.alias\r",
+									"const avatar = preRequestBody.avatar\r",
+									"const password = preRequestBody.password\r",
+									"const balance = preRequestBody.balance\r",
+									"const rol = preRequestBody.rol\r",
+									"const token = preRequestBody.token\r",
+									"const createAt = preRequestBody.createAt\r",
+									"const updateAt = preRequestBody.updateAt\r",
+									"\r",
+									"const myTest = {\r",
+									"    \"id\" : id,\r",
+									"    \"email\":email,\r",
+									"    \"firstName\":firstName,\r",
+									"    \"lastName\":lastName,\r",
+									"    \"alias\":alias,\r",
+									"    \"avatar\":avatar,\r",
+									"    \"password\":password,\r",
+									"    \"balance\":balance,\r",
+									"    \"rol\":rol,\r",
+									"    \"token\":token,\r",
+									"    \"createAt\":createAt,\r",
+									"    \"updateAt\":updateAt\r",
+									"};\r",
+									"\r",
+									"pm.test(\"Comprobamos el Parametro 'id'\" ,()=>{ \r",
+									"  pm.expect(pm.response.text()).to.include(myTest.id); \r",
+									"})\r",
+									"\r",
+									"pm.test(\"Comprobamos que el valor de 'id' sea un String\", function () {\r",
+									"     pm.expect(responseBody.id).to.be.a('string')\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Comprobamos el Parametro 'email'\" ,()=>{ \r",
+									"  pm.expect(pm.response.text()).to.include(myTest.email);\r",
+									"})\r",
+									"\r",
+									"pm.test(\"Comprobamos que el valor de 'email' sea un String\", function () {\r",
+									"     pm.expect(responseBody.email).to.be.a('string')\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Comprobamos el Parametro 'firstName'\" ,()=>{ \r",
+									"  pm.expect(pm.response.text()).to.include(myTest.firstName);\r",
+									"})\r",
+									"\r",
+									"pm.test(\"Comprobamos que el valor de 'firstName' sea un String\", function () {\r",
+									"     pm.expect(responseBody.firstName).to.be.a('string')\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Comprobamos el Parametro 'lastName'\" ,()=>{ \r",
+									"  pm.expect(pm.response.text()).to.include(myTest.lastName);\r",
+									"})\r",
+									"\r",
+									"pm.test(\"Comprobamos que el valor de 'lastName' sea un String\", function () {\r",
+									"     pm.expect(responseBody.lastName).to.be.a('string')\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Comprobamos el Parametro 'alias'\" ,()=>{ \r",
+									"  pm.expect(pm.response.text()).to.include(myTest.alias);\r",
+									"})\r",
+									"\r",
+									"pm.test(\"Comprobamos que el valor de 'alias' sea un String\", function () {\r",
+									"     pm.expect(responseBody.alias).to.be.a('string')\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Comprobamos el Parametro 'avatar'\" ,()=>{ \r",
+									"  pm.expect(pm.response.text()).to.include(myTest.avatar);\r",
+									"})\r",
+									"\r",
+									"pm.test(\"Comprobamos que el valor de 'avatar' sea un String\", function () {\r",
+									"     pm.expect(responseBody.avatar).to.be.a('string')\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Comprobamos el Parametro 'password'\" ,()=>{ \r",
+									"  pm.expect(pm.response.text()).to.include(myTest.password);\r",
+									"})\r",
+									"\r",
+									"pm.test(\"Comprobamos que el valor de 'password' sea un String\", function () {\r",
+									"     pm.expect(responseBody.password).to.be.a('string')\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Comprobamos el Parametro 'balance'\" ,()=>{ \r",
+									"  pm.expect(pm.response.text()).to.include(myTest.balance);\r",
+									"})\r",
+									"\r",
+									"pm.test(\"Comprobamos que el valor de 'balance' sea un number\", function () {\r",
+									"     pm.expect(responseBody.balance).to.be.a('number')\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Comprobamos el Parametro 'rol'\" ,()=>{ \r",
+									"  pm.expect(pm.response.text()).to.include(myTest.rol);\r",
+									"})\r",
+									"\r",
+									"pm.test(\"Comprobamos que el valor de 'rol' sea un String\", function () {\r",
+									"     pm.expect(responseBody.rol).to.be.a('string')\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Comprobamos el Parametro 'token'\" ,()=>{ \r",
+									"  pm.expect(pm.response.text()).to.include(myTest.token);\r",
+									"})\r",
+									"\r",
+									"pm.test(\"Comprobamos que el valor de 'token' sea un String\", function () {\r",
+									"     pm.expect(responseBody.token).to.be.a('string')\r",
+									"});\r",
+									"\r",
+									"// pm.test(\"Comprobamos el Parametro 'createAt'\" ,()=>{ \r",
+									"//   pm.expect(pm.response.text()).to.include(myTest.createAt);\r",
+									"// })\r",
+									"\r",
+									"// pm.test(\"Comprobamos que el valor de 'createAt' sea un String\", function () {\r",
+									"//      pm.expect(myTest.createAt).to.be.a('string')\r",
+									"// });\r",
+									"\r",
+									"// pm.test(\"Comprobamos el Parametro 'updateAt'\" ,()=>{ \r",
+									"//   pm.expect(pm.response.text()).to.include(myTest.updateAt);\r",
+									"// })\r",
+									"\r",
+									"// pm.test(\"Comprobamos que el valor de 'updateAt' sea un String\", function () {\r",
+									"//      pm.expect(myTest.updateAt).to.be.a('string')\r",
+									"// });\r",
+									"\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"pm.sendRequest(\"http://localhost:9000/api/v1/pigmeo/users\", function (err, response) {\r",
+									"    const body = response.json()\r",
+									"pm.globals.set('bodyUsers', body)\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{users}}",
+							"host": [
+								"{{users}}"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "LocalHost Test | Users por Id",
+			"item": [
+				{
+					"name": "Api_009 | Validacion de Datos y Parametros",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"pm.sendRequest(\"http://localhost:9000/api/v1/pigmeo/users/64668cdc42bfb9ddf4edb59e\", function (err, response) {\r",
+									"    const body = response.json()\r",
+									"pm.globals.set('bodyUsers', body)\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var preRequestBody = pm.globals.get('bodyUsers')\r",
+									"var body = pm.response.json()\r",
+									"\r",
+									"const id = preRequestBody.id\r",
+									"const email = preRequestBody.email\r",
+									"const firstName = preRequestBody.firstName\r",
+									"const lastName = preRequestBody.lastName\r",
+									"const alias = preRequestBody.alias\r",
+									"const avatar = preRequestBody.avatar\r",
+									"const password = preRequestBody.password\r",
+									"const balance = preRequestBody.balance\r",
+									"const rol = preRequestBody.rol\r",
+									"const token = preRequestBody.token\r",
+									"const createAt = preRequestBody.createAt\r",
+									"const updateAt = preRequestBody.updateAt\r",
+									"const isActive = preRequestBody.isActive\r",
+									"\r",
+									"const myTest = {\r",
+									"    \"id\" : id,\r",
+									"    \"email\":email,\r",
+									"    \"firstName\":firstName,\r",
+									"    \"lastName\":lastName,\r",
+									"    \"alias\":alias,\r",
+									"    \"avatar\":avatar,\r",
+									"    \"password\":password,\r",
+									"    \"balance\":balance,\r",
+									"    \"rol\":rol,\r",
+									"    \"token\":token,\r",
+									"    \"createAt\":createAt,\r",
+									"    \"updateAt\":updateAt,\r",
+									"    \"isActive\":isActive\r",
+									"};\r",
+									"\r",
+									"pm.test(\"Comprobamos el Parametro 'id'\" ,()=>{ \r",
+									"  pm.expect(pm.response.text()).to.include(myTest.id);\r",
+									"})\r",
+									"\r",
+									"pm.test(\"Comprobamos que el valor de 'id' sea un String\", function () {\r",
+									"     pm.expect(body.id).to.be.a('string')\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Comprobamos el parametro 'firstName'\", function () {\r",
+									"     pm.expect(pm.response.text()).to.include(myTest.firstName);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Comprobamos que el valor de 'firstName' sea un String\", function () {\r",
+									"     pm.expect(body.firstName).to.be.a('string')\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Comprobamos el Parametro 'email'\" ,()=>{ \r",
+									"  pm.expect(pm.response.text()).to.include(myTest.email);\r",
+									"})\r",
+									"\r",
+									"pm.test(\"Comprobamos que el valor de 'email' sea un String\", function () {\r",
+									"     pm.expect(body.email).to.be.a('string')\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Comprobamos el Parametro 'lastName'\" ,()=>{ \r",
+									"  pm.expect(pm.response.text()).to.include(myTest.lastName);\r",
+									"})\r",
+									"\r",
+									"pm.test(\"Comprobamos que el valor de 'lastName' sea un String\", function () {\r",
+									"     pm.expect(body.lastName).to.be.a('string')\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Comprobamos el Parametro 'alias'\" ,()=>{ \r",
+									"  pm.expect(pm.response.text()).to.include(myTest.alias);\r",
+									"})\r",
+									"\r",
+									"pm.test(\"Comprobamos que el valor de 'alias' sea un String\", function () {\r",
+									"     pm.expect(body.alias).to.be.a('string')\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Comprobamos el Parametro 'avatar'\" ,()=>{ \r",
+									"  pm.expect(pm.response.text()).to.include(myTest.avatar);\r",
+									"})\r",
+									"\r",
+									"pm.test(\"Comprobamos que el valor de 'avatar' sea un String\", function () {\r",
+									"     pm.expect(body.avatar).to.be.a('string')\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Comprobamos el Parametro 'password'\" ,()=>{ \r",
+									"  pm.expect(pm.response.text()).to.include(myTest.password);\r",
+									"})\r",
+									"\r",
+									"pm.test(\"Comprobamos que el valor de 'password' sea un String\", function () {\r",
+									"     pm.expect(body.password).to.be.a('string')\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Comprobamos el Parametro 'balance'\" ,()=>{ \r",
+									"  pm.expect(pm.response.text()).to.include(myTest.balance);\r",
+									"})\r",
+									"\r",
+									"pm.test(\"Comprobamos que el valor de 'balance' sea un number\", function () {\r",
+									"     pm.expect(body.balance).to.be.a('number')\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Comprobamos el Parametro 'rol'\" ,()=>{ \r",
+									"  pm.expect(pm.response.text()).to.include(myTest.rol);\r",
+									"})\r",
+									"\r",
+									"pm.test(\"Comprobamos que el valor de 'rol' sea un String\", function () {\r",
+									"     pm.expect(body.rol).to.be.a('string')\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Comprobamos el Parametro 'token'\" ,()=>{ \r",
+									"  pm.expect(pm.response.text()).to.include(myTest.token);\r",
+									"})\r",
+									"\r",
+									"pm.test(\"Comprobamos que el valor de 'token' sea un String\", function () {\r",
+									"     pm.expect(body.token).to.be.a('string')\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{users}}/64668cdc42bfb9ddf4edb59e",
+							"host": [
+								"{{users}}"
+							],
+							"path": [
+								"64668cdc42bfb9ddf4edb59e"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
