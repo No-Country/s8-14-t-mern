@@ -16,13 +16,33 @@ export interface IUser {
   isActive: boolean;
   rol: "admin" | "user";
   token: string;
+  id: string;
 }
 
 export interface ITransactions {
   amount: number;
-  sender: string;
-  receiver: string;
+  sender: UserAccount;
+  receiver: UserAccount;
   reference: string;
   transaction_type: string;
   status: string;
+  createdAt: Date;
+  updatedAt: Date;
+  id: string;
+}
+
+export interface UserAccount {
+  firstName: string;
+  lastname: string;
+  email: string;
+  avatar: string;
+  password: string;
+  balance: number;
+  isActive: boolean;
+  rol: string;
+  token: string;
+  alias: string;
+  createdAt: Date;
+  updatedAt: Date;
+  id: string;
 }

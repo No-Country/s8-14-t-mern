@@ -1,4 +1,5 @@
-import { Schema, model } from 'mongoose'
+// eslint-disable-next-line prettier/prettier
+import { model,Schema } from 'mongoose'
 import { ITransactions } from '../interfaces/transaction.interface'
 
 const transactionSchema = new Schema<ITransactions>(
@@ -27,7 +28,7 @@ const transactionSchema = new Schema<ITransactions>(
     },
     status: {
       type: String,
-      default: "success"
+      default: 'success'
     }
   },
   { timestamps: true }

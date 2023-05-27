@@ -91,6 +91,7 @@ export default function AppRouter(): JSX.Element {
               <Route path="/" element={<MainLayout />}>
                 <Route index element={<HomePage />} />
                 <Route path="/home" element={<HomePage />} />
+                <Route path="/transactions" element={<TransactionsPage />} />
                 <Route path="/profile" element={<ProfilePage />} />
                 <Route path="/personalData" element={<PersonalDataPage />} />
                 <Route path="/changename" element={<ChangeName />} />
@@ -121,7 +122,6 @@ export default function AppRouter(): JSX.Element {
                 path="/addFunds/cash"
                 element={<AddFundsByTransferPage />}
               />
-              <Route path="/transactions" element={<TransactionsPage />} />
               <Route path="/recharge" element={<RechargePage />} />
               <Route path="/recharge/amount" element={<RechargeAmountPage />} />
               <Route path="/recharge/send" element={<RechargeSendPage />} />

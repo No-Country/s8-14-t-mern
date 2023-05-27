@@ -1,9 +1,9 @@
-import { ITransactions } from '../interfaces/transaction.interface'
-import Transaction from '../models/transactions.models'
-import User from '../models/users.models'
 import { config } from 'dotenv'
 import Stripe from 'stripe'
 import { v4 as uuidv4 } from 'uuid'
+import { ITransactions } from '../interfaces/transaction.interface'
+import Transaction from '../models/transactions.models'
+import User from '../models/users.models'
 
 config()
 const stripeSecretKey = process.env.STRIPE_KEY
@@ -155,8 +155,8 @@ const fecthDepositStripe = async (token: any, amount: any, id: any) => {
 }
 
 export {
-  fecthVerifyAccount,
-  fecthTransfer,
+  fecthDepositStripe,
   fecthGetTransfer,
-  fecthDepositStripe
+  fecthTransfer,
+  fecthVerifyAccount
 }
