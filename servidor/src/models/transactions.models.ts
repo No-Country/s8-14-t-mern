@@ -1,3 +1,4 @@
+// eslint-disable-next-line simple-import-sort/imports
 import { Schema, model } from 'mongoose'
 import { ITransactions } from '../interfaces/transaction.interface'
 
@@ -27,7 +28,7 @@ const transactionSchema = new Schema<ITransactions>(
     },
     status: {
       type: String,
-      default: "success"
+      default: 'success'
     }
   },
   { timestamps: true }

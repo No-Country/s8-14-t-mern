@@ -1,8 +1,8 @@
 import { Request, Response } from 'express'
 import {
-  fecthGetTransfer,
-  fecthTransfer, 
   fecthDepositStripe,
+  fecthGetTransfer,
+  fecthTransfer,
   fecthVerifyAccount
 } from '../services/transactions.services'
 
@@ -67,10 +67,9 @@ const postDepositStripeCtrl = async (req: Request, res: Response) => {
   }
 }
 
-export {  
-  postTransferController,
+export {
   getTransactionsController,
   postDepositStripeCtrl,
+  postTransferController,
   postVeryfyController
-
 }
