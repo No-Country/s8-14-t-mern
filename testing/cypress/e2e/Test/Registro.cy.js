@@ -64,7 +64,7 @@ describe('Registro en Sistema', () => {
 
     it('Registro_001 | ID_04 | Password y Repeat Password no coinciden', () => {
         // Dado que el usuario a ingresado a la página de registro
-        // Cuando el usuario ingresa Nombre, Email, Password y Repeat password distintas
+        // Cuando el usuario ingresa Nombre Valido, Email Valido, Password y Repeat password distintas
         RegisterPage.submitRegister('','','','')
         // Entonces el usuario debería poder hacer click en el botón de Registrar
         RegisterPage.clickLogin()

@@ -81,6 +81,6 @@ describe('Login en Sistema', () => {
         // Entonces el sistema debe redireccionar al usuario a la pagina de login"
         cy.url().should('equal',LocalHostUrl_login)
         // Y El sistema debe mostrar un mensaje de ingresar Email de formato valido"  
-        // cy.assertionCheck('required')
+        loginPage.message('usuario y/o password invalidos')
     });
 });
