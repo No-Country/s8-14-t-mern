@@ -32,21 +32,19 @@ const fecthTransfer = async (transaction: ITransactions) => {
     if (user?.balance !== undefined) {
       if (user.balance <= amount) {
         throw new Error('Insufficient balance')
+      } else {
+        // save the transaction
+        const newTransaction = await Transaction.create(transaction)
+        // decrease the sender's balance
+        await User.findByIdAndUpdate(sender, {
+          $inc: { balance: -amount }
+        })
+        // increase the receiver balance
+        await User.findByIdAndUpdate(receiver, {
+          $inc: { balance: amount }
+        })
+        return newTransaction
       }
-    } else {
-      // save the transaction
-      const newTransaction = await Transaction.create(transaction)
-
-      // decrease the sender's balance
-      await User.findByIdAndUpdate(sender, {
-        $inc: { balance: -amount }
-      })
-
-      // increase the receiver balance
-      await User.findByIdAndUpdate(receiver, {
-        $inc: { balance: amount }
-      })
-      return newTransaction
     }
   } catch (e) {
     throw new Error(e as string)
@@ -65,19 +63,9 @@ const fecthGetTransfer = async (id: any) => {
       $or: [{ sender: id }, { receiver: id }]
     })
       .sort({ createdAt: -1 })
-      .populate('sender')
-      .populate('receiver')
-    const filterTrans = transaction.map(trans => {
-      if (trans.sender._id.equals(trans.receiver._id)) {
-        trans.transaction_type = 'deposit'
-      } else if (trans.sender._id.equals(user._id)) {
-        trans.transaction_type = 'debit'
-      } else {
-        trans.transaction_type = 'credit'
-      }
-      return trans
-    })
-    return filterTrans
+      .populate('sender','-token -rol -createdAt -updatedAt -password -isActive -balance')
+      .populate('receiver','-token -rol -createdAt -updatedAt -password -isActive -balance')
+    return transaction
   } catch (e) {
     throw new Error(e as string)
   }
