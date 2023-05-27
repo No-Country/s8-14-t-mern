@@ -19,7 +19,7 @@ export interface IUser {
   id: string;
 }
 
-export type ITransactions = {
+export interface ITransactions {
   amount: number;
   sender: UserAccount;
   receiver: UserAccount;
@@ -31,7 +31,7 @@ export type ITransactions = {
   id: string;
 }
 
-export type UserAccount = {
+export interface UserAccount {
   firstName: string;
   lastname: string;
   email: string;
