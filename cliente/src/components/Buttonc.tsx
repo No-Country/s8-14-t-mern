@@ -1,25 +1,42 @@
 import React, { ReactNode } from 'react';
 import { Button, Grid } from "@tremor/react";
+import { useNavigate } from 'react-router-dom';
 
 interface Props {
   children: ReactNode;
   styled: boolean
-  action: string
+  action?: string
+  href?: string
 }
-const Buttonc: React.FC<Props> = ({ children, styled, action }) => {
+const Buttonc: React.FC<Props> = ({ children, styled, action, href }) => {
+
+  const navigate = useNavigate();
 
   function OnHanddleAction() {
     switch (action) {
       case "transferir":
+        // Realizar peticion al back 
+        // Luego re-dirigir a la responsePage.tsx
+        if (href) {
+          navigate(href);
+        }
         break;
       case "volver":
+        if (href) {
+          navigate(href);
+        }
         break;
       case "continuar":
+        if (href) {
+          navigate(href);
+        }
         break;
       case "recargar":
         break;
       default:
-        //accion cancelar
+        if (href) {
+          navigate(href);
+        }
         break;
     }
 

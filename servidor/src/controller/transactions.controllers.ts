@@ -8,8 +8,8 @@ import {
 
 /**
  * Controlador para manejar las operaciones relacionadas con los usuarios.
+ *
  */
-
 const postVeryfyController = async (req: Request, res: Response) => {
   try {
     const data = await fecthVerifyAccount(req.body)
@@ -32,9 +32,10 @@ const postTransferController = async (req: Request, res: Response) => {
       })
     }
     const newTransaction = await fecthTransfer(req.body)
+    console.log(newTransaction)
     res.status(201).json({
       msg: 'Transaction successfully',
-      data: newTransaction,
+      data: newTransaction || null,
       success: true
     })
   } catch (error) {
