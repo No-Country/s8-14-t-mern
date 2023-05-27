@@ -63,9 +63,26 @@ const fecthGetTransfer = async (id: any) => {
       $or: [{ sender: id }, { receiver: id }]
     })
       .sort({ createdAt: -1 })
-      .populate('sender','-token -rol -createdAt -updatedAt -password -isActive -balance')
-      .populate('receiver','-token -rol -createdAt -updatedAt -password -isActive -balance')
-    return transaction
+      .populate(
+        'sender',
+        '-token -rol -createdAt -updatedAt -password -isActive -balance'
+      )
+      .populate(
+        'receiver',
+        '-token -rol -createdAt -updatedAt -password -isActive -balance'
+      )
+
+    const filterTrans = transaction.map(trans => {
+      if (trans.sender._id.equals(trans.receiver._id)) {
+        trans.transaction_type = 'deposit'
+      } else if (trans.sender._id.equals(user._id)) {
+        trans.transaction_type = 'debit'
+      } else {
+        trans.transaction_type = 'credit'
+      }
+      return trans
+    })
+    return filterTrans
   } catch (e) {
     throw new Error(e as string)
   }
