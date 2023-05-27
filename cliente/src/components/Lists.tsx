@@ -1,10 +1,10 @@
 import { useUserData } from "@/context/UserContext";
-import { returnItems } from "@/pages/TransactionsPage";
 import { getUserTransactions } from "@/services/transactions";
 import { ITransactions } from "@/types";
 import { Card, Title, List } from "@tremor/react";
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
+import { TransactionItem } from "./TransactionItemComponent";
 export default function Lists(): JSX.Element {
 
   const [transactions, setTransactions] = useState<ITransactions[] | []>([])
@@ -30,7 +30,7 @@ export default function Lists(): JSX.Element {
         <Title>Recientes</Title>
         <List className="bg-slate-200 rounded-md">
           {transactions.length ?
-            transactions.map((item) => returnItems(item))
+            transactions.map((item) => TransactionItem(item))
             :
             <div className='flex h-[50px] '>
               <p className='m-auto'>No tienes ningun movimiento</p>
