@@ -6,7 +6,7 @@ export default function Header(): JSX.Element {
   const { user } = useUserData();
 
   return (
-    <Card>
+    <Card className="h-52 bg-[#661EC2]">
       <div className="flex  items-center">
         <Card className="bg-black w-10"></Card>
         <Text className="ms-5">Hola irene{user?.firstName}</Text>
