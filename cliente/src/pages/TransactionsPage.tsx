@@ -22,18 +22,23 @@ export default function TransactionsPage() {
 
   return (
     <>
-      <HeaderBackButton title='Movimientos' />
-      <main className='p-5'>
-        <List className="bg-slate-300 rounded-md">
+      <HeaderBackButton title='Actividad' />
+
+      <section className='bg-primary text-white flex flex-col items-center h-[170px] gap-4'>
+        <p className=' text-[1.13rem]'>Saldo Pigmeo disponible</p>
+        <p className=' font-bold text-[1.5rem]'>$0000</p>
+      </section>
+      <section className='relative h-fit'>
+        <List className=" bg-white border rounded-md w-[90%] left-[5%] relative top-[-70px]">
           {transactions.length ?
-            transactions.map((item) => TransactionItem(item))
+            transactions.map((item) => TransactionItem({item, inHome:false}))
             :
             <div className='flex h-[50px] '>
-              <p className='m-auto'>No tienes ningun movimiento</p>
+              <p className='m-auto'>No tienes ningún movimiento</p>
             </div>
           }
         </List>
-      </main >
+      </section>
     </>
   )
 }
