@@ -44,14 +44,15 @@ const Benefits = (): JSX.Element => {
           </Col>
           <Swiper
             className='select-none'
-            spaceBetween={-140}
-            slidesPerView={1}
+            spaceBetween={20}
+            slidesPerView={'auto'}
             onSlideChange={() => console.log('slide change')}
             onSwiper={(swiper) => console.log(swiper)}
+            slideClass='max-w-fit'
           >
 
             {benefit.map((card) => (
-              <SwiperSlide>
+              <SwiperSlide className='max-w-fit'>
                 <div className='w-52 h-28'>
                   <img className='w-full h-full' src={card.img} alt="" />
                 </div>
