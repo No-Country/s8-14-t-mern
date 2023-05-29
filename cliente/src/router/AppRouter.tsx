@@ -57,8 +57,8 @@ const TransactionsPage: React.LazyExoticComponent<() => JSX.Element> = lazy(
 const RechargePage: React.LazyExoticComponent<React.FC> = lazy(
   () => import("../pages/Recharge")
 );
-const RechargeAmountPage: React.LazyExoticComponent<() => JSX.Element> = lazy(
-  () => import("../pages/Recharge.amount")
+const RechargeCardNumberPage: React.LazyExoticComponent<() => JSX.Element> = lazy(
+  () => import("../pages/Recharge.CardNumber")
 );
 const RechargeSendPage: React.LazyExoticComponent<React.FC> = lazy(
   () => import("../pages/Recharge.send")
@@ -91,6 +91,7 @@ export default function AppRouter(): JSX.Element {
               <Route path="/" element={<MainLayout />}>
                 <Route index element={<HomePage />} />
                 <Route path="/home" element={<HomePage />} />
+                <Route path="/transactions" element={<TransactionsPage />} />
                 <Route path="/profile" element={<ProfilePage />} />
                 <Route path="/personalData" element={<PersonalDataPage />} />
                 <Route path="/changename" element={<ChangeName />} />
@@ -121,9 +122,8 @@ export default function AppRouter(): JSX.Element {
                 path="/addFunds/cash"
                 element={<AddFundsByTransferPage />}
               />
-              <Route path="/transactions" element={<TransactionsPage />} />
               <Route path="/recharge" element={<RechargePage />} />
-              <Route path="/recharge/amount" element={<RechargeAmountPage />} />
+              <Route path="/recharge/cardnumber" element={<RechargeCardNumberPage />} />
               <Route path="/recharge/send" element={<RechargeSendPage />} />
 
               <Route path="/scanner" element={<ScannerQrPage />} />

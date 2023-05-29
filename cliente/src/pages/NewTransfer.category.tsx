@@ -22,11 +22,11 @@ const Category = (): JSX.Element => {
       ...provided,
       backgroundColor: "white",
       borderColor: state.isFocused ? "blue" : "black",
-      boxShadow: state.isFocused ? "0 0 0 1px #08258C" : "none",
+      boxShadow: state.isFocused ? "0 0 0 1px #3B1B80" : "none",
     }),
     option: (provided: any, state: any) => ({
       ...provided,
-      backgroundColor: state.isSelected ? "#08258C" : "white",
+      backgroundColor: state.isSelected ? "#3B1B80" : "white",
       color: state.isSelected ? "white" : "black",
       "&:active": {
         backgroundColor: "transparent",
