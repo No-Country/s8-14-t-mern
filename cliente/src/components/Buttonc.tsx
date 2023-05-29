@@ -15,8 +15,6 @@ const Buttonc: React.FC<Props> = ({ children, styled, action, href }) => {
   function OnHanddleAction() {
     switch (action) {
       case "transferir":
-        // Realizar peticion al back 
-        // Luego re-dirigir a la responsePage.tsx
         if (href) {
           navigate(href);
         }
@@ -27,6 +25,11 @@ const Buttonc: React.FC<Props> = ({ children, styled, action, href }) => {
         }
         break;
       case "continuar":
+        if (href) {
+          navigate(href);
+        }
+        break;
+      case "onboarding":
         if (href) {
           navigate(href);
         }
