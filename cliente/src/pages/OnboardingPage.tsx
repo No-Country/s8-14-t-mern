@@ -56,9 +56,11 @@ export default function OnboardingPage(): ReactElement {
     <Grid>
       <Col>
         <div className='flex w-full overflow-hidden'>
-          <div className={`w-full flex flex-col items-center gap-12 `}>
-            <img className='w-full' src={ONBOARDING[currentSlide].image} alt="" />
-            <Icon size="lg" className=' absolute top-72 mt-4 bg-slate-200 rounded-full text-[#3B1B80]' icon={ONBOARDING[currentSlide].ListIcon} />
+          <div className={`w-full flex flex-col items-center gap-6 `}>
+            <div className='w-full mb-5 flex flex-col items-center relative'>
+              <img className='w-full' src={ONBOARDING[currentSlide].image} alt="" />
+              <Icon size="lg" className='absolute top-3/4 mt-16 bg-slate-200 rounded-full text-[#3B1B80]' icon={ONBOARDING[currentSlide].ListIcon} />
+            </div>
             <div className='w-full flex flex-col items-center text-center '>
               <Text className='w-80 text-2xl text-[#3B1B80]'>{ONBOARDING[currentSlide].title}</Text>
               <Subtitle className='w-5/5 text-lg text-black' >{ONBOARDING[currentSlide].subtitle}</Subtitle>
