@@ -70,7 +70,7 @@ export default function AppRouter(): JSX.Element {
     <Suspense fallback={<p>Loading...</p>}>
       <BrowserRouter>
         <Routes>
-          {isAuthenticated && (
+          {!isAuthenticated && (
             <>
               <Route path="/" element={<Onboarding />} />
               <Route path="/auth/:slug" element={<AuthPage />} />
@@ -86,7 +86,7 @@ export default function AppRouter(): JSX.Element {
               <Route path="*" element={<Navigate to="/" />} />
             </>
           )}
-          {!isAuthenticated && (
+          {isAuthenticated && (
             <>
               <Route path="/" element={<MainLayout />}>
                 <Route index element={<HomePage />} />
