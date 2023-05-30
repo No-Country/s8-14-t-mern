@@ -74,7 +74,6 @@ export default function AppRouter(): JSX.Element {
           {!isAuthenticated && (
             <>
              <Route path="/onboard" element={<OnboardingPage />} />
-              <Route path="/" element={<Onboarding />} />
               <Route path="/auth/:slug" element={<AuthPage />} />
               <Route
                 path="/resetPassword/request"
