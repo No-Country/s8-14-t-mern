@@ -3,6 +3,7 @@ import { Suspense, lazy } from "react";
 import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
 
 import { useUserData } from "@/context/UserContext";
+import { NewTransferProvider } from "@/context/NewTransferContext";
 
 import MainLayout from "@/utils/Layout";
 import ResponsPage from "@/pages/ResponsPage";
@@ -57,9 +58,8 @@ const TransactionsPage: React.LazyExoticComponent<() => JSX.Element> = lazy(
 const RechargePage: React.LazyExoticComponent<React.FC> = lazy(
   () => import("../pages/Recharge")
 );
-const RechargeCardNumberPage: React.LazyExoticComponent<() => JSX.Element> = lazy(
-  () => import("../pages/Recharge.CardNumber")
-);
+const RechargeCardNumberPage: React.LazyExoticComponent<() => JSX.Element> =
+  lazy(() => import("../pages/Recharge.CardNumber"));
 const RechargeSendPage: React.LazyExoticComponent<React.FC> = lazy(
   () => import("../pages/Recharge.send")
 );
@@ -100,22 +100,26 @@ export default function AppRouter(): JSX.Element {
                 <Route path="/changename" element={<ChangeName />} />
                 <Route path="/benefit" element={<BenefitPage />} />
               </Route>
-              <Route
-                path="/newTransfer/receiver"
-                element={<NewTransferReceiverPage />}
-              />
-              <Route
-                path="/newTransfer/amount"
-                element={<NewTransferAmountPage />}
-              />
-              <Route
-                path="/newTransfer/category"
-                element={<NewTransferCategoryPage />}
-              />
-              <Route
-                path="/newTransfer/send"
-                element={<NewTransferSendPage />}
-              />
+
+              <Route element={<NewTransferProvider />}>
+                <Route
+                  path="/newTransfer/receiver"
+                  element={<NewTransferReceiverPage />}
+                />
+                <Route
+                  path="/newTransfer/amount"
+                  element={<NewTransferAmountPage />}
+                />
+                <Route
+                  path="/newTransfer/category"
+                  element={<NewTransferCategoryPage />}
+                />
+                <Route
+                  path="/newTransfer/send"
+                  element={<NewTransferSendPage />}
+                />
+              </Route>
+
               <Route path="/addFunds" element={<AddFundsMenuPage />} />
               <Route
                 path="/addFunds/transfer"
@@ -128,16 +132,15 @@ export default function AppRouter(): JSX.Element {
               <Route path="/recharge" element={<RechargePage />} />
               <Route path="/recharge/cardnumber" element={<RechargeCardNumberPage />} />
               <Route path="/recharge/amount" element={<RechargeAmountPage />} />
+              <Route
+                path="/recharge/cardnumber"
+                element={<RechargeCardNumberPage />}
+              />
               <Route path="/recharge/send" element={<RechargeSendPage />} />
 
               <Route path="/scanner" element={<ScannerQrPage />} />
               <Route path="*" element={<Navigate to="/home" />} />
-              <Route
-                path="/response"
-                element={
-                  <ResponsPage backmsg="Tu envio se realizo con exito" />
-                }
-              />
+              <Route path="/response" element={<ResponsPage backmsg="" />} />
             </>
           )}
           <Route path="*" element={<h1>404</h1>} />
