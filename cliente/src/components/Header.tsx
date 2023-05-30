@@ -6,10 +6,11 @@ export default function Header(): JSX.Element {
   const { user } = useUserData();
 
   return (
-    <Card className="bg-gradient-to-r from-[#661EC2] from-0% to-[#240860] to-100% ">
+    <Card className="h-[11.75rem] bg-gradient-to-r from-[#661EC2] from-0% to-[#240860] to-100% ">
       <div className="flex  items-center">
-        <Card className="w-10"></Card>
-        <Text className="ms-5">Hola {user?.firstName}</Text>
+        <div className="w-9 h-8 bg-white rounded-md text-center text-[#1205A4] mt-3">
+        {user?.firstName && user.firstName.slice(0,2)}
+        </div>
         <Icon
           className="absolute top-4 right-0 h-16 w-16 text-white"
           size="md"

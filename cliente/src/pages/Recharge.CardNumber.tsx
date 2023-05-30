@@ -33,8 +33,12 @@ function RechargeCardNumber() {
         <img className="w-20  h-10" src={sube} alt="sube" />
       </div>
       <Inputs />
-      <Buttonc children="Continuar" styled={true} action="" />
-      <Buttonc children="Cancelar" styled={false} action="" />
+      <Buttonc styled={true} action="continuar" href="/recharge/amount">
+        Continuar
+      </Buttonc>
+      <Buttonc styled={false} href="/home">
+        Cancelar
+      </Buttonc>
     </>
   );
 }

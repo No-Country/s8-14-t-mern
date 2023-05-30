@@ -1,4 +1,3 @@
-
 import Select from "react-select";
 import HeaderBackButton from "@/components/HeaderBackButton";
 import Buttonc from "@/components/Buttonc";
@@ -49,7 +48,7 @@ const Category = (): JSX.Element => {
       <Buttonc styled={true} action="continuar" href="/newTransfer/send">
         Continuar
       </Buttonc>
-      <Buttonc styled={false}  href="/home">
+      <Buttonc styled={false} href="/home">
         Cancelar
       </Buttonc>
     </>
@@ -57,4 +56,3 @@ const Category = (): JSX.Element => {
 };
 
 export default Category;
-

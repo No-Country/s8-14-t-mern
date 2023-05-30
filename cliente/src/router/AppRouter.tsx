@@ -63,6 +63,9 @@ const RechargeCardNumberPage: React.LazyExoticComponent<() => JSX.Element> = laz
 const RechargeSendPage: React.LazyExoticComponent<React.FC> = lazy(
   () => import("../pages/Recharge.send")
 );
+const RechargeAmountPage: React.LazyExoticComponent<() => JSX.Element> = lazy(
+  () => import("../pages/Recharge.Amount")
+)
 
 export default function AppRouter(): JSX.Element {
   const { isAuthenticated } = useUserData();
@@ -124,6 +127,7 @@ export default function AppRouter(): JSX.Element {
               />
               <Route path="/recharge" element={<RechargePage />} />
               <Route path="/recharge/cardnumber" element={<RechargeCardNumberPage />} />
+              <Route path="/recharge/amount" element={<RechargeAmountPage />} />
               <Route path="/recharge/send" element={<RechargeSendPage />} />
 
               <Route path="/scanner" element={<ScannerQrPage />} />
