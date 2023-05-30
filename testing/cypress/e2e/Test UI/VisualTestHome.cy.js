@@ -89,7 +89,7 @@ describe('UI test en Home', () => {
       cy.get('button').eq(1).should('be.visible') 
       // Button QR en TabNav 
       cy.get('button').eq(2).should('be.visible') 
-      // Button Portfolio en TabNav 
+      // Button Beneficios en TabNav 
       cy.get('button').eq(3).should('be.visible') 
       // Button Perfil en TabNav 
       cy.get('button').eq(4).should('be.visible') 

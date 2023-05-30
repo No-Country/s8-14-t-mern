@@ -1,11 +1,11 @@
-import { loginPage } from "../../pages/loginPage"
+import { loginPage } from "../../../pages/loginPage"
 
 const LocalHost_recoveryPass = 'http://localhost:3000/resetPassword/request/'
 const LocalHost_resetPass = '/resetPassword/request'
 const LocalHost_register = 'http://localhost:3000/auth/register'
 const LocalHostUrl_login = 'http://localhost:3000/auth/login'
 
-describe('Testing login elements', () => {
+describe('Login_003 | Elementos UI', () => {
     beforeEach(() => {
         cy.visit(LocalHostUrl_login)
     });
@@ -42,7 +42,7 @@ describe('Testing login elements', () => {
         loginPage.buttonLogin('Log in','type','submit')
     });
 
-    it.only('Atributos y Nombre del enlace Recovery Password', () => {
+    it('Atributos y Nombre del enlace Recovery Password', () => {
     // Validacion del texto y atributos del enlace 
         loginPage.buttonRecovery('forgot my password','string',LocalHost_resetPass)
     });
@@ -52,7 +52,8 @@ describe('Testing login elements', () => {
        loginPage.redireccionBtnRecovery(LocalHost_recoveryPass)
     });
 
-    it('Nombre del enlace Register User', () => {
+    it('Atributos y Nombre del enlace Register User', () => {
+    // Validacion del texto y atributos del enlace 
         cy.get('a').eq(1).each(($link) => {
             const href = $link.attr('href');
             expect(href).to.be.a('string').and.not.empty;
@@ -61,6 +62,7 @@ describe('Testing login elements', () => {
     });
 
     it('Redireccion enlace Button Register User', () => {
+    // Validacion de re-direccion del enlace Register 
         cy.get('a')
           .click()
           .then(()=>{

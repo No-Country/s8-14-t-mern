@@ -8,10 +8,12 @@ class LoginPage {
       loginBtn: () => cy.get('button').eq(0),
       forgotPassBtn: () => cy.get('a'),
       labelEmail: () => cy.get('label').eq(0),
-      labelPassword: () => cy.get('label').eq(1)
+      labelPassword: () => cy.get('label').eq(1),
+      loginPage: (url) => cy.visit(url)
     };
   
-    userLogin(username,password){
+    userLogin(url,username,password){
+      this.elements.loginPage(url)
       this.elements.emailInput().type(username);
       this.elements.passwordInput().type(password);
       this.elements.loginBtn().click()

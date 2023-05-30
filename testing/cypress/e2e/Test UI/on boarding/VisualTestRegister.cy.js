@@ -1,11 +1,9 @@
-import { registerPage } from "../../pages/registerPage"
+import { registerPage } from "../../../pages/registerPage"
 
-const LocalHost = 'http://localhost:3000/'
-const LocalHostUrl = 'http://localhost:3000/home'
 const LocalHost_register = 'http://localhost:3000/auth/register'
 const LocalHostUrl_login = 'http://localhost:3000/auth/login'
 
-describe('Testing Register Form elements', () => {
+describe('Registro_003 | Elementos UI', () => {
     beforeEach(() => {
         cy.visit(LocalHost_register)
     });

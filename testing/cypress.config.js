@@ -35,7 +35,7 @@ module.exports = defineConfig({
       allureReuseAfterSpec: true,
     },
     specPattern: ["cypress/e2e/**/*.cy.{js,jsx,ts,tsx}"],//"**/*.feature", 
-    baseUrl: "https://dev.tahouse.casa/",
+    // baseUrl: "",
     reporterOptions:{
       reportDir: 'cypress/results/json',
       reportFilename: '[name].html',
