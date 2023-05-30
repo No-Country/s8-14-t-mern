@@ -30,19 +30,23 @@ const PanelHome = (): JSX.Element => {
   return (
     <div className='flex justify-center'>
       <div className='
-        w-80 
-        h-24
-        p-2
+      absolute
+      top-36
+        w-11/12 
+        h-28
         flex 
+        gap-2
         justify-center 
-        bg-slate-200
+        items-center
+        bg-white
         rounded-lg
+        shadow-md
         '
       >
 
         {ACTION_ITEMS.map((info) => (
           <Link to={info.href}>
-            <div className='w-20 h-full flex flex-col items-center'
+            <div className='w-20  h-24 flex flex-col items-center '
               onClick={() => {
                 navigate(info.href)
                 console.log(info.href);
@@ -51,17 +55,17 @@ const PanelHome = (): JSX.Element => {
             >
               <Icon icon={info.ListIcon}
                 className='
-                h-10 
-                w-10 
+                h-12 
+                w-12 
                 flex 
                 justify-center 
-                text-slate-900
-                bg-slate-500 
-                rounded-3xl 
+                text-[#3B1B80]
+                bg-[#F5F2FF]
+                rounded-full 
                 '
               ></Icon>
 
-              <Text className='text-center'>{info.title}</Text>
+              <Text className='text-center text-sm text-black mt-2'>{info.title}</Text>
             </div>
           </Link>
         ))}
