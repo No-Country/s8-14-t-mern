@@ -6,8 +6,8 @@ export default function Header(): JSX.Element {
   const { user } = useUserData();
 
   return (
-    <Card className="bg-gradient-to-r from-[#661EC2] from-0% to-[#240860] to-100% ">
 
+    <Card className="bg-gradient-to-r from-[#661EC2] from-0% to-[#240860] to-100% ">
       <div className="flex  items-center">
         <Card className="w-10"></Card>
         <Text className="ms-5">Hola {user?.firstName}</Text>
