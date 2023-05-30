@@ -71,11 +71,12 @@ const Category = (): JSX.Element => {
       </form>
       {/*  <Buttonc styled={true} action="continuar" href="/newTransfer/send">
         Continuar
-      </Buttonc>
-      <Buttonc styled={false}  href="/home">
+      </Buttonc> */}
+      <Buttonc styled={false} href="/home">
         Cancelar
       </Buttonc>
     </>
+
   );
 };
 
