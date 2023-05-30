@@ -6,6 +6,7 @@ export default function Header(): JSX.Element {
   const { user } = useUserData();
 
   return (
+
     <Card className="h-[11.75rem] bg-gradient-to-r from-[#661EC2] from-0% to-[#240860] to-100% ">
       <div className="flex  items-center">
         <div className="w-9 h-8 bg-white rounded-md text-center text-[#1205A4] mt-3">
