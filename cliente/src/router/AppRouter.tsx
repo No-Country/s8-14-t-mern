@@ -8,6 +8,7 @@ import { NewTransferProvider } from "@/context/NewTransferContext";
 import MainLayout from "@/utils/Layout";
 import ResponsPage from "@/pages/ResponsPage";
 import BenefitPage from "@/pages/BenefitPage";
+import OnboardingPage from "@/pages/OnboardingPage";
 
 const Onboarding: React.LazyExoticComponent<() => JSX.Element> = lazy(
   () => import("../pages/Onboarding")
@@ -72,6 +73,7 @@ export default function AppRouter(): JSX.Element {
         <Routes>
           {!isAuthenticated && (
             <>
+             <Route path="/onboard" element={<OnboardingPage />} />
               <Route path="/" element={<Onboarding />} />
               <Route path="/auth/:slug" element={<AuthPage />} />
               <Route
