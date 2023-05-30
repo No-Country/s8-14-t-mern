@@ -1,9 +1,13 @@
+/** Express router providing user related routes
+ * @module routers/users
+ * @requires Express
+ */
 import { Router } from 'express'
 import {
   deleteUserCtrl,
   forgotPasswordCtrl,
   getUserCtrl,
-  getUserId,
+  getUserIdCtrl,
   loginUser,
   newPswCtrl,
   patchUserCtrl,
@@ -13,13 +17,18 @@ import {
   verifyTokenPswCtrl,
   verifyUserCtrl
 } from '../controller/users.controllers'
+import { checkUserEmail, verifyToken } from '../middlewares'
 import {
-  checkUser,
   validatorLogin,
   validatorRegister,
-  validatorTokenAccount
+  validatorTokenAccount,
+  validatorUserId
 } from '../middlewares/validations'
 
+/**
+ * Express router on:
+ * @namespace users.routes
+ */
 const router = Router()
 //TODO: Agregar en los Get de user
 //"address": "Pablo.swistoniuk.Pigmeo",
@@ -31,10 +40,10 @@ const router = Router()
 //TODO: agregar verificacion que este activo, sino no deja loguearse
 router.post('/login', validatorLogin, loginUser)
 router.post('/register', validatorRegister, postUserCtrl)
+
 router.get('/confirm/:token', validatorTokenAccount, verifyUserCtrl)
 //forgot psw
-//TODO: validad que el mail exista o enviar error
-router.post('/forgot-password', forgotPasswordCtrl)
+router.post('/forgot-password', checkUserEmail, forgotPasswordCtrl)
 //reset psw
 router
   .route('/reset-password/:token')
@@ -43,7 +52,10 @@ router
 
 router.route('/').get(getUserCtrl)
 
-router.route('/:id').get(checkUser, getUserId).delete(checkUser, deleteUserCtrl)
+router
+  .route('/:id')
+  .get([verifyToken, validatorUserId], getUserIdCtrl)
+  .delete([verifyToken, validatorUserId], deleteUserCtrl)
 
 router.put('/edit', putUserCtrl)
 

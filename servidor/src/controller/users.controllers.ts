@@ -1,5 +1,6 @@
 /**
  * Controlador para manejar las operaciones relacionadas con los usuarios.
+ * @group Controller/User
  */
 import { Request, Response } from 'express'
 import { v2 as cloudinary } from 'cloudinary'
@@ -13,7 +14,6 @@ import {
   fetchPost,
   fetchPut,
   fetchUpdate,
-  fetchUserId,
   forgotPsw,
   newPassword,
   verifyUserAccount
@@ -30,13 +30,10 @@ const getUserCtrl = async (_req: Request, res: Response) => {
   }
 }
 
-const getUserId = async (req: Request, res: Response) => {
-  const { id } = req.params
-  try {
-    const user = await fetchUserId(id)
-    res.status(200).json(user)
-  } catch (error) {
-    instanceOfError(res, error, 404)
+const getUserIdCtrl = ({ user }: UserRequestI, res: Response) => {
+  if (user) {
+    res.json(user)
+    user = undefined
   }
 }
 
@@ -49,20 +46,37 @@ const putUserCtrl = async (req: Request, res: Response) => {
   }
 }
 
-const deleteUserCtrl = async ({ params: { id } }: Request, res: Response) => {
+/**
+ * Toma el req.user que setea el middleware y llama al servicio para procesar
+ * SoftDelete del usuario
+ * @param user: UserRequestI
+ * @param res: Response
+ * @return Promise<void>
+ */
+const deleteUserCtrl = async ({ user }: UserRequestI, res: Response) => {
   try {
-    const data = await fetchDelete(id)
+    const data = await fetchDelete(user)
+    user = undefined
     res.status(200).json({ msg: 'user deleted', data })
   } catch (error) {
-    instanceOfError(res, error, 404)
+    instanceOfError(res, error, 500)
   }
 }
 
 const patchUserCtrl = async (req: Request, res: Response) => {
   try {
     const id = req.params.id
-    const { typeIdentification, phoneNumber, email, address, password } =
-      req.body
+    const { 
+      firstName, 
+      lastname, 
+      typeIdentification, 
+      phoneNumber, 
+      email, 
+      address, 
+      password, 
+      numberIdentification, 
+      country, 
+      city } = req.body
 
     const data: Partial<IUser> = {}
     if (typeIdentification) data.typeIdentification = typeIdentification
@@ -70,6 +84,14 @@ const patchUserCtrl = async (req: Request, res: Response) => {
     if (email) data.email = email
     if (address) data.address = address
     if (password) data.password = password
+    if(numberIdentification) data.numberIdentification = numberIdentification
+    if(country) data.country = country
+    if(city) data.city = city
+
+    if(firstName || lastname) {
+      res.status(400).json({ msg: "This data can not be edited: 'firstName' and 'lastname' "})
+      return
+    }
 
     const userModified = await fetchUpdate(id, data)
 
@@ -140,11 +162,8 @@ const verifyUserCtrl = ({ user }: UserRequestI, res: Response) => {
     })
 }
 
-const forgotPasswordCtrl = (
-  { body: { email } }: Request,
-  res: Response
-): void => {
-  forgotPsw(email)
+const forgotPasswordCtrl = ({ user }: UserRequestI, res: Response): void => {
+  forgotPsw(user)
     .then(msg => res.json(msg))
     .catch(error => {
       instanceOfError(res, error, 500)
@@ -184,7 +203,7 @@ const loginUser = async (req: Request, res: Response) => {
     const data = await fetchLogin(password, email)
     res.status(201).json({ msg: 'User login succeful', data })
   } catch (error) {
-    instanceOfError(res, error, 400)
+    instanceOfError(res, error, 404)
   }
 }
 
@@ -192,7 +211,7 @@ export {
   deleteUserCtrl,
   forgotPasswordCtrl,
   getUserCtrl,
-  getUserId,
+  getUserIdCtrl,
   loginUser,
   newPswCtrl,
   patchUserCtrl,

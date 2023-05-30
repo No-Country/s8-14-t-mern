@@ -14,6 +14,14 @@ const Onboarding: React.LazyExoticComponent<() => JSX.Element> = lazy(
 const AuthPage: React.LazyExoticComponent<() => JSX.Element> = lazy(
   () => import("../pages/AuthPage")
 );
+const ResetPasswordRequestPage: React.LazyExoticComponent<() => JSX.Element> =
+  lazy(() => import("../pages/ResetPassword.request"));
+const ResetPasswordPage: React.LazyExoticComponent<() => JSX.Element> = lazy(
+  () => import("../pages/ResetPassword")
+);
+const VerifyAccountPage: React.LazyExoticComponent<() => JSX.Element> = lazy(
+  () => import("../pages/VerifyAccountPage")
+);
 const HomePage: React.LazyExoticComponent<() => JSX.Element> = lazy(
   () => import("../pages/HomePage")
 );
@@ -66,6 +74,15 @@ export default function AppRouter(): JSX.Element {
             <>
               <Route path="/" element={<Onboarding />} />
               <Route path="/auth/:slug" element={<AuthPage />} />
+              <Route
+                path="/resetPassword/request"
+                element={<ResetPasswordRequestPage />}
+              />
+              <Route
+                path="/olvide-password/:token"
+                element={<ResetPasswordPage />}
+              />
+              <Route path="/confirmar/:token" element={<VerifyAccountPage />} />
               <Route path="*" element={<Navigate to="/" />} />
             </>
           )}
@@ -74,6 +91,7 @@ export default function AppRouter(): JSX.Element {
               <Route path="/" element={<MainLayout />}>
                 <Route index element={<HomePage />} />
                 <Route path="/home" element={<HomePage />} />
+                <Route path="/transactions" element={<TransactionsPage />} />
                 <Route path="/profile" element={<ProfilePage />} />
                 <Route path="/personalData" element={<PersonalDataPage />} />
                 <Route path="/changename" element={<ChangeName />} />
@@ -104,7 +122,6 @@ export default function AppRouter(): JSX.Element {
                 path="/addFunds/cash"
                 element={<AddFundsByTransferPage />}
               />
-              <Route path="/transactions" element={<TransactionsPage />} />
               <Route path="/recharge" element={<RechargePage />} />
               <Route path="/recharge/amount" element={<RechargeAmountPage />} />
               <Route path="/recharge/send" element={<RechargeSendPage />} />

@@ -1,11 +1,12 @@
 import { useFormik } from "formik";
+import { Link } from "react-router-dom";
 import { useUserData } from "@/context/UserContext";
 import apiUsers from "@/services/users";
 
 import * as Yup from "yup";
 import toast from "react-hot-toast";
-import logo from "../assets/Pigmeo.png";
-import "../styles/Login.scss";
+import logo from "../assets/logo-light.svg";
+import Loader from "@/components/Loader";
 
 const LoginForm = (): JSX.Element => {
   // Aa1234567$ password example
@@ -46,45 +47,52 @@ const LoginForm = (): JSX.Element => {
   });
 
   return (
-    <div className="Login">
-      <div className="Login-container">
-        <img src={logo} alt="logo" className="logo" />
-        <form onSubmit={handleSubmit} className="form">
-          <label htmlFor="Email" className="label">
-            Email address
-          </label>
+    <div className="min-h-screen grid place-items-center">
+      <form
+        onSubmit={handleSubmit}
+        className="w-11/12 max-w-md mx-auto flex flex-col gap-5 justify-center items-center"
+      >
+        <img src={logo} alt="logo" className="w-full mb-10 -mt-5" />
+        <label className="text-red-600 w-full">
           <input
+            className="border border-gray-300 rounded-lg  
+          outline-0 focus:ring ring-primary-200 w-full p-2.5 text-black"
+            placeholder="Correo electrónico"
             name="email"
             id="email"
             type="email"
-            placeholder="enter your email"
             onChange={handleChange}
             value={values.email}
-            className="input input-password"
           />
-          {errors.email && touched.email && <div>{errors.email}</div>}
-          <label htmlFor="Password" className="label">
-            Password
-          </label>
+          {errors.email && touched.email && errors.email}
+        </label>
+        <label className="text-red-600 w-full">
           <input
+            className="border border-gray-300 rounded-lg  
+          outline-0 focus:ring ring-primary-200 w-full p-2.5 text-black"
+            placeholder="Contraseña"
             name="password"
             id="password"
             type="password"
-            placeholder="enter your password"
             onChange={handleChange}
             value={values.password}
-            className="input input-password"
           />
-          {errors.password && touched.password && (
-            <div className="error">{errors.password}</div>
-          )}{" "}
-          {/* Mostrar el mensaje de error */}
-          <button type="submit" className="primary-button login-button">
-            Log in
-          </button>
-          <a href="/">forgot my password</a>
-        </form>
-      </div>
+          {errors.password && touched.password && errors.password}
+        </label>
+        <Link
+          to="/resetPassword/request"
+          className="text-primary self-start underline"
+        >
+          ¿Olvidaste tu contraseña?
+        </Link>
+        <button
+          type="submit"
+          className="bg-primary text-white w-full p-2 rounded mt-7"
+        >
+          Iniciar sesión
+        </button>
+        {/* <Loader /> */}
+      </form>
     </div>
   );
 };

@@ -1,9 +1,9 @@
-import { ITransactions } from '../interfaces/transaction.interface'
-import Transaction from '../models/transactions.models'
-import User from '../models/users.models'
 import { config } from 'dotenv'
 import Stripe from 'stripe'
 import { v4 as uuidv4 } from 'uuid'
+import { ITransactions } from '../interfaces/transaction.interface'
+import Transaction from '../models/transactions.models'
+import User from '../models/users.models'
 
 config()
 const stripeSecretKey = process.env.STRIPE_KEY
@@ -32,21 +32,19 @@ const fecthTransfer = async (transaction: ITransactions) => {
     if (user?.balance !== undefined) {
       if (user.balance <= amount) {
         throw new Error('Insufficient balance')
+      } else {
+        // save the transaction
+        const newTransaction = await Transaction.create(transaction)
+        // decrease the sender's balance
+        await User.findByIdAndUpdate(sender, {
+          $inc: { balance: -amount }
+        })
+        // increase the receiver balance
+        await User.findByIdAndUpdate(receiver, {
+          $inc: { balance: amount }
+        })
+        return newTransaction
       }
-    } else {
-      // save the transaction
-      const newTransaction = await Transaction.create(transaction)
-
-      // decrease the sender's balance
-      await User.findByIdAndUpdate(sender, {
-        $inc: { balance: -amount }
-      })
-
-      // increase the receiver balance
-      await User.findByIdAndUpdate(receiver, {
-        $inc: { balance: amount }
-      })
-      return newTransaction
     }
   } catch (e) {
     throw new Error(e as string)
@@ -65,8 +63,15 @@ const fecthGetTransfer = async (id: any) => {
       $or: [{ sender: id }, { receiver: id }]
     })
       .sort({ createdAt: -1 })
-      .populate('sender')
-      .populate('receiver')
+      .populate(
+        'sender',
+        '-token -rol -createdAt -updatedAt -password -isActive -balance'
+      )
+      .populate(
+        'receiver',
+        '-token -rol -createdAt -updatedAt -password -isActive -balance'
+      )
+
     const filterTrans = transaction.map(trans => {
       if (trans.sender._id.equals(trans.receiver._id)) {
         trans.transaction_type = 'deposit'
@@ -150,8 +155,8 @@ const fecthDepositStripe = async (token: any, amount: any, id: any) => {
 }
 
 export {
-  fecthVerifyAccount,
-  fecthTransfer,
+  fecthDepositStripe,
   fecthGetTransfer,
-  fecthDepositStripe
+  fecthTransfer,
+  fecthVerifyAccount
 }

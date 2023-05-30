@@ -18,8 +18,8 @@ export interface TransferFunds {
 export function transferFunds(payload: TransferFunds) {
   return axios.post(`/transactions/transfer-funds`, payload);
 }
-export function getUserTransactions(userId: string) {
-  return axios.post(`/transactions/get-all-transactions-by-use/${userId}`);
+export function getUserTransactions(userId: string | undefined) {
+  return axios.get(`/transactions/get-all-transactions-by-user/${userId}`);
 }
 
 export default {
