@@ -6,20 +6,31 @@ interface Benefice extends Document {
   description: string
   startDate: Date
   endDate: Date
-  isActive: boolean
+  isActive?: boolean
   discountPercentage?: number
   cashback?: number
   promoCode?: string
+  theBest?: boolean
+  typeBenefice?: string
 }
 
 const beneficeSchema = new Schema<Benefice>({
   name: { type: String, required: true },
-  category: { type: String, required: true },
+  category: {
+    type: String,
+    required: true
+  },
+  typeBenefice: {
+    type: String,
+    required: true,
+    enum: ['descuentos', 'reintegros']
+  },
+  theBest: { type: Boolean, default: false },
   description: { type: String, required: true },
-  startDate: { type: Date, required: true },
-  endDate: { type: Date, required: true },
+  startDate: { type: Date },
+  endDate: { type: Date },
   isActive: { type: Boolean, default: true },
-  discountPercentage: { type: Number },
+  discountPercentage: { type: Number, default: 0 },
   cashback: { type: Number, default: 0 },
   promoCode: {
     type: String,
