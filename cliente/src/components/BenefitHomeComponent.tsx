@@ -1,27 +1,34 @@
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Card, Grid, Col, Text } from "@tremor/react";
 import 'swiper/css';
+import beneficios1 from '../assets/beneficio1.svg'
+import beneficios2 from '../assets/beneficio2.svg'
 
 const benefit = [
   {
     company: "Coto",
-    benefit: "8% descount"
+    benefit: "8% descount",
+    img: beneficios1
   },
   {
     company: "Mc Donal",
-    benefit: "28% descount"
+    benefit: "28% descount",
+    img: beneficios2
   },
   {
     company: "Burger King",
-    benefit: "18% descount"
+    benefit: "18% descount",
+    img: beneficios2
   },
   {
     company: "Vea Supermarket",
-    benefit: "18% descount"
+    benefit: "18% descount",
+    img: beneficios1
   },
   {
     company: "Vea Supermarket",
-    benefit: "18% descount"
+    benefit: "18% descount",
+    img: beneficios2
   }
 ]
 
@@ -29,34 +36,30 @@ const Benefits = (): JSX.Element => {
 
   return (
     <>
-      <Grid numCols={1} className='gap-2'>
-        <Col className='w-full justify-between flex p-2'>
-          <Text className='text-2xl'>Beneficios</Text>
-          <Text className='text-lg'>Ver todos</Text>
-        </Col>
-        <Col className='w-full p-2'>
+      <Grid numCols={1} className='mt-14'>
+        <Col className='w-full p-4'>
+          <Col className='w-full justify-between flex'>
+            <Text className='text-lg  text-[#000]'>Beneficios</Text>
+            <Text className='text-sm  text-[#3B1B80]'>Ver todos</Text>
+          </Col>
           <Swiper
             className='select-none'
-            spaceBetween={-80}
-            slidesPerView={1}
+            spaceBetween={20}
+            slidesPerView={'auto'}
             onSlideChange={() => console.log('slide change')}
             onSwiper={(swiper) => console.log(swiper)}
+            slideClass='max-w-fit'
           >
 
             {benefit.map((card) => (
-              <SwiperSlide>
-                <Card
-                  className="w-64 h-auto mt-2"
-                  decoration="left"
-                  decorationColor="indigo"
-                >
-                  <Text>{card.company}</Text>
-                  <Text>{card.benefit}</Text>
-                </Card>
+              <SwiperSlide className='max-w-fit'>
+                <div className='w-52 h-28'>
+                  <img className='w-full h-full' src={card.img} alt="" />
+                </div>
               </SwiperSlide>
             ))}
           </Swiper>
-          </Col>
+        </Col>
       </Grid>
     </>
   );

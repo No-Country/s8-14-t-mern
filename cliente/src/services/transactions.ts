@@ -12,10 +12,8 @@ export interface TransferFunds {
   sender: string;
   receiver: string;
   reference: string;
-  transaction_type: string;
-  status: string;
 }
-export function transferFunds(payload: TransferFunds) {
+export function transferFunds(payload: TransferFunds | any) {
   return axios.post(`/transactions/transfer-funds`, payload);
 }
 export function getUserTransactions(userId: string | undefined) {
