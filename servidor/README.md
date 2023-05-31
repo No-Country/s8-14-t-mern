@@ -54,4 +54,12 @@
 
 ## POSTMAN DOCUMENTATION
 
+|   TYPE   |                 DETAIL                  |                     ENDPOINT                      |                                                            DATA                                                             |
+| :------: | :-------------------------------------: | :-----------------------------------------------: | :-------------------------------------------------------------------------------------------------------------------------: |
+| **POST** |             CREAR BENEFICIO             |         **api/v1/pigmeo/benefice/create**         | body: {name, description, category,startDate,endDate, discountPercentage, cashbackAmount, promoCode, theBest, typeBenefice} |
+| **GET**  |      OBTENER TODOS LOS BENEFICIOS       |          **api/v1/pigmeo/benefice/all**           |                                                                                                                             |
+| **GET**  |    OBTENER BENEFICIOS POR CATEGORIAS    | **api/v1/pigmeo/benefice/category/:categoryName** |                                                  params: { categoryName }                                                   |
+| **GET**  |        OBTENER BENEFICIO POR ID         |      **api/v1/pigmeo/benefice//:idBenefice**      |                                                   params: { idBenefice }                                                    |
+| **PUT**  | ACTIVAR/DESACTIVAR BENEFICIO EN USUARIO |        **api/v1/pigmeo/benefice/activate**        |                                            body: { idUser, idBenefice, active }                                             |
+
 Link here
