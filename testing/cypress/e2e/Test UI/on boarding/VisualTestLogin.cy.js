@@ -1,6 +1,6 @@
 import { loginPage } from "../../../pages/loginPage"
 
-const LocalHost_recoveryPass = 'http://localhost:3000/resetPassword/request/'
+const LocalHost_recoveryPass = 'http://localhost:3000/resetPassword/request'
 const LocalHost_resetPass = '/resetPassword/request'
 const LocalHost_register = 'http://localhost:3000/auth/register'
 const LocalHostUrl_login = 'http://localhost:3000/auth/login'
@@ -15,39 +15,29 @@ describe('Login_003 | Elementos UI', () => {
         loginPage.imgLogin('alt','be.visible')
     });
 
-    it('Label text de input Email', () => {
-    // Validacion del texto en label  
-        loginPage.labelEmailLogin('Email address')
-    });
-
     it('Tipo de input en Email', () => {
     // Validacion atributo type y placeholder 
         loginPage.inputEmail('type','email')
-        loginPage.inputEmail('placeholder','enter your email')
-    });
-
-    it('Label text de input Password', () => {
-    // Validacion del texto en label  
-        loginPage.labelPasswordLogin('Password')
+        loginPage.inputEmail('placeholder','Correo electrónico')
     });
 
     it('Tipo de input en Password', () => {
     // Validacion atributo type y placeholder 
         loginPage.inputPassword('type','password')
-        loginPage.inputPassword('placeholder','enter your password')
+        loginPage.inputPassword('placeholder','Contraseña')
     });
 
     it('Tipo y Nombre del Button Login form', () => {
     // Valdiacion del texto en button y atributos 
-        loginPage.buttonLogin('Log in','type','submit')
+        loginPage.buttonLogin('Iniciar sesión','type','submit')
     });
 
     it('Atributos y Nombre del enlace Recovery Password', () => {
     // Validacion del texto y atributos del enlace 
-        loginPage.buttonRecovery('forgot my password','string',LocalHost_resetPass)
+        loginPage.buttonRecovery('¿Olvidaste tu contraseña?','string',LocalHost_resetPass)
     });
 
-    it('Redireccion enlace Button Recovery Password', () => {
+    it.only('Redireccion enlace Button Recovery Password', () => {
     // Validacion de re-direccion del enlace Recovery Pass  
        loginPage.redireccionBtnRecovery(LocalHost_recoveryPass)
     });

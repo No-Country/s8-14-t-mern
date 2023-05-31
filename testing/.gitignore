@@ -1,3 +1,4 @@
 node_modules/
 download/
 Utils/
+.cucumber-html-report.js

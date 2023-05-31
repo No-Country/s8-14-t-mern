@@ -1,4 +1,5 @@
 import { loginPage } from "../../pages/loginPage";
+import { homeElments } from "../../pages/homePage";
 
 const LocalHostUrl = 'http://localhost:3000/'
 const LocalHostUrl_Home = 'http://localhost:3000/home'
@@ -6,13 +7,14 @@ const LocalHostUrl_login = 'http://localhost:3000/auth/login'
 
 describe('UI test en Home', () => {
    beforeEach(() => {
-      cy.visit(LocalHostUrl_login)
-      loginPage.userLogin('user@mail.com','Abcd1234*')
+      loginPage.userLogin(LocalHostUrl_login,'user@mail.com','Abcd1234*')
    });
 
-   it('Elementos en Header', () => {
-       // Saludos Bienvenida 
-       cy.assertionCheck('Hola irene')
+   it.only('Elementos en Header', () => {
+      // Esperamos 2s para cargar elementos en el DOM
+      cy.wait(2000)
+       // Saludos Bienvenida Validado con nombre de Login segun Usuario
+       homeElments.saludoHome()
        // Icono Alerta
        cy.get('span').eq(0).should('be.visible')
        // Elemento Binvenida

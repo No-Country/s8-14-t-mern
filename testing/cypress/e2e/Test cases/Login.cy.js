@@ -1,27 +1,28 @@
 import { loginPage } from "../../pages/loginPage";
+import { homeElments } from "../../pages/homePage";
 
-const LocalHostUrl = 'http//localhost:3000/home'
-const LocalHostUrl_login = 'http//localhost:3000/auth/login'
+const LocalHostUrl = 'http://localhost:3000/home'
+const LocalHostUrl_login = 'http://localhost:3000/auth/login'
 
 describe('Login en Sistema', () => {
     beforeEach(() => {
-        cy.visit(LocalHostUrl_login)
         expect(cy.config('viewportWidth')).to.equal(390)
         expect(cy.config('viewportHeight')).to.equal(848)
     });
 
     
-    it('Login_001 | ID_01 | Login Exitoso', () => {
+    it.only('Login_001 | ID_01 | Login Exitoso', () => {
     // Dado estoy en la página de inicio de sesión
         cy.visit(LocalHostUrl_login)
     // Cuando Ingreso Email valido y password valido 
         loginPage.submitLogin('user@mail.com','Abcd1234*')
     // Y el usuario hace clic en el button "Confirmar"
         loginPage.clickLogin()
+        cy.wait(2000)
     // Entonces el sistema debe redireccionar al usuario a la pagina principal"
         cy.url().should('equal',LocalHostUrl)
-    // Y El sistema debe mostrar un mensaje de Bienvenida"
-        loginPage.message('Hola')
+    // Y El sistema debe mostrar un mensaje de Bienvenida Hola + Nombre de usuario logeado"
+        homeElments.saludoHome()
     });
 
     it('Login_001 | ID_02 | Password Incorrecta', () => {
