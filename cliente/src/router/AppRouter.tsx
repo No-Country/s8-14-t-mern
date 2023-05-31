@@ -75,7 +75,7 @@ export default function AppRouter(): JSX.Element {
         <Routes>
           {!isAuthenticated && (
             <>
-             <Route path="/" element={<OnboardingPage />} />
+              <Route path="/" element={<OnboardingPage />} />
               <Route path="/auth/:slug" element={<AuthPage />} />
               <Route
                 path="/resetPassword/request"
@@ -118,6 +118,7 @@ export default function AppRouter(): JSX.Element {
                   path="/newTransfer/send"
                   element={<NewTransferSendPage />}
                 />
+                <Route path="/scanner" element={<ScannerQrPage />} />
               </Route>
 
               <Route path="/addFunds" element={<AddFundsMenuPage />} />
@@ -138,7 +139,6 @@ export default function AppRouter(): JSX.Element {
               />
               <Route path="/recharge/send" element={<RechargeSendPage />} />
 
-              <Route path="/scanner" element={<ScannerQrPage />} />
               <Route path="*" element={<Navigate to="/home" />} />
               <Route path="/response" element={<ResponsPage backmsg="" />} />
             </>
