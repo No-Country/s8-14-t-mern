@@ -9,9 +9,9 @@ import MainLayout from "@/utils/Layout";
 import ResponsPage from "@/pages/ResponsPage";
 import BenefitPage from "@/pages/BenefitPage";
 
-const Onboarding: React.LazyExoticComponent<() => JSX.Element> = lazy(
-  () => import("../pages/Onboarding")
-);
+const OnboardingPage: React.LazyExoticComponent<() => JSX.Element> = lazy(
+  () => import("../pages/OnboardingPage"));
+
 const AuthPage: React.LazyExoticComponent<() => JSX.Element> = lazy(
   () => import("../pages/AuthPage")
 );
@@ -75,7 +75,7 @@ export default function AppRouter(): JSX.Element {
         <Routes>
           {!isAuthenticated && (
             <>
-              <Route path="/" element={<Onboarding />} />
+             <Route path="/" element={<OnboardingPage />} />
               <Route path="/auth/:slug" element={<AuthPage />} />
               <Route
                 path="/resetPassword/request"
