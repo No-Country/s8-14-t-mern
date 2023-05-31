@@ -2,13 +2,19 @@ import { ReactElement } from "react";
 import { Link } from "react-router-dom";
 import { Button, Subtitle, Text } from "@tremor/react";
 import { PencilIcon, PlusCircleIcon } from "@heroicons/react/outline";
-
+import { updateUserImage } from "@/services/users";
 import HeaderBackButton from "@/components/HeaderBackButton";
+import { useState,useRef } from "react";
+import Popup from "@/components/Popup";
 
 interface ListItemType {
   title: string;
   subtitle: string;
   href?: string;
+}
+interface Props {
+  userId: string;
+  img: File;
 }
 
 const MENU_ITEMS: ListItemType[] = [
@@ -45,7 +51,30 @@ const MENU_ITEMS: ListItemType[] = [
   },
 ];
 
-function PersonalData(): ReactElement {
+function PersonalData({ userId, img }: Props): ReactElement {
+  const [selectedImage, setSelectedImage] = useState<string | null>(null);
+  const [isPopupActive, setisPopupActive] = useState<boolean>(false);
+  
+
+  const handleImageUpload = async (
+    event: React.ChangeEvent<HTMLInputElement>
+  ) => {
+    console.log("entrando a handleImageUpdate");
+          const file = event.target.files?.[0];
+          if (file) {
+            setSelectedImage(URL.createObjectURL(file));
+            try {
+              const response = await updateUserImage({ userId, img });
+              // const response = await updateUserImage({ userId, img:file });
+              console.log(response.data);
+            } catch (error) {
+              console.error(error);
+            }
+          } else {
+            setSelectedImage(null);
+          }
+        }
+
   return (
     <>
       <HeaderBackButton title="Datos Personales" />
@@ -69,10 +98,12 @@ function PersonalData(): ReactElement {
           icon={PlusCircleIcon}
           variant="light"
           className="whitespace-pre-wrap"
+          onClick={() => setisPopupActive(!isPopupActive)}
         >
           Agregar <br /> Imagen
         </Button>
       </div>
+      {isPopupActive && <Popup handleImageUpload={handleImageUpload} />}
       <main className="mt-1">
         <ul className="flex flex-col [&>li:not(:last-child)]:border-b-2">
           {MENU_ITEMS.map((item, i) => (
@@ -101,3 +132,34 @@ function ListItem({ title, subtitle, href }: ListItemType): ReactElement {
 }
 
 export default PersonalData;
+
+
+// interface Props{
+//   userId: string;
+//   img: File;
+// }
+
+// function PersonalData(): ReactElement {
+// function PersonalData({userId,img}: Props): ReactElement {
+//   const [selectedImage, setSelectedImage] = useState<string | null>(null);
+//   const fileInputRef = useRef<HTMLInputElement>(null);
+
+//   const handleImageUpload = async (event: React.ChangeEvent<HTMLInputElement>) => {
+//     const file = event.target.files?.[0];
+//     if (file) {
+//       setSelectedImage(URL.createObjectURL(file));
+//       try {
+//         const response = await updateUserImage({ userId, img });
+//         console.log(response.data);
+//       } catch (error) {
+//         console.error(error);
+//       }
+//     } else {
+//       setSelectedImage(null);
+//     }
+//   }
+//   const handleButtonClick = () => {
+//     if (fileInputRef.current) {
+//       fileInputRef.current.click();
+//     }
+//   };
