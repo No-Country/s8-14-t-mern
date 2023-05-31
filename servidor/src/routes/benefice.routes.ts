@@ -46,10 +46,14 @@ router.get('/all', async (req, res) => {
   return res.status(200).json({ data: benefices })
 })
 // filtrar beneficios por categorias
-router.get('/category/:idCategory', async (req, res) => {
-  const category = req.params.idCategory
+router.get('/category/:categoryName', async (req, res) => {
+  const category = req.params.categoryName
   const benefices = await Benefice.find({ category })
-  return res.status(200).json({ data: benefices })
+  console.log(benefices.length)
+  return res.status(200).json({
+    msg: `esta categoria tiene ${benefices.length} beneficios`,
+    data: benefices
+  })
 })
 // Obtener los detalles de un beneficio específico.
 router.get('/:idBenefice', async (req, res) => {
@@ -61,7 +65,7 @@ router.get('/:idBenefice', async (req, res) => {
   return res.status(200).json({ data: beneficio })
 })
 //TODO: como usuario, activar o desactivar un beneficio para poder usarlo
-router.get('/user/activeBenefice', async (req, res) => {
+router.put('/activate', async (req, res) => {
   const { idUser, idBenefice, active } = req.body
   try {
     const userFound = await User.findById(idUser)

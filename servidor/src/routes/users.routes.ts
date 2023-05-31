@@ -31,10 +31,6 @@ import {
  */
 const router = Router()
 //TODO: Agregar en los Get de user
-//"address": "Pablo.swistoniuk.Pigmeo",
-//"email": "antonio.ayola.cortes@gmail.com"
-//"phoneNumber": "(52)5522222222",
-//"typeIdentification": "dni"
 //TODO: agregar validacion para no dejar ingresar un mail invalido.
 //TODO: en login agregar imagen y balance al loguearse
 //TODO: agregar verificacion que este activo, sino no deja loguearse
