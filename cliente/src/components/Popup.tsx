@@ -11,7 +11,7 @@ export default function Popup() {
     const input = document.createElement('input');
     input.type = 'file';
     input.accept = 'image/*';
-    input.capture = 'none'; // Abre la galería de imágenes
+    // input.capture = 'none'; // Abre la galería de imágenes
 
     input.onchange = (event: any) => {
       if (event.target instanceof HTMLInputElement && event.target.files && event.target.files.length > 0) {

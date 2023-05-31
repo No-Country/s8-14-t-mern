@@ -1,57 +1,74 @@
-import { SwitchVerticalIcon, CreditCardIcon, HomeIcon, QrcodeIcon, UserIcon } from "@heroicons/react/outline";
+import { HomeIcon, QrcodeIcon, UserIcon, TrendingUpIcon, ReceiptTaxIcon } from "@heroicons/react/outline";
+import { HomeIcon as HomeSolid, UserIcon as UserSolid } from "@heroicons/react/solid";
 import { TabList, Tab } from "@tremor/react";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 export default function NavBar(): JSX.Element {
+  const [value, setValue] = useState<string>("/home")
   const navigate = useNavigate()
   const openScreen = (value: string) => navigate(value)
-
   return (
     <TabList
-      className="flex-1 fixed bottom-0 items-end justify-center w-screen bg-slate-200 space-x-0 overflow-visible h-[3.8rem]"
+      className="flex-1 fixed bottom-0 items-end justify-center w-screen bg-white space-x-0 overflow-visible h-[70px] border-t"
       defaultValue='/home'
-      onValueChange={(value) => openScreen(value)}
+      onValueChange={(value) => {
+        openScreen(value)
+        setValue(value)
+      }}
+      color="violet"
     >
       <Tab
-        className="flex-1 justify-center items-center p-0 my-auto border-none"
+        className="flex brightness-50  flex-col justify-center items-center p-0 my-auto border-none w-1/5"
         value='/home'
-        text=''
+        text='Inicio'
         icon={() =>
-          <HomeIcon
-            className="w-9 m-0 bg-slate-400 text-white p-1"
-          />}
+          value === "/home" ?
+            < HomeSolid
+              className="w-9 m-0 p-1"
+            />
+            :
+            < HomeIcon
+              className="w-9 m-0 p-1"
+            />
+        }
       />
       <Tab
-        className="flex-1 justify-center items-center p-0 my-auto border-none"
+        className="flex brightness-50 flex-col justify-center items-center p-0 my-auto border-none w-1/5"
         value='/transactions'
-        text=''
+        text='Actividad'
         icon={() =>
-          <SwitchVerticalIcon
-            className="w-9 m-0 bg-slate-400 text-white p-1"
+          <TrendingUpIcon
+            className="w-9 m-0 p-1"
           />}
       />
       <Tab
-        className="flex-1 justify-center items-center bg-slate-300 rounded-full max-h-[4rem] max-w-[4rem] h-[4rem] w-[4rem] mb-1"
+        className="flex text-white flex-col justify-center items-center bg-primary rounded-full aspect-square mb-5 w-1/5 max-w-[70px]"
         value='/scanner'
         text=''
         icon={() =>
           <QrcodeIcon
-            className="w-14 m-0  p-1"
+            className="w-9 m-0  p-1"
           />}
       />
       <Tab
-        className="flex-1 justify-center items-center p-0 my-auto border-none"
+        className="flex brightness-50 flex-col justify-center items-center p-0 my-auto border-none w-1/5"
         value='/benefit'
-        text=''
+        text='Beneficios'
         icon={() =>
-          <CreditCardIcon
-            className="w-9 m-0 bg-slate-400 text-white p-1" />}
+          <ReceiptTaxIcon
+            className="w-9 m-0 p-1" />}
       />
-      <Tab className="flex-1 justify-center items-center p-0 my-auto border-none"
+      <Tab className="flex brightness-50 flex-col justify-center items-center p-0 my-auto border-none w-1/5"
         value='/profile'
-        text=''
+        text='Perfil'
         icon={() =>
-          <UserIcon
-            className="w-9 m-0 bg-slate-400 text-white p-1" />}
+          value === "/profile" ?
+            <UserSolid
+              className="w-9 m-0 p-1"
+            />
+            :
+            <UserIcon
+              className="w-9 m-0 p-1" />}
       />
     </TabList>
   )

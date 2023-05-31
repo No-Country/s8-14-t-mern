@@ -5,20 +5,29 @@ import { ArrowLeftIcon } from "@heroicons/react/solid";
 
 interface Props {
   title: string;
+  className?: string;
   children?: ReactNode;
 }
-function HeaderBackButton({ title, children, ...rest }: Props): ReactElement {
+function HeaderBackButton({
+  title,
+  children,
+  className,
+  ...rest
+}: Props): ReactElement {
   const navigate = useNavigate();
 
   const handleBackButton = () => {
     navigate(-1);
   };
   return (
-    <header className="pt-4 px-4 flex justify-between items-center" {...rest}>
+    <header
+      className={`py-4 px-4 flex gap-7 items-center bg-primary text-white ${className}`}
+      {...rest}
+    >
       <button onClick={handleBackButton}>
         <ArrowLeftIcon className="w-6 h-6" />
       </button>
-      <Title className="text-lg text-[#262727]">{title}</Title>
+      <Title className="text-lg text-inherit">{title}</Title>
       <div>{children}</div>
     </header>
   );

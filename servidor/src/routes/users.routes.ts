@@ -30,7 +30,10 @@ import {
  * @namespace users.routes
  */
 const router = Router()
-
+//TODO: Agregar en los Get de user
+//TODO: agregar validacion para no dejar ingresar un mail invalido.
+//TODO: en login agregar imagen y balance al loguearse
+//TODO: agregar verificacion que este activo, sino no deja loguearse
 router.post('/login', validatorLogin, loginUser)
 router.post('/register', validatorRegister, postUserCtrl)
 
