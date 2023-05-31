@@ -1,16 +1,21 @@
-import { ReactElement } from "react";
+import { ReactElement, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import { Button, Subtitle, Text } from "@tremor/react";
 import { PencilIcon, PlusCircleIcon } from "@heroicons/react/outline";
-
+import { updateUserImage } from "@/services/users";
 import HeaderBackButton from "@/components/HeaderBackButton";
+
+
 
 interface ListItemType {
   title: string;
   subtitle: string;
   href?: string;
 }
-
+interface Props{
+  userId: string;
+  img: File;
+}
 const MENU_ITEMS: ListItemType[] = [
   {
     title: "Nombre completo",
@@ -45,7 +50,29 @@ const MENU_ITEMS: ListItemType[] = [
   },
 ];
 
-function PersonalData(): ReactElement {
+function PersonalData({userId,img}: Props): ReactElement {
+  const [selectedImage, setSelectedImage] = useState<string | null>(null);
+  const fileInputRef = useRef<HTMLInputElement>(null);
+
+  const handleImageUpload = async (event: React.ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files?.[0];
+    if (file) {
+      setSelectedImage(URL.createObjectURL(file));
+      try {
+        const response = await updateUserImage({ userId, img });
+        console.log(response.data);
+      } catch (error) {
+        console.error(error);
+      }
+    } else {
+      setSelectedImage(null);
+    }
+  }
+  const handleButtonClick = () => {
+    if (fileInputRef.current) {
+      fileInputRef.current.click();
+    }
+  };
   return (
     <>
       <HeaderBackButton title="Datos Personales" />
@@ -54,8 +81,15 @@ function PersonalData(): ReactElement {
           src="https://picsum.photos/200"
           className="w-24 h-24 rounded-full col-start-2"
         /> */}
+        {selectedImage ? (
+        <div
+          className="w-24 h-24 rounded-full col-start-2 border-2 border-black border-dotted bg-slate-200"
+          style={{ backgroundImage: `url(${selectedImage})`, backgroundSize: 'cover' }}
+        />
+      ) : (
         <div className="w-24 h-24 rounded-full col-start-2 border-2 border-black border-dotted bg-slate-200" />
-
+      )}
+   
         {/* <Button
           size="xs"
           icon={PencilIcon}
@@ -64,11 +98,19 @@ function PersonalData(): ReactElement {
         >
           Cambiar <br /> Imagen
         </Button> */}
+        <input
+        type="file"
+        accept="image/*"
+        onChange={handleImageUpload}
+        ref={fileInputRef}
+        style={{ display: 'none' }}
+      />
         <Button
           size="xs"
           icon={PlusCircleIcon}
           variant="light"
           className="whitespace-pre-wrap"
+          onClick={handleButtonClick}
         >
           Agregar <br /> Imagen
         </Button>
@@ -99,5 +141,4 @@ function ListItem({ title, subtitle, href }: ListItemType): ReactElement {
     </li>
   );
 }
-
 export default PersonalData;
