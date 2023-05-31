@@ -12,14 +12,12 @@ export interface TransferFunds {
   sender: string;
   receiver: string;
   reference: string;
-  transaction_type: string;
-  status: string;
 }
-export function transferFunds(payload: TransferFunds) {
+export function transferFunds(payload: TransferFunds | any) {
   return axios.post(`/transactions/transfer-funds`, payload);
 }
-export function getUserTransactions(userId: string) {
-  return axios.post(`/transactions/get-all-transactions-by-use/${userId}`);
+export function getUserTransactions(userId: string | undefined) {
+  return axios.get(`/transactions/get-all-transactions-by-user/${userId}`);
 }
 
 export default {
