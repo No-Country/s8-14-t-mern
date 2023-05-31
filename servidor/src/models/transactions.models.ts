@@ -6,6 +6,12 @@ const transactionSchema = new Schema<ITransactions>(
   {
     amount: {
       type: Number,
+      validate: {
+        validator: function (v: any) {
+          return v >= 0
+        },
+        message: props => `${props.value} is not a correct amount!`
+      },
       required: true
     },
     sender: {
