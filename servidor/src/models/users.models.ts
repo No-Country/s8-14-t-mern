@@ -80,7 +80,8 @@ const userSchema = new Schema<IUser>(
       type: String,
       default: uuidv4()
     },
-    benefices: { type: [] }
+    benefices: { type: [] },
+    topUpCard: { type: [] }
   },
   { timestamps: true }
 )
