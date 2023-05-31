@@ -1,6 +1,5 @@
 import { FormEvent } from "react";
 import { useNavigate } from "react-router-dom";
-
 import Select from "react-select";
 import HeaderBackButton from "@/components/HeaderBackButton";
 import Buttonc from "@/components/Buttonc";
@@ -77,6 +76,7 @@ const Category = (): JSX.Element => {
         Cancelar
       </Buttonc>
     </>
+
   );
 };
 

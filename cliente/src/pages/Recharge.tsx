@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import HeaderBackButton from "@/components/HeaderBackButton";
+import { Link } from "react-router-dom";
 import { Card, Text } from "@tremor/react";
 import sube from "../assets/sube.png";
 import saeta from "../assets/saeta.png";
@@ -12,29 +13,40 @@ import tuenti from "../assets/tuentii 1.png";
 interface Props {
   img: string;
   text: string;
+  href?: string;
 }
-const Cards: React.FC<Props> = ({ img, text }) => (
-  <Card className="w-5/6 p-0 h-52 cursor-pointer">
-    <div className="flex justify-center items-center bg-[#F5F2FF] h-3/4">
-      <img className="w-16" src={img} alt="sube" />
+const Cards: React.FC<Props> = ({ img, text, href }) => {
+  return (
+    <div className="drop-shadow-[0_4px_4px_rgba(0,0,0,0.25)]">
+      <Link to={href}>
+        <Card className="w-36 p-0 h-36 ">
+          <div className="flex justify-center items-center bg-[#F5F2FF] h-3/4">
+            <img className="w-16" src={img} alt="images" />
+          </div>
+          <Text className="text-center mt-3">{text}</Text>
+        </Card>
+      </Link>
     </div>
-    <Text className="text-center mt-3">{text}</Text>
-  </Card>
-);
+  );
+};
 const TransportContent: React.FC = () => (
-  <div className="grid grid-cols-2 place-items-center gap-y-10 mt-10">
-    <Cards img={sube} text="Sube" />
-    <Cards img={saeta} text="Saeta" />
-    <Cards img={redbus} text="Red bus Cordoba" />
+  <div className="w-full flex justify-center">
+    <div className="grid grid-cols-2 justify-items-center gap-y-7 gap-x-5 mt-10 ">
+      <Cards img={sube} text="Sube" href="/recharge/cardnumber" />
+      <Cards img={saeta} text="Saeta" />
+      <Cards img={redbus} text="Red bus Cordoba" />
+    </div>
   </div>
 );
 
 const PhoneContent: React.FC = () => (
-  <div className="grid grid-cols-2 place-items-center gap-y-10 mt-10">
-    <Cards img={claro} text="claro" />
-    <Cards img={personal} text="Personal" />
-    <Cards img={movistar} text="Movistar" />
-    <Cards img={tuenti} text="Tuenti" />
+  <div className="w-full flex justify-center">
+    <div className="grid grid-cols-2 place-items-center gap-y-5 gap-x-7 mt-10">
+      <Cards img={claro} text="claro" />
+      <Cards img={personal} text="Personal" />
+      <Cards img={movistar} text="Movistar" />
+      <Cards img={tuenti} text="Tuenti" />
+    </div>
   </div>
 );
 

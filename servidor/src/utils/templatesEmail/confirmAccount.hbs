@@ -1,0 +1,56 @@
+<div class='container'>
+  <img src={{logo}} alt='Logo' class='logo' />
+  <h3>¡Hola <b>{{firstname}}!</b></h3>
+  <p>Te damos la bienvenida a tu billetera {{projectName}}!</p>
+  <p>Valida tu cuenta clickeando el enlace:</p>
+  <div class='link'>
+    <a href='{{confirmationUrl}}'>
+      Validar cuenta
+    </a>
+  </div>
+  <h5>
+    Si no has solicitado este proceso, puede ignorar este correo.
+  </h5>
+  <hr />
+  <div class='footer'>
+    Equipo de
+    {{projectName}}
+  </div>
+</div>
+
+{{!-- prettier-ignore --}}
+<style>
+	p {
+		font-size: 16px;
+		line-height: 1.5;
+	}
+	.link, a {
+		font-weight: bold;
+		background-color: #3c1c84;
+		color: #f8c35f;
+		padding: 5px;
+		width:fit-content;
+		margin-left: auto;
+		margin-right: auto;
+		text-decoration: none;
+	}
+	.logo {
+		display: block;
+		width: 100px;
+		height: auto;
+		margin-left: auto;
+		margin-right: auto;
+	}
+	.container {
+		max-width: 600px;
+		margin: 0 auto;
+		padding: 20px;
+		background-color: #f2f2f2;
+		color: #3c1c84;
+		text-align: center;
+	}
+	.footer {
+		text-align: center;
+		font-size: 10px;
+	}
+</style>
