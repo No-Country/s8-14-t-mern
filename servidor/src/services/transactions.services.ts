@@ -92,14 +92,14 @@ const fecthGetTransfer = async (id: any) => {
 
 const fecthDepositStripe = async (token: any, amount: any, id: any) => {
   try {
-    console.log('API INTEGRATION DEPOSIT')
+    console.log('API INTEGRATION DEPOSIT PARAMS')
     console.log('Amount ', amount)
     console.log('Token ', token)
     const stripe = new Stripe(stripeSecretKey!, {
       apiVersion: '2022-11-15'
     })
     console.log(stripe)
-    // Create customer
+    // create customer
 
     const params: Stripe.CustomerCreateParams = {
       description: 'test customer',
@@ -126,7 +126,7 @@ const fecthDepositStripe = async (token: any, amount: any, id: any) => {
     )
     console.log('Charge ', charge)
 
-    // Save the transaction on db
+    // save the transaction on db
 
     if (charge.status === 'succeeded') {
       const transObject = {
@@ -134,12 +134,12 @@ const fecthDepositStripe = async (token: any, amount: any, id: any) => {
         receiver: id,
         amount,
         transaction_type: 'deposit',
-        reference: 'stripe pigmeo deposit',
+        reference: 'stripe deposit',
         status: 'success'
       }
       const newTransaction = await Transaction.create(transObject)
 
-      // Increase the users's balance
+      // increase the users's balance
 
       await User.findByIdAndUpdate(id, {
         $inc: { balance: amount }
