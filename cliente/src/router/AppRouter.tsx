@@ -8,7 +8,9 @@ import { NewTransferProvider } from "@/context/NewTransferContext";
 import MainLayout from "@/utils/Layout";
 import ResponsPage from "@/pages/ResponsPage";
 import BenefitPage from "@/pages/BenefitPage";
-import OnboardingPage from "@/pages/OnboardingPage";
+
+const OnboardingPage: React.LazyExoticComponent<() => JSX.Element> = lazy(
+  () => import("../pages/OnboardingPage"));
 
 const AuthPage: React.LazyExoticComponent<() => JSX.Element> = lazy(
   () => import("../pages/AuthPage")
