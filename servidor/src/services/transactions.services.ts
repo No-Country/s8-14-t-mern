@@ -138,7 +138,6 @@ const fecthDepositStripe = async (token: any, amount: any, id: any) => {
       await User.findByIdAndUpdate(id, {
         $inc: { balance: amount }
       })
-      
       return newTransaction
     } else {
       return { message: 'Transaction failed', charge: charge }
