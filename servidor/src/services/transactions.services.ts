@@ -92,13 +92,9 @@ const fecthGetTransfer = async (id: any) => {
 
 const fecthDepositStripe = async (token: any, amount: any, id: any) => {
   try {
-    console.log('API INTEGRATION DEPOSIT PARAMS')
-    console.log('Amount ', amount)
-    console.log('Token ', token)
     const stripe = new Stripe(stripeSecretKey!, {
       apiVersion: '2022-11-15'
     })
-    console.log(stripe)
     // create customer
 
     const params: Stripe.CustomerCreateParams = {
@@ -108,7 +104,6 @@ const fecthDepositStripe = async (token: any, amount: any, id: any) => {
     }
 
     const customer: Stripe.Customer = await stripe.customers.create(params)
-    console.log('Customer ', customer)
 
     // create charge
 
@@ -124,7 +119,6 @@ const fecthDepositStripe = async (token: any, amount: any, id: any) => {
         idempotencyKey: uuidv4()
       }
     )
-    console.log('Charge ', charge)
 
     // save the transaction on db
 
@@ -144,7 +138,7 @@ const fecthDepositStripe = async (token: any, amount: any, id: any) => {
       await User.findByIdAndUpdate(id, {
         $inc: { balance: amount }
       })
-      console.log('DEPOSIT TRANSACTION ', newTransaction)
+      
       return newTransaction
     } else {
       return { message: 'Transaction failed', charge: charge }
