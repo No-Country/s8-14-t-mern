@@ -71,15 +71,15 @@ export default function OnboardingPage(): ReactElement {
 
 
       <Col className='w-full flex justify-center h-14 gap-4'>
-        <input type="radio" name='onboarding' value={currentSlide} checked={currentSlide === 0} />
-        <input type="radio" name='onboarding' value={currentSlide} checked={currentSlide === 1} />
-        <input type="radio" name='onboarding' value={currentSlide} checked={currentSlide === 2} />
+        <input type="radio" name='onboarding' value={currentSlide} checked={currentSlide === 0}/>
+        <input type="radio" name='onboarding' value={currentSlide} checked={currentSlide === 1}/>
+        <input type="radio" name='onboarding' value={currentSlide} checked={currentSlide === 2}/>
       </Col>
 
       <Col>
 
         <Grid className='w-full flex justify-center my-4'>
-          <Button className={"w-80 h-11 rounded-3xl"}
+          <Button className={"w-80 h-11 rounded-3xl bg-primary border-bg-primary hover:bg-primary-700"}
             onClick={handleCarousel}
           >
             {(currentSlide < 2) ? "Siguiente" : "Crear mi cuenta"}
@@ -88,8 +88,8 @@ export default function OnboardingPage(): ReactElement {
 
         <Buttonc
           styled={false}
-          href={(currentSlide === 2) ? "/auth/login" : "/"}
-        >{(currentSlide < 2) ? "Salir" : "Ya tengo cuenta"}</Buttonc>
+          href={(currentSlide === 2) ? "/auth/register" : "/auth/login"}
+        >{(currentSlide < 2) ? "Saltar" : "Ya tengo cuenta"}</Buttonc>
       </Col>
     </Grid>
   )

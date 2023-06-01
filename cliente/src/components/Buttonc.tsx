@@ -46,7 +46,7 @@ const Buttonc: React.FC<Props> = ({ children, styled, action, href }) => {
     <Grid
       className='w-full flex justify-center my-4'
     >
-      <Button className={`${styled ? "w-80 h-11 rounded-3xl" : "w-auto h-14 bg-transparent border-0 text-black hover:bg-transparent cursor-pointer"}`}
+      <Button className={`${styled ? "w-80 h-11 rounded-3xl bg-primary border-bg-primary hover:bg-primary-700" : "w-80 h-11 rounded-3xl bg-transparent border-0 text-black hover:bg-transparent cursor-pointer shadow-none"}`}
         onClick={OnHanddleAction}
       >
         {children}
