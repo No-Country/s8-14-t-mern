@@ -32,14 +32,13 @@ interface UpdateUserImage {
 export function updateUserImage({ userId, img }: UpdateUserImage) {
   const formData = new FormData();
   formData.append("avatar", img);
-  return axios.post(`/users/${userId}/image`, formData, {
+  return axios.put(`/users/${userId}/image`, formData, {
     headers: {
       "Content-Type": "multipart/form-data",
     },
   });
 }
 
-// verifica token & isActive=true
 export function activateUserAccount(token: string) {
   return axios.get(`/users/confirm/${token}`);
 }
