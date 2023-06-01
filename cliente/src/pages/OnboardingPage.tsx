@@ -79,7 +79,7 @@ export default function OnboardingPage(): ReactElement {
       <Col>
 
         <Grid className='w-full flex justify-center my-4'>
-          <Button className={"w-80 h-11 rounded-3xl bg-primary border-bg-primary hover:bg-primary-700  hover:outline-dotted"}
+          <Button className={"w-80 h-11 rounded-3xl bg-primary border-bg-primary hover:bg-primary-700"}
             onClick={handleCarousel}
           >
             {(currentSlide < 2) ? "Siguiente" : "Crear mi cuenta"}
