@@ -49,6 +49,13 @@ const fecthTransfer = async (transaction: ITransactions) => {
       } else {
         // save the transaction
         const newTransaction = await Transaction.create(transaction)
+        // show receiver info
+        const newTransactionPop = await Transaction.findById(
+          newTransaction._id
+        ).populate(
+          'receiver',
+          '-token -rol -createdAt -updatedAt -password -isActive -balance -benefices -topUpCard'
+        )
         // decrease the sender's balance
         await User.findByIdAndUpdate(sender, {
           $inc: { balance: -amount }
@@ -57,7 +64,7 @@ const fecthTransfer = async (transaction: ITransactions) => {
         await User.findByIdAndUpdate(receiver, {
           $inc: { balance: amount }
         })
-        return newTransaction
+        return newTransactionPop
       }
     }
   } catch (e) {
