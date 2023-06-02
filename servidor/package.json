@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "node dist/index.js",
-    "build": "tsc",
+    "build": "tsc && cpx \"src/utils/templatesEmail/*.hbs\" dist/utils/templatesEmail",
     "dev": "ts-node-dev ./src/index.ts",
     "test": "echo \"Error: no test specified\" && exit 1",
     "lint": "eslint --ext .ts src/",
@@ -25,6 +25,7 @@
     "bcryptjs": "^2.4.3",
     "cloudinary": "^1.37.0",
     "cors": "^2.8.5",
+    "cpx2": "^4.2.3",
     "dotenv": "^16.0.3",
     "express": "^4.18.2",
     "express-fileupload": "^1.4.0",
@@ -60,6 +61,6 @@
     "ts-node-dev": "^2.0.0",
     "typedoc": "^0.24.7",
     "typedoc-plugin-markdown": "^3.15.3",
-    "typescript": "^5.0.4"
+    "typescript": "^5.1.3"
   }
 }
