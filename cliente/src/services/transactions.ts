@@ -19,9 +19,23 @@ export function transferFunds(payload: TransferFunds | any) {
 export function getUserTransactions(userId: string | undefined) {
   return axios.get(`/transactions/get-all-transactions-by-user/${userId}`);
 }
+interface stripePayload {
+  token: string;
+  amount: number;
+  id?: string;
+}
+export function stripeTransaction({ token, amount, id }: stripePayload) {
+  const payload = {
+    token,
+    amount,
+    id,
+  };
+  return axios.post(`/transactions/deposit-funds-stripe`, payload);
+}
 
 export default {
   verifyCBU,
   transferFunds,
   getUserTransactions,
+  stripeTransaction,
 };
