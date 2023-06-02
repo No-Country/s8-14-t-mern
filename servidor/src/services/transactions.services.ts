@@ -1,4 +1,5 @@
 import { config } from 'dotenv'
+import { Types } from 'mongoose'
 import Stripe from 'stripe'
 import { v4 as uuidv4 } from 'uuid'
 import { ITransactions } from '../interfaces/transaction.interface'
@@ -7,17 +8,36 @@ import User from '../models/users.models'
 
 config()
 const stripeSecretKey = process.env.STRIPE_KEY
+const ObjectId = Types.ObjectId
+
+// Validator function
+
+const isValidObjectId = (id: any) => {
+  if (ObjectId.isValid(id)) {
+    if (String(new ObjectId(id)) === id) return true
+    return false
+  }
+  return false
+}
 
 // verify receiver's account number
 
-const fecthVerifyAccount = async (transaction: ITransactions) => {
+const fecthVerifyAccount = async (receiver: any, alias: any) => {
   try {
-    const { receiver } = transaction
-    const user = await User.findOne({ _id: receiver })
+    if (!isValidObjectId(receiver)) {
+      throw new Error('Is not a valid MongodbID')
+    }
+    const user = await User.findOne({ $and: [{ _id: receiver }, { alias }] })
     if (!user) {
       throw new Error('Account not found')
     }
-    return user
+    const filterUser = {
+      firstName: user.firstName,
+      lastName: user.lastname,
+      avatar: user.avatar,
+      alias: user.alias
+    }
+    return filterUser
   } catch (e) {
     throw new Error(e as string)
   }
@@ -35,6 +55,13 @@ const fecthTransfer = async (transaction: ITransactions) => {
       } else {
         // save the transaction
         const newTransaction = await Transaction.create(transaction)
+        // show receiver info
+        const newTransactionPop = await Transaction.findById(
+          newTransaction._id
+        ).populate(
+          'receiver',
+          '-token -rol -createdAt -updatedAt -password -isActive -balance -benefices -topUpCard'
+        )
         // decrease the sender's balance
         await User.findByIdAndUpdate(sender, {
           $inc: { balance: -amount }
@@ -43,7 +70,7 @@ const fecthTransfer = async (transaction: ITransactions) => {
         await User.findByIdAndUpdate(receiver, {
           $inc: { balance: amount }
         })
-        return newTransaction
+        return newTransactionPop
       }
     }
   } catch (e) {

@@ -10,7 +10,8 @@ import ResponsPage from "@/pages/ResponsPage";
 import BenefitPage from "@/pages/BenefitPage";
 
 const OnboardingPage: React.LazyExoticComponent<() => JSX.Element> = lazy(
-  () => import("../pages/OnboardingPage"));
+  () => import("../pages/OnboardingPage")
+);
 
 const AuthPage: React.LazyExoticComponent<() => JSX.Element> = lazy(
   () => import("../pages/AuthPage")
@@ -65,7 +66,10 @@ const RechargeSendPage: React.LazyExoticComponent<React.FC> = lazy(
 );
 const RechargeAmountPage: React.LazyExoticComponent<() => JSX.Element> = lazy(
   () => import("../pages/Recharge.Amount")
-)
+);
+const CriptoPage: React.LazyExoticComponent<() => JSX.Element> = lazy(
+  () => import("../pages/CriptoPage")
+);
 
 export default function AppRouter(): JSX.Element {
   const { isAuthenticated } = useUserData();
@@ -131,13 +135,13 @@ export default function AppRouter(): JSX.Element {
                 element={<AddFundsByTransferPage />}
               />
               <Route path="/recharge" element={<RechargePage />} />
-              <Route path="/recharge/cardnumber" element={<RechargeCardNumberPage />} />
-              <Route path="/recharge/amount" element={<RechargeAmountPage />} />
               <Route
                 path="/recharge/cardnumber"
                 element={<RechargeCardNumberPage />}
               />
+              <Route path="/recharge/amount" element={<RechargeAmountPage />} />
               <Route path="/recharge/send" element={<RechargeSendPage />} />
+              <Route path="/cripto" element={<CriptoPage />} />
 
               <Route path="*" element={<Navigate to="/home" />} />
               <Route path="/response" element={<ResponsPage backmsg="" />} />
