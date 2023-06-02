@@ -24,7 +24,6 @@ const isValidObjectId = (id: any) => {
 
 const fecthVerifyAccount = async (receiver: any, alias: any) => {
   try {
-    // throw new Error('Is not a valid MongodbID')
     if (!isValidObjectId(receiver)) {
       throw new Error('Is not a valid MongodbID')
     }
