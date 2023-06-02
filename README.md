@@ -27,13 +27,13 @@ $(Posibles funciones extras que se desarrollaran)
 - Marco Antonio Reyes Del Angel
 - Gaston Saravia
 - Orlando Rodriguez
-- Fabian Jorge Sanchez:  
+- Fabian Jorge Sanchez  
   
 ## QA
 - Maximiliano Barbosa 
 
 ## Ux/Ui:
-- Yanina Calviello,
+- Yanina Calviello
   
   
 ## STACK FrontEnd:
