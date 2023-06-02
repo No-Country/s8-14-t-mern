@@ -40,7 +40,7 @@ interface Cripto {
 function ListItem({ cripto }: { cripto: Cripto }) {
   const { name, symbol, current_price } = cripto;
   return (
-    <li className="flex flex-wrap gap-8 items-center px-4 py-6 cursor-pointer ">
+    <li className="flex flex-wrap gap-4 items-center px-2 py-6 cursor-pointer ">
       <img
         className="w-10 h-10 "
         src={`https://coinicons-api.vercel.app/api/icon/${symbol?.toLowerCase()}`}
