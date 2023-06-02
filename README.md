@@ -17,20 +17,20 @@ $(Posibles funciones extras que se desarrollaran)
 5)$ Herramientas extras: Conversor de divisas
 
 ## FrontEnd:
-- Lautaro duran — hoy a las 16:18
+- Lautaro Duran
 - Juan Antonio Ayola Cortes
 - Nelson Ismael Rosas
 - Ever Rojas
 
 ## BackEnd:
-- Swistoniuk Pablo
+- Pablo Swistoniuk 
 - Marco Antonio Reyes Del Angel
 - Gaston Saravia
 - Orlando Rodriguez
 - Fabian Jorge Sanchez:  
   
 ## QA
-- Barbosa Maximiliano 
+- Maximiliano Barbosa 
 
 ## Ux/Ui:
 - Yanina Calviello,
