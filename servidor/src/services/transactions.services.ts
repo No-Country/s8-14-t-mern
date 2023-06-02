@@ -31,7 +31,13 @@ const fecthVerifyAccount = async (receiver: any, alias: any) => {
     if (!user) {
       throw new Error('Account not found')
     }
-    return user
+    const filterUser = {
+      firstName: user.firstName,
+      lastName: user.lastname,
+      avatar: user.avatar,
+      alias: user.alias
+    }
+    return filterUser
   } catch (e) {
     throw new Error(e as string)
   }
