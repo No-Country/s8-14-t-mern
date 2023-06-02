@@ -1,5 +1,6 @@
 declare namespace Express {
   interface UploadedFiles {
+    image: any;
     avatar?: fileUpload.UploadedFile;
   }
 
@@ -9,3 +10,5 @@ declare namespace Express {
 }
 
 //Para que no haya problemas con req.files
+//ToDo: Probar la misma config de avatar en image, por el 
+// momento funciona bien
