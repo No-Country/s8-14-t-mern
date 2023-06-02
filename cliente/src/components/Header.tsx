@@ -21,7 +21,7 @@ export default function Header(): JSX.Element {
       <div className="flex flex-col items-center">
         <Text className="text-white">Total disponible</Text>
         <div className="flex items-center">
-          <Metric className="text-white">$ 120.000</Metric>
+          <Metric className="text-white">${user?.balance}</Metric>
           <Icon className="text-white" size="md" icon={EyeIcon} />
         </div>
       </div>

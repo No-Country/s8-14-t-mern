@@ -27,7 +27,7 @@ function PersonalData(): ReactElement {
   const MENU_ITEMS: ListItemType[] = [
     {
       title: "Nombre completo",
-      subtitle: `${user.firstName + ' '+ user.lastname }`,
+      subtitle: `${user.firstName + ' '+ user?.lastName }`,
       href: "/changename",
     },
     {
@@ -45,12 +45,12 @@ function PersonalData(): ReactElement {
     {
       title: "Dirección",
       subtitle: "Av.Cabildo 2121",
-      href:`/editProfile?field=${user.firstName,user.lastname }`,
+      href:`/editProfile?field=${user?.firstName,user?.lastName }`,
     },
     {
       title: "Teléfono",
       subtitle: "1554332345",
-      href:`/editProfile?field=${user.firstName,user.lastname }`,
+      href:`/editProfile?field=${user?.firstName,user.lastName }`,
     },
     {
       title: "Cbu",

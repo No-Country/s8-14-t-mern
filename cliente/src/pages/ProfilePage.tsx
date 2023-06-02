@@ -54,8 +54,8 @@ function ProfilePage(): ReactElement {
             className="w-20 h-20 rounded-full absolute -top-14 object-cover"
           />
           <Title className="text-black text-lg relative">
-            {user?.firstName}
-            {user?.lastname}
+            {user?.firstName + " " +
+            user?.lastName}
           </Title>
           <ul className="flex flex-col gap-0 px-4 w-screen  [&>li:not(:last-child)]:border-b-2">
             {MENU_ITEMS.map((item, i) => (

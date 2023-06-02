@@ -6,7 +6,7 @@ export function loginUser(payload: { email: string; password: string }) {
 }
 type RegisterUserPayload = {
   firstName: string;
-  lastname: string;
+  lastName: string;
   email: string;
   password: string;
   repeatPassword: string;
@@ -14,9 +14,13 @@ type RegisterUserPayload = {
 export function registerUser(payload: RegisterUserPayload) {
   return axios.post(`/users/register`, payload);
 }
-/* export function updateUser(payload: IUser) {
+type updatedUserPayload = {
+  firstName: string
+  lastName: string
+}
+ export function updateUser(payload: updatedUserPayload) {
   return axios.put(`/users/edit`, payload);
-} */
+} 
 
 interface EditUser {
   userId: string;
