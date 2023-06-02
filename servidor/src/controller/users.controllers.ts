@@ -66,17 +66,18 @@ const deleteUserCtrl = async ({ user }: UserRequestI, res: Response) => {
 const patchUserCtrl = async (req: Request, res: Response) => {
   try {
     const id = req.params.id
-    const { 
-      firstName, 
-      lastname, 
-      typeIdentification, 
-      phoneNumber, 
-      email, 
-      address, 
-      password, 
-      numberIdentification, 
-      country, 
-      city } = req.body
+    const {
+      firstName,
+      lastname,
+      typeIdentification,
+      phoneNumber,
+      email,
+      address,
+      password,
+      numberIdentification,
+      country,
+      city
+    } = req.body
 
     const data: Partial<IUser> = {}
     if (typeIdentification) data.typeIdentification = typeIdentification
@@ -84,12 +85,14 @@ const patchUserCtrl = async (req: Request, res: Response) => {
     if (email) data.email = email
     if (address) data.address = address
     if (password) data.password = password
-    if(numberIdentification) data.numberIdentification = numberIdentification
-    if(country) data.country = country
-    if(city) data.city = city
+    if (numberIdentification) data.numberIdentification = numberIdentification
+    if (country) data.country = country
+    if (city) data.city = city
 
-    if(firstName || lastname) {
-      res.status(400).json({ msg: "This data can not be edited: 'firstName' and 'lastname' "})
+    if (firstName || lastname) {
+      res.status(400).json({
+        msg: "This data can not be edited: 'firstName' and 'lastname' "
+      })
       return
     }
 
