@@ -12,7 +12,7 @@ import {
  */
 const postVeryfyController = async (req: Request, res: Response) => {
   try {
-    const { receiver, alias } = req.body
+    /*  const { receiver, alias } = req.body
     if (!alias || !receiver) {
       res.status(401).json({
         msg: 'Not data provided',
@@ -20,7 +20,16 @@ const postVeryfyController = async (req: Request, res: Response) => {
         success: false
       })
     }
-    const data = await fecthVerifyAccount(receiver, alias)
+    const data = await fecthVerifyAccount(receiver, alias) */
+    const { alias } = req.body
+    if (!alias) {
+      res.status(401).json({
+        msg: 'Not alias provided',
+        data: null,
+        success: false
+      })
+    }
+    const data = await fecthVerifyAccount(alias)
     res
       .status(201)
       .json({ msg: 'Account verified successfully', data, success: true })

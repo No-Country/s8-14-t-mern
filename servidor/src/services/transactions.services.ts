@@ -22,12 +22,29 @@ const isValidObjectId = (id: any) => {
 
 // verify receiver's account number
 
-const fecthVerifyAccount = async (receiver: any, alias: any) => {
+/* const fecthVerifyAccount = async (receiver: any, alias: any) => {
   try {
     if (!isValidObjectId(receiver)) {
       throw new Error('Is not a valid MongodbID')
     }
     const user = await User.findOne({ $and: [{ _id: receiver }, { alias }] })
+    if (!user) {
+      throw new Error('Account not found')
+    }
+    const filterUser = {
+      firstName: user.firstName,
+      lastName: user.lastname,
+      avatar: user.avatar,
+      alias: user.alias
+    }
+    return filterUser
+  } catch (e) {
+    throw new Error(e as string)
+  }
+} */
+const fecthVerifyAccount = async (alias: any) => {
+  try {
+    const user = await User.findOne({ alias })
     if (!user) {
       throw new Error('Account not found')
     }
