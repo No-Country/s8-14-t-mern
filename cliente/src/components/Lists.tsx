@@ -8,12 +8,15 @@ import { TransactionItem } from "./TransactionItemComponent";
 export default function Lists(): JSX.Element {
 
   const [transactions, setTransactions] = useState<ITransactions[] | []>([])
+  const [loading, setLoading] = useState(true)
+
   const { user } = useUserData()
   useEffect(() => {
     (async () => {
       try {
         const res = await getUserTransactions(user?.id)
         setTransactions(res.data.data.slice(0, 3))
+        setLoading(false)
 
       } catch (error) {
         console.error(error);
@@ -29,12 +32,17 @@ export default function Lists(): JSX.Element {
       <Card>
         <p className=" font-normal">Recientes</p>
         <List className="bg-white rounded-md">
-          {transactions.length ?
-            transactions.map((item) => TransactionItem({ item, inHome: true }))
-            :
-            <div className='flex h-[50px] '>
-              <p className='m-auto'>No tienes ningún movimiento</p>
-            </div>
+          {loading ?
+            <div className="flex h-[50px] ">
+              <p className="m-auto">Cargando...</p>
+            </div> :
+            transactions.length ? (
+              transactions.map((item, index) => TransactionItem({ item, inHome: false, index, place:"homePage" }))
+            ) : (
+              <div className="flex h-[50px] ">
+                <p className="m-auto">No tienes ningún movimiento</p>
+              </div>
+            )
           }
         </List>
       </Card>
