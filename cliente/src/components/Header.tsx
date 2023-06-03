@@ -6,7 +6,7 @@ import { useUserData } from "@/context/UserContext";
 
 export default function Header(): JSX.Element {
   const { user } = useUserData();
-  const [showBalance, setShowBalance] = useState(false);
+  const [showBalance, setShowBalance] = useState(true);
 
   const handleClickShowBalance = () => setShowBalance((show) => !show);
 
