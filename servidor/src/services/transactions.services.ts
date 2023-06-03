@@ -53,6 +53,9 @@ const fecthTransfer = async (transaction: ITransactions) => {
       if (user.balance <= amount) {
         throw new Error('Insufficient balance')
       } else {
+        if (receiver === sender) {
+          throw new Error('Try to another account')
+        }
         // save the transaction
         const newTransaction = await Transaction.create(transaction)
         // show receiver info
