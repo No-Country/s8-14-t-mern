@@ -37,7 +37,7 @@ export default function Lists(): JSX.Element {
               <p className="m-auto">Cargando...</p>
             </div> :
             transactions.length ? (
-              transactions.map((item, index) => TransactionItem({ item, inHome: false, index, place:"homePage" }))
+              transactions.map((item, index) => TransactionItem({ item, inHome: true, index, place:"homePage" }))
             ) : (
               <div className="flex h-[50px] ">
                 <p className="m-auto">No tienes ningún movimiento</p>

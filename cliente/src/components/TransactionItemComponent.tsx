@@ -13,8 +13,8 @@ export function TransactionItem({ item, inHome, index, place }: Props) {
   return (
     <ListItem key={`${place}-item-${index}`} className=" p-4 flex ">
       <img src={transaction_type === "debit" ? receiver.avatar : sender.avatar} className="w-[40px] aspect-square bg-slate-50 my-1 mr-3 rounded-md" />
-      <div className="mr-auto">
-        <p className=" text-black font-bold mb-2 whitespace-normal ">
+      <div className="mr-auto flex flex-col gap-1">
+        <p className=" text-black font-bold whitespace-normal ">
           {(transaction_type === "credit") && `Transferencia de ${sender.firstName} ${sender.lastname}`}
           {(transaction_type === "deposit") && `Ingresaste dinero`}
           {(transaction_type === "debit") && `Envío a ${receiver.firstName} ${receiver.lastname}`}
