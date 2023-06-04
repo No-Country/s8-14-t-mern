@@ -36,14 +36,14 @@ const Benefits = (): JSX.Element => {
 
   return (
     <>
-      <Grid numCols={1} className='mt-14'>
-        <Col className='w-full p-4'>
-          <Col className='w-full justify-between flex'>
-            <Text className='text-lg  text-[#000]'>Beneficios</Text>
-            <Text className='text-sm  text-[#3B1B80]'>Ver todos</Text>
+      <Grid numCols={1} className='mt-20'>
+        <Col className='w-full'>
+          <Col className='w-full flex  justify-between items-end px-5'>
+            <Text className='text-base font-semibold  text-black'>Beneficios</Text>
+            <Text className='text-sm font-medium  text-primary-600'>Ver todos</Text>
           </Col>
           <Swiper
-            className='select-none'
+            className='select-none pl-4'
             spaceBetween={20}
             slidesPerView={'auto'}
             onSlideChange={() => console.log('slide change')}
