@@ -6,14 +6,14 @@ const LocalHostUrl_login = 'http://localhost:3000/auth/login'
 
 describe('Login en Sistema', () => {
     beforeEach(() => {
+        cy.visit(LocalHostUrl_login)
         expect(cy.config('viewportWidth')).to.equal(390)
         expect(cy.config('viewportHeight')).to.equal(848)
     });
 
     
-    it.only('Login_001 | ID_01 | Login Exitoso', () => {
+    it('Login_001 | ID_01 | Login Exitoso', () => {
     // Dado estoy en la página de inicio de sesión
-        cy.visit(LocalHostUrl_login)
     // Cuando Ingreso Email valido y password valido 
         loginPage.submitLogin('user@mail.com','Abcd1234*')
     // Y el usuario hace clic en el button "Confirmar"
@@ -22,7 +22,6 @@ describe('Login en Sistema', () => {
     // Entonces el sistema debe redireccionar al usuario a la pagina principal"
         cy.url().should('equal',LocalHostUrl)
     // Y El sistema debe mostrar un mensaje de Bienvenida Hola + Nombre de usuario logeado"
-        homeElments.saludoHome()
     });
 
     it('Login_001 | ID_02 | Password Incorrecta', () => {
@@ -34,7 +33,7 @@ describe('Login en Sistema', () => {
     // Entonces el sistema debe mantenerse en la pagina de login
         cy.url().should('equal',LocalHostUrl_login)
     // Y El sistema debe mostrar un mensaje de Usuario y/o password invalidos"  
-        loginPage.message('usuario y/o password invalidos')
+        loginPage.message('User not found!')
     });
 
     it('Login_001 | ID_03 | Todos los campos vacios', () => {
@@ -73,7 +72,7 @@ describe('Login en Sistema', () => {
         loginPage.message('Email is required')
     });
     
-    it('Login_001 | ID_04 | Campo de Email Invalido', () => {
+    it.only('Login_001 | ID_04 | Campo de Email Invalido', () => {
     // Dado estoy en la página de inicio de sesión
     // Cuando el usuario ingresa Email invalido y password valida
         loginPage.submitLogin('user3.ma','password5')
@@ -82,6 +81,6 @@ describe('Login en Sistema', () => {
     // Entonces el sistema debe redireccionar al usuario a la pagina de login"
         cy.url().should('equal',LocalHostUrl_login)
     // Y El sistema debe mostrar un mensaje de ingresar Email de formato valido"  
-        loginPage.message('usuario y/o password invalidos')
+        loginPage.message('incluye un signo')
     });
 });

@@ -1,20 +1,49 @@
+import { loginPage } from "../../pages/loginPage";
+import { gestionSaldo } from "../../pages/gestion_de_saldo";
+
+const LocalHostUrl_login = 'http://localhost:3000/auth/login'
+
 describe('Seccion Gestion de Saldos', () => {
 
     beforeEach(() => {
-    cy.section('Dado que he iniciado sesion en mi billetera virtual')
-       cy.visit('/')
+    
+       cy.visit(LocalHostUrl_login)
+       loginPage.userLogin(LocalHostUrl_login,'user@mail.com','Abcd1234*') 
     });
 
-    it('Transferencia_001 | Transferencia Exitosa', () => {
+    it.only('Tr_001 | Transferencia Exitosa', () => {
       // Y tengo saldo suficiente para realizar una transferencia
-      // se valida la exitencia de saldo > $0
-      // Cuando ingreso la direccion de la billetera de destino y el monto de la transferencia
-      // Y confirmo la transferencia
-      // Entonces deberia ver un mensaje de exito indicando que la tranasferencia se ha realizado exitosamente
-      // Y mi saldo se ha actualizado de manera correcta, restando el monto trasnferido
-      // Y debería ver un registro de la transacción en mi lista de transacciones recientes
-      // Y el destinatario debería recibir la transferencia exitosamente
+      cy.wait(3000).then(()=>{
+        cy.get('button')
+        // se valida la exitencia de saldo > $0
+        cy.contains('Total disponible').should('be.visible')
+        cy.contains('Transferir').click()
+        // Cuando ingreso la direccion de la billetera de destino y el monto de la transferencia
+        gestionSaldo.inputCBU(28)
+        // Y confirmo CBU
+        cy.contains('Continuar').click()
+        cy.wait(2000)
+        // y ingreso monto
+        gestionSaldo.inputAmount(100)
+        cy.contains('Continuar').click()
+        // Y selecciono Motivo
+        gestionSaldo.inputOption('Sueldo')
+        cy.contains('Continuar').click()
+        // Y confirmo la transaccion
+        cy.contains('Continuar').click()
+        // Entonces deberia ver un mensaje de exito indicando que la tranasferencia se ha realizado exitosamente
+        cy.wait(2000)
+        cy.contains('Tu envío se realizó con éxito').should('be.visible')
+        // y realizo clic en volver al home
+        cy.contains('Volver').click()
+        // Y debería ver un registro de la transacción en mi lista de transacciones recientes
+        gestionSaldo.activityList('100')
+        cy.wait(2000)
+        // Y mi saldo se ha actualizado de manera correcta, restando el monto transferido (se compara con balance del localStorage)
+        gestionSaldo.verifyAmount()
+        // Y el destinatario debería recibir la transferencia exitosamente
       // Y el destinatario debería ver un registro de la transacción en su lista de transacciones recientes
+      })        
 
     });
 

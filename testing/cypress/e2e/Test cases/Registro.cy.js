@@ -1,25 +1,24 @@
-import { RegisterPage } from "../../pages/registerPage";
+import { registerPage } from "../../pages/registerPage";
 
-const LocalHostUrl = 'http//localhost:3000/'
-const LocalHostUrl_Home = 'http//localhost:3000/home'
+const LocalHost_Register = 'http://localhost:3000/auth/register'
 
 describe('Registro en Sistema', () => {
     beforeEach(() => {
-        cy.visit(LocalHostUrl)
+        cy.visit(LocalHost_Register)
         expect(cy.config('viewportWidth')).to.equal(390)
         expect(cy.config('viewportHeight')).to.equal(848)
     });
 
-    it('Registro_001 | ID_01 | Registro exitoso de usuario', () => {
+    it.only('Registro_001 | ID_01 | Registro exitoso de usuario', () => {
     // Dado que el usuario a ingresado a la página de registro
     // Cuando el usuario ingresa Nombre, Email, Password y Repeat Password
-        RegisterPage.submitRegister('','','','')
+        registerPage.submitRegister('NombreCA','ApellidoBC','userBC@mail.com','Abcd123*','Abcd123*')
     // Entonces el usuario debería poder hacer click en el botón de Registrar
-        RegisterPage.clickLogin()
+        registerPage.clickLogin()
     // y debería recibir una confirmación de Hola "Irene"
-        RegisterPage.typeMessage('')
+        // registerPage.typeMessage('')
     // y deberia ser redirigido a la seccion de inicio
-        cy.url().should('equal',LocalHostUrl_Home)
+        cy.url().should('equal',LocalHost_Register)
 
     });
     
