@@ -66,7 +66,7 @@ describe('Seccion Gestion de Saldos', () => {
       cy.wait(2000)
       cy.contains('Error: Insufficient balance').should('be.visible')
       // Entonces deberia recibir un mensaje de error indicando fondos insuficientes
-      // Y el saldo de la cuenta [16] origen no deberia cambiar
+      // Y el saldo de la cuenta array[16] origen no deberia cambiar "Se valida desde una request api/users"
       gestionSaldo.userBalance(16)
       // y cancelamos operacion
       cy.contains('Cancelar').click()
