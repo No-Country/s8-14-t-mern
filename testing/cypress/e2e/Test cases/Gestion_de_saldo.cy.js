@@ -11,10 +11,9 @@ describe('Seccion Gestion de Saldos', () => {
        loginPage.userLogin(LocalHostUrl_login,'user@mail.com','Abcd1234*') 
     });
 
-    it.only('Tr_001 | Transferencia Exitosa', () => {
+    it('Tr_001 | Transferencia Exitosa', () => {
       // Y tengo saldo suficiente para realizar una transferencia
       cy.wait(3000).then(()=>{
-        cy.get('button')
         // se valida la exitencia de saldo > $0
         cy.contains('Total disponible').should('be.visible')
         cy.contains('Transferir').click()
@@ -23,7 +22,7 @@ describe('Seccion Gestion de Saldos', () => {
         // Y confirmo CBU
         cy.contains('Continuar').click()
         cy.wait(2000)
-        // y ingreso monto
+        // y ingreso monto $100
         gestionSaldo.inputAmount(100)
         cy.contains('Continuar').click()
         // Y selecciono Motivo
@@ -36,28 +35,58 @@ describe('Seccion Gestion de Saldos', () => {
         cy.contains('Tu envío se realizó con éxito').should('be.visible')
         // y realizo clic en volver al home
         cy.contains('Volver').click()
-        // Y debería ver un registro de la transacción en mi lista de transacciones recientes
+        // Y debería ver un registro con ultimos movimientos -$100 
         gestionSaldo.activityList('100')
         cy.wait(2000)
         // Y mi saldo se ha actualizado de manera correcta, restando el monto transferido (se compara con balance del localStorage)
         gestionSaldo.verifyAmount()
         // Y el destinatario debería recibir la transferencia exitosamente
-      // Y el destinatario debería ver un registro de la transacción en su lista de transacciones recientes
+        // Y el destinatario debería ver un registro de la transacción en su lista de transacciones recientes
       })        
 
     });
 
-    it('Transferencia_002 | Transferencia con Fondos Insuficientes', () => {
-      // Dado que tengo una cuenta de origen con un saldo de $100
-      // Y tengo una cuenta de destino con un saldo de $50
-      // Cuando intento trasnferir $200 de la cuenta de origen a la cuenta de destino
+    it.only('Tr_003| Transferencia con Fondos Insuficientes', () => {
+      cy.wait(2000).then(()=>{
+      // Dado que tengo una cuenta de origen con un saldo de $1000
+      cy.contains('Total disponible').should('be.visible')
+      cy.contains('Transferir').click()
+      // Y tengo una cuenta de destino n° xxxxx
+      gestionSaldo.inputCBU(28)  
+      // Cuando intento transferir $2000 de la cuenta de origen a la cuenta de destino
+      cy.contains('Continuar').click()
+      cy.wait(2000)
+      gestionSaldo.inputAmount(2000)
+      cy.contains('Continuar').click()
+      // Y selecciono Motivo
+      gestionSaldo.inputOption('Sueldo')
+      cy.contains('Continuar').click()
+      // Y confirmo la transaccion
+      cy.contains('Continuar').click()
+      cy.wait(2000)
+      cy.contains('Error: Insufficient balance').should('be.visible')
       // Entonces deberia recibir un mensaje de error indicando fondos insuficientes
-      // Y el saldo de la cuenta origen no deberia cambiar
+      // Y el saldo de la cuenta [16] origen no deberia cambiar
+      gestionSaldo.userBalance(16)
+      // y cancelamos operacion
+      cy.contains('Cancelar').click()
       // Y el saldo de la cuenta de destino no deberia cambiar
-
+      cy.wait(2000)
+      // y el saldo en total disponible $ "Se valida con saldo total en el localStorage"
+      gestionSaldo.verifyAmount()
+  
+      })
+      
     });
 
-    it('Transferencia_003 | Transferencia con Saldo Negativo', () => {
+    it('Tr| Transferencia con Saldo Negativo', () => {
+      cy.wait(2000).then(()=>{
+        // Dado que tengo una cuenta de origen con un saldo de $20
+        cy.contains('Total disponible').should('be.visible')
+        cy.contains('Transferir').click()
+        // Y tengo una cuenta de destino n° xxxxx
+        // when cuando intento realizar la transferencia
+      })
       // Given que tengo una cuenta en la billetera virtual con saldo negativo
       // and deseo transferir una cantidad específica a otra cuenta
       // when cuando intento realizar la transferencia
@@ -68,7 +97,7 @@ describe('Seccion Gestion de Saldos', () => {
 
     });
 
-    it('Transferencia_004 | Transferencia con Saldo 0', () => {
+    it('Tr| Transferencia con Saldo 0', () => {
       // Given que tengo una cuenta en la billetera virtual con saldo 0
       // and deseo transferir una cantidad específica a otra cuenta
       // when cuando intento realizar la transferencia
@@ -79,18 +108,12 @@ describe('Seccion Gestion de Saldos', () => {
 
     });
     
-    it('Transferencia_005 | Validacion de datos de entrada', () => {
+    it('Tr| Validacion de datos de entrada', () => {
       // Given que estoy en la página de transferencia de fondos
       // when ingreso caracteres no numéricos "$%&" en el campo de monto
       // then debería ver un mensaje de error que indique un monto inválido
 
     });
 
-    it('Transferencia_006 | Visualizacion de saldo en billetera virtual', () => {
-      // Given que estoy en la página de transferencia de fondos
-      // when ingreso caracteres no numéricos "$%&" en el campo de monto
-      // then debería ver un mensaje de error que indique un monto inválido
-
-    });
     
 });

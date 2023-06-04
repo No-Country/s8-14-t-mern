@@ -18,7 +18,7 @@ interface Props {
 const Cards: React.FC<Props> = ({ img, text, href }) => {
   return (
     <div className="drop-shadow-[0_4px_4px_rgba(0,0,0,0.25)]">
-      <Link to={href}>
+      <Link to={href || "#!"}>
         <Card className="w-36 p-0 h-36 ">
           <div className="flex justify-center items-center bg-[#F5F2FF] h-3/4">
             <img className="w-16" src={img} alt="images" />

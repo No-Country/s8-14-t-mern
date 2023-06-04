@@ -5,6 +5,8 @@
    - PORT : port where you go to run the server.
    - DB_URL : URI of the mongo database.
    - SECRET : secret key used for JWT
+   - STRIPE_KEY : secret key Stripe platform
+   - CLOUDINARY_URL = URI of cloudinary server
    - EMAIL_HOST= email host provider
    - EMAIL_PORT= port host provider
    - EMAIL_USER= user host provider
@@ -51,6 +53,26 @@
 | balance              | Number                          | NO       | 0                        |
 | isActive             | Boolean                         | NO       | false                    |
 | token                | String                          | NO       | uuid()                   |
+
+## Transactions
+
+|    TYPE    |                    DETAIL                     |                      ENDPOINT                     |                            DATA                          |
+| :--------: | :-------------------------------------------: | :-----------------------------------------------: | :------------------------------------------------------: |
+|  **POST**  |                verify account                 |         **transactions/verify-account**           |                       body: { alias }                    |
+|  **POST**  |               make transaction                |         **transactions/transfer-funds**           |  body: { amount, sender, receiver, reference, status }   |
+|  **GET**   |              transactions by id               | **transactions/get-all-transactions-by-user/:id** |                                                          |
+|  **POST**  |            deposit funds by Stripe            |       **transactions/deposit-funds-stripe**       |                body: { token, amount, userId }           |
+
+### Transaction Schema
+
+| KEY                  | TYPE                            | REQUIRED | DEFAULT                  |
+| -------------------- | ------------------------------- | -------- | ------------------------ |
+| amount               | Number                          | YES      | -                        |
+| sender               | ObjectId                        | YES      | -                        |
+| receiver             | ObjectId                        | YES      | -                        |
+| reference            | String                          | YES      | -                        |
+| transaction_type     | String                          | NO       | null                     |
+| status               | String                          | NO       | success                  |
 
 ## POSTMAN DOCUMENTATION
 

@@ -12,7 +12,24 @@ import {
  */
 const postVeryfyController = async (req: Request, res: Response) => {
   try {
-    const data = await fecthVerifyAccount(req.body)
+    /*  const { receiver, alias } = req.body
+    if (!alias || !receiver) {
+      res.status(401).json({
+        msg: 'Not data provided',
+        data: null,
+        success: false
+      })
+    }
+    const data = await fecthVerifyAccount(receiver, alias) */
+    const { alias } = req.body
+    if (!alias) {
+      res.status(401).json({
+        msg: 'Not alias provided',
+        data: null,
+        success: false
+      })
+    }
+    const data = await fecthVerifyAccount(alias)
     res
       .status(201)
       .json({ msg: 'Account verified successfully', data, success: true })
@@ -32,7 +49,6 @@ const postTransferController = async (req: Request, res: Response) => {
       })
     }
     const newTransaction = await fecthTransfer(req.body)
-    console.log(newTransaction)
     res.status(201).json({
       msg: 'Transaction successfully',
       data: newTransaction || null,

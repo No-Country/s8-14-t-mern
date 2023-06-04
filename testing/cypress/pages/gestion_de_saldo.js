@@ -24,21 +24,28 @@ class GestionSaldo {
 
     inputOption(option){
         this.elements.inputOption().click()
-        cy.contains(option).click()
+        cy.contains(option).click({force:true})
     }
 
     verifyAmount(){
         this.elements.amount().invoke('text').then((e)=>{
             const amount = e
             expect(datosLocalStorage.balance).to.eq(amount)
+            cy.log(amount)
         })
     }
-
+   
+    userBalance(num){
+        cy.request('GET',apiUsuarios).then((e)=>{
+            const data = e.body[num].balance
+                expect(data).to.eq(datosLocalStorage.balance)        
+        }) 
+    }
+    
     activityList(num){
         this.elements.homeList().invoke('text').then((e)=>{
             let list = e.slice(24,27)
             expect(list).to.eq(num)
-            console.log(list)
         })
     }
 }

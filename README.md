@@ -17,13 +17,18 @@ $(Posibles funciones extras que se desarrollaran)
 5)$ Herramientas extras: Conversor de divisas
 
 ## FrontEnd:
+<<<<<<< HEAD
 
 - Lautaro duran — hoy a las 16:18
+=======
+- Lautaro Duran
+>>>>>>> 6208a3bbcadf6f4cb8c42890c714f8ee2ab0ebb5
 - Juan Antonio Ayola Cortes
 - Nelson Ismael Rosas
 - Ever Rojas
 
 ## BackEnd:
+<<<<<<< HEAD
 
 - Swistoniuk Pablo
 - Marco Antonio Reyes Del Angel
@@ -36,6 +41,26 @@ $(Posibles funciones extras que se desarrollaran)
 - Barbosa Maximiliano
 
 ## Ux/Ui:
+=======
+- Pablo Swistoniuk 
+- Marco Antonio Reyes Del Angel
+- Gaston Saravia
+- Orlando Rodriguez
+- Fabian Jorge Sanchez  
+  
+## QA
+- Maximiliano Barbosa 
+
+## Ux/Ui:
+- Yanina Calviello
+  
+  
+## STACK FrontEnd:
+  -React
+  -Sass
+  -Redux(Redux Toolkit)
+  -Axios
+>>>>>>> 6208a3bbcadf6f4cb8c42890c714f8ee2ab0ebb5
 
 - Yanina Calviello,
 
