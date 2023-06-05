@@ -1,10 +1,9 @@
 import { Router } from 'express'
-import { verifyToken } from '../middlewares/authMiddleware'
 import {
-  postVeryfyController,
-  postTransferController,
   getTransactionsController,
-  postDepositStripeCtrl
+  postDepositStripeCtrl,
+  postTransferController,
+  postVeryfyController
 } from '../controller/transactions.controllers'
 
 const router = Router()
