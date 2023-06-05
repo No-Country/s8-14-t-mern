@@ -2,10 +2,6 @@ import { model, Schema } from 'mongoose'
 import { CardType, ICard } from '../interfaces/card.interface'
 
 const cardSchema =  new Schema<ICard>({
-  numberCard: {
-    type: Number,
-    required: true
-  },
   cardType: {
     type: String,
     enum: Object.values(CardType),

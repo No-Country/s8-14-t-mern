@@ -6,11 +6,13 @@ import { Router } from 'express'
 import {
   deleteUserCtrl,
   forgotPasswordCtrl,
+  getUserCardsCtrl,
   getUserCtrl,
   getUserIdCtrl,
   loginUser,
   newPswCtrl,
   patchUserCtrl,
+  postCardUserCtrl,
   postUserCtrl,
   putImage,
   putUserCtrl,
@@ -58,5 +60,7 @@ router.put('/edit', putUserCtrl)
 router.route('/:id').patch(patchUserCtrl)
 
 router.put('/:id/image', putImage)
+router.post('/:id/card', postCardUserCtrl)
+router.get('/:id/card/:idCard', getUserCardsCtrl)
 
 export { router }
