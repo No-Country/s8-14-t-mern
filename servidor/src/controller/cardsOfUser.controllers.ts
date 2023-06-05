@@ -5,12 +5,8 @@ import { ICardsOfUser } from "../interfaces/cardsOfUser.interface"
 
 const postCardOfUserCtrl = async (req: Request, res: Response) => {
   try {
-    const { cardOptions, userId, ...dataCard } = req.body
-
-    if(!cardOptions || userId) {
-      return "This data is required: 'uerId' 'cardOptions' "
-    }
-
+    const { ...dataCard } = req.body
+    
     const newCard = await fetchCreateCard({...dataCard})
 
     res.status(201).json(newCard)
