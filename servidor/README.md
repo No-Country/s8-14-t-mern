@@ -5,6 +5,8 @@
    - PORT : port where you go to run the server.
    - DB_URL : URI of the mongo database.
    - SECRET : secret key used for JWT
+   - STRIPE_KEY : secret key Stripe platform
+   - CLOUDINARY_URL = URI of cloudinary server
    - EMAIL_HOST= email host provider
    - EMAIL_PORT= port host provider
    - EMAIL_USER= user host provider
@@ -52,6 +54,34 @@
 | isActive             | Boolean                         | NO       | false                    |
 | token                | String                          | NO       | uuid()                   |
 
+## Transactions
+
+|    TYPE    |                    DETAIL                     |                      ENDPOINT                     |                            DATA                          |
+| :--------: | :-------------------------------------------: | :-----------------------------------------------: | :------------------------------------------------------: |
+|  **POST**  |                verify account                 |         **transactions/verify-account**           |                 body: { receiver, alias }                |
+|  **POST**  |               make transaction                |         **transactions/transfer-funds**           |  body: { amount, sender, receiver, reference, status }   |
+|  **GET**   |              transactions by id               | **transactions/get-all-transactions-by-user/:id** |                                                          |
+|  **POST**  |            deposit funds by Stripe            |       **transactions/deposit-funds-stripe**       |                body: { token, amount, userId }           |
+
+### Transaction Schema
+
+| KEY                  | TYPE                            | REQUIRED | DEFAULT                  |
+| -------------------- | ------------------------------- | -------- | ------------------------ |
+| amount               | Number                          | YES      | -                        |
+| sender               | ObjectId                        | YES      | -                        |
+| receiver             | ObjectId                        | YES      | -                        |
+| reference            | String                          | YES      | -                        |
+| transaction_type     | String                          | NO       | null                     |
+| status               | String                          | NO       | success                  |
+
 ## POSTMAN DOCUMENTATION
+
+|   TYPE   |                 DETAIL                  |                     ENDPOINT                      |                                                            DATA                                                             |
+| :------: | :-------------------------------------: | :-----------------------------------------------: | :-------------------------------------------------------------------------------------------------------------------------: |
+| **POST** |             CREAR BENEFICIO             |         **api/v1/pigmeo/benefice/create**         | body: {name, description, category,startDate,endDate, discountPercentage, cashbackAmount, promoCode, theBest, typeBenefice} |
+| **GET**  |      OBTENER TODOS LOS BENEFICIOS       |          **api/v1/pigmeo/benefice/all**           |                                                                                                                             |
+| **GET**  |    OBTENER BENEFICIOS POR CATEGORIAS    | **api/v1/pigmeo/benefice/category/:categoryName** |                                                  params: { categoryName }                                                   |
+| **GET**  |        OBTENER BENEFICIO POR ID         |      **api/v1/pigmeo/benefice//:idBenefice**      |                                                   params: { idBenefice }                                                    |
+| **PUT**  | ACTIVAR/DESACTIVAR BENEFICIO EN USUARIO |        **api/v1/pigmeo/benefice/activate**        |                                            body: { idUser, idBenefice, active }                                             |
 
 Link here
