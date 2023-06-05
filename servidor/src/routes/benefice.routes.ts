@@ -13,6 +13,7 @@ function formatDate(date: Date) {
 }
 
 // Crear beneficio, para cargar cards en el front
+//ToDo: agregar al modelo imagen para usarla en el front.
 router.post('/create', async (req, res) => {
   try {
     //Midleware:
@@ -56,13 +57,15 @@ router.get('/category/:categoryName', async (req, res) => {
   })
 })
 // Obtener los detalles de un beneficio específico.
+//ToDo: enviar datos con fecha formato largo
 router.get('/:idBenefice', async (req, res) => {
   const id = req.params.idBenefice
   const beneficio = await Benefice.findById(id)
   if (!beneficio) {
     return res.status(404).json({ msg: 'Beneficio no encontrado' })
   }
-  return res.status(200).json({ data: beneficio })
+  const fecha = formatDate(beneficio.startDate)
+  return res.status(200).json({ data: beneficio, fecha })
 })
 //TODO: como usuario, activar o desactivar un beneficio para poder usarlo
 router.put('/activate', async (req, res) => {

@@ -54,6 +54,8 @@
 
 ## POSTMAN DOCUMENTATION
 
+### DOCUMENTATION BENEFICES
+
 |   TYPE   |                 DETAIL                  |                     ENDPOINT                      |                                                            DATA                                                             |
 | :------: | :-------------------------------------: | :-----------------------------------------------: | :-------------------------------------------------------------------------------------------------------------------------: |
 | **POST** |             CREAR BENEFICIO             |         **api/v1/pigmeo/benefice/create**         | body: {name, description, category,startDate,endDate, discountPercentage, cashbackAmount, promoCode, theBest, typeBenefice} |
