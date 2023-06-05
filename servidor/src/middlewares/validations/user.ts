@@ -129,19 +129,35 @@ export const validatorTokenAccount = async (
 }
 
 export const validatorUserId = (
-  { params: { id: userId }, user }: UserRequestI,
+  req: UserRequestI,
   res: Response,
   next: NextFunction
 ) => {
-  const authenticatedUserId = user?.id
-  const authenticatedUserRole = user?.rol
-  console.log('validatorUserId', authenticatedUserId, authenticatedUserRole)
+  const { id: userId } = req.params
+  const authenticatedUserId = req.user?.id
+  const authenticatedUserRole = req.user?.rol
   try {
     if (
-      userId !== authenticatedUserId ||
-      authenticatedUserRole === rolType.admin
-    )
+      userId !== authenticatedUserId &&
+      authenticatedUserRole !== rolType.admin
+    ) {
       throw new Error('No tienes permiso para acceder a este recurso.')
+    }
+    if (authenticatedUserRole === rolType.admin) {
+      User.findById(userId)
+        .then(userFound => {
+          if (!userFound) {
+            instanceOfError(res, new Error('User not found'), 404)
+          } else {
+            req.user = userFound
+            next()
+          }
+        })
+        .catch(error => {
+          instanceOfError(res, error, 500)
+        })
+      return
+    }
     next()
   } catch (error) {
     instanceOfError(res, error, 403)

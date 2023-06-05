@@ -48,6 +48,7 @@ router
   .get(validatorTokenAccount, verifyTokenPswCtrl)
   .post(validatorTokenAccount, newPswCtrl)
 
+//TODO: middleware para que solo vea el admin todos los usuarios
 router.route('/').get(getUserCtrl)
 
 router

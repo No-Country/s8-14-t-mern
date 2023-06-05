@@ -50,11 +50,12 @@ function ProfilePage(): ReactElement {
        flex flex-col gap-5 items-center justify-estartnd relative mt-20"
         >
           <img
-            src="https://picsum.photos/200"
-            className="w-20 h-20 rounded-full absolute -top-14"
+            src={user?.avatar}
+            className="w-20 h-20 rounded-full absolute -top-14 object-cover"
           />
           <Title className="text-black text-lg relative">
-            Pablo Gómez {user?.firstName}
+            {user?.firstName}
+            {user?.lastname}
           </Title>
           <ul className="flex flex-col gap-0 px-4 w-screen  [&>li:not(:last-child)]:border-b-2">
             {MENU_ITEMS.map((item, i) => (

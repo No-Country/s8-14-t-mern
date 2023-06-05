@@ -1,62 +1,71 @@
+
 import { Card, Grid, Icon, Text } from '@tremor/react'
-import React, { useState } from 'react'
+import { ReactElement, useState } from 'react'
 import { CameraIcon, PhotographIcon } from "@heroicons/react/solid";
 import Loader from './Loader';
 
-export default function Popup() {
-  const [selectedImage, setSelectedImage] = useState<string | null>(null);
+
+interface PopupProps {
+  handleImageSelected: (selectedImage: File | null) => void;
+}
+
+
+export default function Popup({ handleImageSelected }: PopupProps): ReactElement {
+
+  const [selectedImage, setSelectedImage] = useState<File | null>(null);
   const [isLoaderImage, setIsLoaderImage] = useState<boolean>(false);
 
-  const handleOpenCamera = () => {
-    const input = document.createElement('input');
-    input.type = 'file';
-    input.accept = 'image/*';
-    // input.capture = 'none'; // Abre la galería de imágenes
+  const haldleImage = (event: React.MouseEvent<HTMLButtonElement, MouseEvent>): void => {
 
-    input.onchange = (event: any) => {
-      if (event.target instanceof HTMLInputElement && event.target.files && event.target.files.length > 0) {
-        const file = event.target.files[0];
-        setSelectedImage(URL.createObjectURL(file));
-      }
-    };
 
-    input.click();
     setIsLoaderImage(true)
-    setTimeout(() => {
+    let input = document.createElement('input');
+    input.type = 'file';
+    input.capture = 'none'
+
+    // Aqui permito usar la camara trasera
+    if (event.target instanceof HTMLButtonElement && event.target.id === 'camare') {
+      input.capture = 'environment';
+    }
+
+    let isCancelled = false;
+
+    input.oninput = (event: Event): void => {
+      const target = event.target as HTMLInputElement;
+      if (target.files && target.files.length > 0) {
+        const file = target.files[0];
+        setSelectedImage(file);
+        handleImageSelected(file);
+        setIsLoaderImage(false)
+      }
+
+    }
+    input.click();
+    input.addEventListener('cancel', () => {
       setIsLoaderImage(false)
-      console.log("listo");
-      
-    }, 400);
+      handleImageSelected(null);
+      isCancelled = true;
+    })
+
+
+    setTimeout(() => {
+      if (isCancelled) {
+        console.log('El usuario canceló la selección de archivo');
+      }
+    }, 100);
+
   };
 
   return (
     <Grid
-      className=' 
-    absolute
-    top-0
-    left-0
-    w-full
-    h-full
-    bg-transparent
-    flex
-    items-end
-    justify-end
-    z-50
-    bg-opacity-50
-    bg-slate-500
-    '
+      className="fixed top-0 left-0 w-full h-full overflow-y-hidden  flex items-center justify-center bg-opacity-50 bg-black z-50"
     >
-      <Card
-        className='
-        border-t-transparent 
-        rounded-t-3xl
-        h-52
-        '>
-        <div className='w-full flex justify-center'>
+      <Card className=" absolute top-2/3 h-72 w-full  overflow-y-hidden bg-white rounded-lg">
+        <div className='w-full  flex justify-center'>
           <div className='bg-slate-400 w-12 h-[4px] rounded-3xl'></div>
         </div>
         {isLoaderImage ?
-          <div className='w-full text-center h-full flex flex-col justify-center gap-7'>
+          <div className='w-full text-center  flex flex-col justify-center gap-7'>
             <Text className='text-lg'>
               Cambiando imagen
             </Text>
@@ -65,7 +74,8 @@ export default function Popup() {
           :
           <>
             <button
-              onClick={handleOpenCamera}
+              id='camare'
+              onClick={haldleImage}
               className='flex justify-center items-center cursor-pointer'
             >
               Tomar una foto
@@ -73,7 +83,7 @@ export default function Popup() {
             </button>
 
             <button
-              onClick={handleOpenCamera}
+              onClick={haldleImage}
               className='flex justify-center items-center cursor-pointer'
             >
               Elegir imagen de galeria
