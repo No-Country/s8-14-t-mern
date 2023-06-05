@@ -11,7 +11,6 @@ const cardsOfUserSchema = new Schema<ICardsOfUser>(
     cardOptions: {
       type: Schema.Types.ObjectId,
       ref: 'Card',
-      // required: true
     },
     numberCard: {
       type: Number,
@@ -21,7 +20,6 @@ const cardsOfUserSchema = new Schema<ICardsOfUser>(
     userId: {
       type: Schema.Types.ObjectId,
       ref: 'User',
-      // required: true
     }
   },
   { timestamps: true }
