@@ -71,6 +71,7 @@
 | sender               | ObjectId                        | YES      | -                        |
 | receiver             | ObjectId                        | YES      | -                        |
 | reference            | String                          | YES      | -                        |
+| charge               | Number                          | NO       | 0                        |
 | transaction_type     | String                          | NO       | null                     |
 | status               | String                          | NO       | success                  |
 
