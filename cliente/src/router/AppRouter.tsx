@@ -12,6 +12,9 @@ import BenefitPage from "@/pages/BenefitPage";
 const OnboardingPage: React.LazyExoticComponent<() => JSX.Element> = lazy(
   () => import("../pages/OnboardingPage")
 );
+const AddMoneyPage: React.LazyExoticComponent<() => JSX.Element> = lazy(
+  () => import("../pages/AddMoneyPage")
+);
 
 const AuthPage: React.LazyExoticComponent<() => JSX.Element> = lazy(
   () => import("../pages/AuthPage")
@@ -128,7 +131,7 @@ export default function AppRouter(): JSX.Element {
               <Route path="/addFunds" element={<AddFundsMenuPage />} />
               <Route
                 path="/addFunds/transfer"
-                element={<AddFundsByTransferPage />}
+                element={<AddMoneyPage />}
               />
               <Route
                 path="/addFunds/cash"

@@ -9,7 +9,7 @@ export interface ITransactions {
   receiver: any;
   reference: string | null;
 }
-const userContextInitialState = {
+const newTransferContextInitialState = {
   setTransferData: () => {},
 };
 interface UserContextType {
@@ -17,7 +17,7 @@ interface UserContextType {
   setTransferData: React.Dispatch<React.SetStateAction<ITransactions>>;
 }
 
-const USER_INITIAL_STATE: ITransactions = {
+const NEW_TRANSFER_INITIAL_STATE: ITransactions = {
   amount: 0,
   sender: null,
   receiver: null,
@@ -25,7 +25,7 @@ const USER_INITIAL_STATE: ITransactions = {
 };
 
 const NewTransferContext = createContext<UserContextType>(
-  userContextInitialState
+  newTransferContextInitialState
 );
 
 function useNewTranferData() {
@@ -34,7 +34,7 @@ function useNewTranferData() {
 }
 
 function NewTransferProvider() {
-  const [transferData, setTransferData] = useState(USER_INITIAL_STATE);
+  const [transferData, setTransferData] = useState(NEW_TRANSFER_INITIAL_STATE);
 
   return (
     <NewTransferContext.Provider value={{ transferData, setTransferData }}>

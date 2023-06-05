@@ -58,7 +58,7 @@
 
 |    TYPE    |                    DETAIL                     |                      ENDPOINT                     |                            DATA                          |
 | :--------: | :-------------------------------------------: | :-----------------------------------------------: | :------------------------------------------------------: |
-|  **POST**  |                verify account                 |         **transactions/verify-account**           |                 body: { receiver, alias }                |
+|  **POST**  |                verify account                 |         **transactions/verify-account**           |                       body: { alias }                    |
 |  **POST**  |               make transaction                |         **transactions/transfer-funds**           |  body: { amount, sender, receiver, reference, status }   |
 |  **GET**   |              transactions by id               | **transactions/get-all-transactions-by-user/:id** |                                                          |
 |  **POST**  |            deposit funds by Stripe            |       **transactions/deposit-funds-stripe**       |                body: { token, amount, userId }           |
