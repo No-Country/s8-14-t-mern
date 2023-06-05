@@ -53,6 +53,8 @@
 | balance              | Number                          | NO       | 0                        |
 | isActive             | Boolean                         | NO       | false                    |
 | token                | String                          | NO       | uuid()                   |
+| benefices            | Array                           | NO       | -                        |
+| topUpCard            | Array                           | NO       | -                        |
 
 ## Transactions
 
