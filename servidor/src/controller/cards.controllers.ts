@@ -4,7 +4,6 @@ import config from '../config'
 import { fetchGet, fetchPost, findCardType } from '../services/cards.services'
 cloudinary.config({ cloudinary: config.cloudinary})
 
-
 const postCardCtrl = async (req: Request, res: Response) => {
   try {
     const {...cardData} = req.body
