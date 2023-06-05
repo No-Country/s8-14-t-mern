@@ -53,6 +53,8 @@
 | balance              | Number                          | NO       | 0                        |
 | isActive             | Boolean                         | NO       | false                    |
 | token                | String                          | NO       | uuid()                   |
+| benefices            | Array                           | NO       | -                        |
+| topUpCard            | Array                           | NO       | -                        |
 
 ## Transactions
 
@@ -71,10 +73,11 @@
 | sender               | ObjectId                        | YES      | -                        |
 | receiver             | ObjectId                        | YES      | -                        |
 | reference            | String                          | YES      | -                        |
+| charge               | Number                          | NO       | 0                        |
 | transaction_type     | String                          | NO       | null                     |
 | status               | String                          | NO       | success                  |
 
-## POSTMAN DOCUMENTATION
+## Benefices
 
 |   TYPE   |                 DETAIL                  |                     ENDPOINT                      |                                                            DATA                                                             |
 | :------: | :-------------------------------------: | :-----------------------------------------------: | :-------------------------------------------------------------------------------------------------------------------------: |

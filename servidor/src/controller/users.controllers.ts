@@ -8,8 +8,10 @@ import config from '../config'
 cloudinary.config({ cloudinary: config.cloudinary })
 import { IUser, UserRequestI } from '../interfaces/user.interface'
 import {
+  fetchAddCard,
   fetchDelete,
   fetchGet,
+  fetchGetCards,
   fetchLogin,
   fetchPost,
   fetchPut,
@@ -19,6 +21,8 @@ import {
   verifyUserAccount
 } from '../services/users.services'
 import { instanceOfError } from '../utils/validations/httpErrorHandler'
+import { ICardsOfUser } from '../interfaces/cardsOfUser.interface'
+import { ObjectId } from 'mongoose'
 
 const getUserCtrl = async (_req: Request, res: Response) => {
   try {
@@ -66,17 +70,17 @@ const deleteUserCtrl = async ({ user }: UserRequestI, res: Response) => {
 const patchUserCtrl = async (req: Request, res: Response) => {
   try {
     const id = req.params.id
-    const {
-      firstName,
-      lastname,
-      typeIdentification,
-      phoneNumber,
-      email,
-      address,
-      password,
-      numberIdentification,
-      country,
-      city
+    const { 
+      firstName, 
+      lastname, 
+      typeIdentification, 
+      phoneNumber, 
+      email, 
+      address, 
+      password, 
+      numberIdentification, 
+      country, 
+      city 
     } = req.body
 
     const data: Partial<IUser> = {}
@@ -89,10 +93,10 @@ const patchUserCtrl = async (req: Request, res: Response) => {
     if (country) data.country = country
     if (city) data.city = city
 
-    if (firstName || lastname) {
-      res.status(400).json({
-        msg: "This data can not be edited: 'firstName' and 'lastname' "
-      })
+    if(firstName || lastname) {
+      res
+        .status(400)
+        .json({ msg: "This data can not be edited: 'firstName' and 'lastname' "})
       return
     }
 
@@ -210,6 +214,40 @@ const loginUser = async (req: Request, res: Response) => {
   }
 }
 
+/* ----------CARDS OF USER---------- */
+
+const postCardUserCtrl = async (req: Request, res: Response) => {
+  try {
+    const id = req.params.id
+    const { ...data } = req.body 
+    const cardData = { ...data } 
+    const userData = {
+      cards: [cardData]
+    }
+    
+    //ToDo: validar que el numero de tarjeta no se repita
+
+    const userModified = await fetchAddCard(cardData, id, userData)
+    console.log(userModified.cards)
+    res.status(200).json({ success: true, user: userModified })
+
+  } catch (error) {
+    if (error instanceof Error) res.status(400).json({ error: error.message })
+  }
+}
+
+//This does not works
+const getUserCardsCtrl = async (req: Request, res: Response) => {
+  try {
+    const {id}  = req.params
+    console.log(req.params)
+    const getCards = await fetchGetCards(id)
+    res.status(200).json(getCards)
+  } catch (error) {
+    if (error instanceof Error) res.status(400).json({ error: error.message })
+  }
+}
+
 export {
   deleteUserCtrl,
   forgotPasswordCtrl,
@@ -222,5 +260,7 @@ export {
   putImage,
   putUserCtrl,
   verifyTokenPswCtrl,
-  verifyUserCtrl
+  verifyUserCtrl, 
+  postCardUserCtrl,
+  getUserCardsCtrl
 }
