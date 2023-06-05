@@ -28,7 +28,7 @@ const postCardCtrl = async (req: Request, res: Response) => {
 
     const newCard = await fetchPost({...cardData, image: imageUrl})
 
-    res.status(200).json(newCard)
+    res.status(201).json(newCard)
 
   } catch (error) {
     if (error instanceof Error) res.status(400).json({ error: error.message })
