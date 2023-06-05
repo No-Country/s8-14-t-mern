@@ -6,7 +6,6 @@ export enum CardType {
 } 
 
 export interface ICard extends Document {
-  numberCard: number
   cardType: CardType
   image: string
   name: string

@@ -5,6 +5,8 @@ import User from '../models/users.models'
 import { sendMailForgotPassword, sendVerifyMail } from '../utils/handleEmail'
 import { encrypt, verifyHash } from '../utils/handlePassword'
 import { IUser } from './../interfaces/user.interface'
+import { ICardsOfUser } from '../interfaces/cardsOfUser.interface'
+import CardsOfUser from '../models/cardsOfUser.models'
 const secretKey = 'pigmeo123'
 
 //Retorna el usuario encontrado por email recibido.
@@ -221,6 +223,36 @@ const fetchLogin = async (password: string, email: string) => {
   return response
 }
 
+/* ----------CARDS OF USER---------- */
+
+const fetchAddCard = async (cardData: ICardsOfUser, id: string, userData: Partial<IUser>) => {
+  try {
+    let newCard = await CardsOfUser.create(cardData)
+    
+    //Update the user pushing newCard on user.cards
+    const user = await User.findById(id)
+    if (!user) {
+      throw new Error(`User with id: ${id} does not exist`)
+    }
+
+    user.cards.push(newCard)
+    const userModified = await user.save()
+    return userModified
+  } catch (error) {
+    throw new Error(error as string)
+  }
+}
+
+//This does not works
+const fetchGetCards = async (id: any) => {
+  try {
+    const userCard = await CardsOfUser.findById(id)
+    return userCard
+  } catch (error) {
+    throw new Error(error as string)
+  }
+}
+
 export {
   fetchDelete,
   fetchGet,
@@ -230,5 +262,7 @@ export {
   fetchUpdate,
   forgotPsw,
   newPassword,
-  verifyUserAccount
+  verifyUserAccount,
+  fetchAddCard,
+  fetchGetCards
 }
