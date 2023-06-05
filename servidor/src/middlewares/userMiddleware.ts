@@ -1,4 +1,4 @@
-import { NextFunction, Request, Response } from 'express'
+import { NextFunction, Response } from 'express'
 import { UserRequestI } from '../interfaces/user.interface'
 import User from '../models/users.models'
 import { instanceOfError } from '../utils/validations/httpErrorHandler'
