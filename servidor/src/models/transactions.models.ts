@@ -28,6 +28,10 @@ const transactionSchema = new Schema<ITransactions>(
       type: String,
       required: true
     },
+    charge: {
+      type: Number,
+      default: 0
+    },
     transaction_type: {
       type: String,
       default: null
