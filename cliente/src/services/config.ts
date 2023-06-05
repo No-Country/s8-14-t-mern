@@ -10,4 +10,18 @@ export const axiosInstance: AxiosInstance = axios.create({
   },
 });
 
+axiosInstance.interceptors.request.use(
+  (config) => {
+    const token = JSON.parse(localStorage.getItem("user") || "{}")?.token;
+    if (token) {
+      config.headers["Authorization"] = `Bearer ${token}`;
+    }
+    return config;
+  },
+  (error) => {
+    console.log("Interceptor de peticion Axios error", error);
+    return Promise.reject(error);
+  }
+);
+
 export default axiosInstance;

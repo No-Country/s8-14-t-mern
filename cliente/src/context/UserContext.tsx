@@ -43,7 +43,7 @@ function UserProvider({ children }: { children: ReactNode }): JSX.Element {
   const isAuthenticated = user?.token ? true : false;
 
   const setUserData = (userData: Partial<IUser>) => {
-    const user = { ...userData, lastname: userData.lastName };
+    const user = { ...userData, lastname: userData?.lastName };
     setUser(user);
     localStorage.setItem("user", JSON.stringify(user));
   };
