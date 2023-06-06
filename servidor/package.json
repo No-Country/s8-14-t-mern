@@ -10,8 +10,9 @@
     "dev:debug": "ts-node-dev --transpile-only --respawn --inspect=4321 --project tsconfig.json ./src/index.ts",
     "test": "echo \"Error: no test specified\" && exit 1",
     "lint": "eslint --ext .ts src/",
+    "docs": "typedoc",
     "lint:fix": "eslint --ext .ts src/ --fix",
-    "docs": "typedoc"
+    "prepare": "cd .. && husky install servidor/.husky"
   },
   "keywords": [
     "Nodejs",
@@ -61,6 +62,7 @@
     "eslint-config-prettier": "^8.8.0",
     "eslint-plugin-prettier": "^4.2.1",
     "eslint-plugin-simple-import-sort": "^10.0.0",
+    "husky": "^8.0.3",
     "eslint-plugin-unused-imports": "^2.0.0",
     "ts-node": "^10.9.1",
     "ts-node-dev": "^2.0.0",

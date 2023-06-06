@@ -1,5 +1,4 @@
 import { config } from 'dotenv'
-import { Types } from 'mongoose'
 import Stripe from 'stripe'
 import { v4 as uuidv4 } from 'uuid'
 import { ITransactions } from '../interfaces/transaction.interface'
@@ -8,10 +7,15 @@ import User from '../models/users.models'
 
 config()
 const stripeSecretKey = process.env.STRIPE_KEY
-const ObjectId = Types.ObjectId
+//const ObjectId = Types.ObjectId
+
+type tokenStripe = {
+  email: string
+  id: string
+}
 
 // Validator function
-
+/*
 const isValidObjectId = (id: any) => {
   if (ObjectId.isValid(id)) {
     if (String(new ObjectId(id)) === id) return true
@@ -19,9 +23,7 @@ const isValidObjectId = (id: any) => {
   }
   return false
 }
-
 // verify receiver's account number
-
 /* const fecthVerifyAccount = async (receiver: any, alias: any) => {
   try {
     if (!isValidObjectId(receiver)) {
@@ -42,7 +44,7 @@ const isValidObjectId = (id: any) => {
     throw new Error(e as string)
   }
 } */
-const fecthVerifyAccount = async (alias: any) => {
+const fecthVerifyAccount = async (alias: string) => {
   try {
     const user = await User.findOne({ alias })
     if (!user) {
@@ -102,7 +104,7 @@ const fecthTransfer = async (transaction: ITransactions) => {
 
 // get all transactions for a user
 
-const fecthGetTransfer = async (id: any) => {
+const fecthGetTransfer = async (id: string) => {
   try {
     const user = await User.findById(id)
     if (!user) {
@@ -139,9 +141,14 @@ const fecthGetTransfer = async (id: any) => {
 
 // deposit funds using stripe
 
-const fecthDepositStripe = async (token: any, amount: any, id: any) => {
+const fecthDepositStripe = async (
+  token: tokenStripe,
+  amount: number,
+  id: string
+) => {
   try {
-    const stripe = new Stripe(stripeSecretKey!, {
+    if (!stripeSecretKey) throw new Error('Token not provided')
+    const stripe = new Stripe(stripeSecretKey, {
       apiVersion: '2022-11-15'
     })
     // create customer
