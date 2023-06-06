@@ -139,7 +139,7 @@ export default function AppRouter(): JSX.Element {
               />
               <Route path="/recharge" element={<RechargePage />} />
               <Route
-                path="/recharge/cardnumber"
+                path="/recharge/cardnumber/:imageUrl"
                 element={<RechargeCardNumberPage />}
               />
               <Route path="/recharge/amount" element={<RechargeAmountPage />} />
