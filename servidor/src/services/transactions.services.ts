@@ -70,6 +70,8 @@ const fecthTransfer = async (transaction: ITransactions) => {
     if (user?.balance !== undefined) {
       if (user.balance <= amount) {
         throw new Error('Insufficient balance')
+      } else if (user.balance - amount <= 20) {
+        throw new Error('Insufficient balance $20 is the minimum deposit')
       } else {
         if (receiver === sender) {
           throw new Error('Try to another receiver account')
