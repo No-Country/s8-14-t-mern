@@ -15,6 +15,7 @@ import {
   postCardUserCtrl,
   postUserCtrl,
   putImage,
+  putUserCtrl,
   verifyTokenPswCtrl,
   verifyUserCtrl
 } from '../controller/users.controllers'
@@ -53,7 +54,10 @@ router
   .route('/:id')
   .get([verifyToken, validatorUserId], getUserIdCtrl)
   .delete([verifyToken, validatorUserId], deleteUserCtrl)
-  .patch(patchUserCtrl)
+
+router.put('/edit', putUserCtrl)
+
+router.route('/:id').patch(patchUserCtrl)
 
 router.put('/:id/image', putImage)
 router.post('/:id/card', postCardUserCtrl)

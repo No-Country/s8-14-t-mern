@@ -1,8 +1,8 @@
 import { Request } from 'express'
 import { Document } from 'mongoose'
 import { Benefice } from './benefice.interface'
-import { ICardsOfUser } from './cardsOfUser.interface'
 import { ITopUpCard } from './topUpCardsService.interface'
+import { ICardsOfUser } from './cardsOfUser.interface'
 export enum rolType {
   admin = 'admin',
   user = 'user'
