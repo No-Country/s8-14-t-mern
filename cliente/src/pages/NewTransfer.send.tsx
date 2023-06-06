@@ -35,7 +35,7 @@ function TransferMoney() {
       });
       toast.success("Transferencia Exitosa");
       navigate("/response", {
-        state: { msg: "Tu envío se realizó con éxito" },
+        state: { msg: "Tu transferencia se realizo con exito" },
       });
     } catch (error: any) {
       console.log(error);

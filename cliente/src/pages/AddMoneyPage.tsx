@@ -11,7 +11,7 @@ export default function AddMoneyPage() {
       <Grid className="text-center"
         style={{ height: '100vh', width: '100%' }}>
         <Title className="text-black mt-12 ">
-          Ingresá la cifra que deseas transeferirse
+          Ingresá la cifra que deseas transeferirte
         </Title>
         <div className='flex flex-col gap-10'>
           <input
