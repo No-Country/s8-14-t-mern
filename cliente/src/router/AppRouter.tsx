@@ -147,7 +147,7 @@ export default function AppRouter(): JSX.Element {
               <Route path="/cripto" element={<CriptoPage />} />
 
               <Route path="*" element={<Navigate to="/home" />} />
-              <Route path="/response" element={<ResponsPage backmsg="" />} />
+              <Route path="/response" element={<ResponsPage />} />
             </>
           )}
           <Route path="*" element={<h1>404</h1>} />
