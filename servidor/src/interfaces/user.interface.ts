@@ -38,3 +38,12 @@ export interface IUser extends Document {
 export interface UserRequestI extends Request {
   user?: IUser
 }
+
+export interface CustomFileTypeI {
+  key?: string
+  path?: string
+  mimetype?: string
+  originalname?: string
+  size?: number
+  tempFilePath: string
+}
