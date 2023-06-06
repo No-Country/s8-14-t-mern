@@ -45,7 +45,7 @@ function TransferMoney() {
     <>
       <HeaderBackButton title="Transferencia" />
       <h1 className="flex justify-center mt-8 text-black text-2xl font-bold">
-        ${transferData?.amount}
+        ${transferData?.amount?.toLocaleString()}
       </h1>
       <div className="mx-4 mt-14 mb-20 flex flex-col gap-2">
         <h2 className="border-b-2 pb-2.5 text-sm">

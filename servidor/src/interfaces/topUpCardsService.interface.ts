@@ -1,6 +1,7 @@
 import { Document, Types } from 'mongoose'
 
 export interface ITopUpCard extends Document {
-  cardId: Types.ObjectId
+  cardOfUserId: Types.ObjectId
   amount: number
+  userId: Types.ObjectId
 }
