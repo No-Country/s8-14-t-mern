@@ -14,7 +14,13 @@ const cardsOfUserSchema = new Schema<ICardsOfUser>(
     numberCard: {
       type: Number,
       unique: true,
-      required: true
+      required: true,
+      validate: {
+        validator: function (v: number) {
+          return v.toString().length >= 12 && v.toString().length <= 16
+        },
+        message: 'The numberCard must have between 12 and 16 numbers'
+      }
     },
     userId: {
       type: Schema.Types.ObjectId,

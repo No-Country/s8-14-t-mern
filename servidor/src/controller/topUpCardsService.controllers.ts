@@ -6,12 +6,12 @@ import {
 
 const postTopUpCardCtrl = async (req: Request, res: Response) => {
   try {
-    const { ...topUpCardData } = req.body
+    const { amount } = req.body
 
-    if (!topUpCardData) {
-      return 'Data not provided'
+    if (amount < 20) {
+      throw new Error('The minimum amount is 20')
     }
-    const newTopUpCard = await fetchTopUpCard({ ...topUpCardData })
+    const newTopUpCard = await fetchTopUpCard(req.body)
 
     res.status(200).json(newTopUpCard)
   } catch (error) {

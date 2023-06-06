@@ -9,9 +9,13 @@ import {
 
 const postCardOfUserCtrl = async (req: Request, res: Response) => {
   try {
-    const { ...dataCard } = req.body
+    const { cardOptions, userId } = req.body
 
-    const newCard = await fetchCreateCard({ ...dataCard })
+    if (!cardOptions || !userId) {
+      throw new Error('This data is required: cardOptions and userId')
+    }
+
+    const newCard = await fetchCreateCard(req.body)
 
     res.status(201).json(newCard)
   } catch (error) {
