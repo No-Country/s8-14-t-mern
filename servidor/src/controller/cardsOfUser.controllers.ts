@@ -9,9 +9,13 @@ import {
 
 const postCardOfUserCtrl = async (req: Request, res: Response) => {
   try {
-    const { ...dataCard } = req.body
+    const { cardOptions, userId } = req.body
 
-    const newCard = await fetchCreateCard({ ...dataCard })
+    if (!cardOptions || !userId) {
+      throw new Error('This data is required: cardOptions and userId')
+    }
+
+    const newCard = await fetchCreateCard(req.body)
 
     res.status(201).json(newCard)
   } catch (error) {
@@ -67,13 +71,13 @@ const patchCardsOfUserCtrl = async (req: Request, res: Response) => {
   }
 }
 
-const deleteCardsOfUserCtrl = async (req: Request, res: Response) => {
-  try {
-    const id = req.params.id
-  } catch (error) {
-    if (error instanceof Error) res.status(400).json({ error: error.message })
-  }
-}
+// const deleteCardsOfUserCtrl = async (req: Request, res: Response) => {
+//   try {
+//     const id = req.params.id
+//   } catch (error) {
+//     if (error instanceof Error) res.status(400).json({ error: error.message })
+//   }
+// }
 
 export {
   getAllCardsOfUserCtrl,
