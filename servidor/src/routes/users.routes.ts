@@ -19,7 +19,7 @@ import {
   verifyTokenPswCtrl,
   verifyUserCtrl
 } from '../controller/users.controllers'
-import { checkUserEmail, verifyToken } from '../middlewares'
+import { checkUserEmail, isAdmin, verifyToken } from '../middlewares'
 import {
   validatorLogin,
   validatorRegister,
@@ -48,8 +48,7 @@ router
   .get(validatorTokenAccount, verifyTokenPswCtrl)
   .post(validatorTokenAccount, newPswCtrl)
 
-//TODO: middleware para que solo vea el admin todos los usuarios
-router.route('/').get(getUserCtrl)
+router.get('/', [verifyToken, isAdmin], getUserCtrl)
 
 router
   .route('/:id')
