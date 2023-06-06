@@ -1,5 +1,6 @@
 import { Document } from 'mongoose'
-export interface Benefice extends Document {
+
+export interface IBenefice extends Document {
   name: string
   category: string
   description: string
@@ -11,4 +12,7 @@ export interface Benefice extends Document {
   promoCode?: string
   theBest?: boolean
   typeBenefice?: string
+  image_1: string
+  image_2: string
+  image_3: string
 }
