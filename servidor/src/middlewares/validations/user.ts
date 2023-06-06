@@ -1,5 +1,5 @@
 import { NextFunction, Request, Response } from 'express'
-import { body } from 'express-validator'
+import { body, param } from 'express-validator'
 import { rolType, UserRequestI } from '../../interfaces/user.interface'
 import User from '../../models/users.models'
 import { instanceOfError } from '../../utils/validations/httpErrorHandler'

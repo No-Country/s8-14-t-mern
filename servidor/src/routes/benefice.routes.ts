@@ -4,6 +4,13 @@ import User from '../models/users.models'
 import { instanceOfError } from '../utils/validations/httpErrorHandler'
 
 const router = Router()
+function formatDate(date: Date) {
+  return date.toLocaleString('es-AR', {
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric'
+  })
+}
 
 // Crear beneficio, para cargar cards en el front
 router.post('/create', async (req, res) => {
