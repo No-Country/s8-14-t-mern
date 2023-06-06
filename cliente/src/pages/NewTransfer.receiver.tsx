@@ -1,4 +1,4 @@
-import { ReactElement, FormEvent } from "react";
+import { ReactElement, FormEvent, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
 
@@ -11,30 +11,43 @@ import HeaderBackButton from "@/components/HeaderBackButton";
 import Buttonc from "@/components/Buttonc";
 
 import apiTransactions from "@/services/transactions";
-
-const contacts: { name: string }[] = [
-  { name: "Raúl Perez" },
-  { name: "Micaela Gómez" },
-  { name: "Mariana Gómez" },
-  { name: "Ale Paz" },
-];
+import apiUsers from "@/services/users";
 
 function NewTransfer(): ReactElement {
   const { transferData, setTransferData } = useNewTranferData();
   const { user } = useUserData();
   const navigate = useNavigate();
+  const [contacts, setContacts] = useState([]);
 
-  const submitHandler = async (e: FormEvent<HTMLFormElement>) => {
+  useEffect(() => {
+    (async () => {
+      try {
+        const { data } = await apiUsers.getUsers();
+        console.log(data);
+        setContacts(data);
+      } catch (error) {
+        console.log(error);
+      }
+    })();
+  }, []);
+
+  const submitHandler = (e: FormEvent<HTMLFormElement>) => {
+    console.log("submit");
     e.preventDefault();
     const form = e.currentTarget;
     const formData = new FormData(form);
-    const cbu = formData.get("cbu") as string;
-    if (cbu === user?.id) {
-      toast.error("ingresa un cbu diferente");
+    const alias = formData.get("alias") as string;
+    if (alias === user?.id) {
+      toast.error("ingresa un alias diferente");
       return;
     }
+    verifyAlias(alias);
+  };
+
+  const verifyAlias = async (alias: string) => {
     try {
-      const response = await apiTransactions.verifyCBU(cbu);
+      console.log(alias);
+      const response = await apiTransactions.verifyAlias(alias);
       const receiver = response?.data?.data;
       console.log(response);
       setTransferData((prev) => ({ ...prev, receiver }));
@@ -42,7 +55,7 @@ function NewTransfer(): ReactElement {
     } catch (error: any) {
       console.log(error);
       //toast.error(error?.response?.data?.error || "Error al buscar cbu");
-      toast.error("cbu Incorrecto");
+      toast.error("Alias Incorrecto");
     }
   };
 
@@ -52,29 +65,32 @@ function NewTransfer(): ReactElement {
       <form onSubmit={submitHandler} className="flex flex-col p-5 gap-7">
         <Title>¿A quién deseas enviarle dinero?</Title>
         <div className=" w-full">
-          <Text>Ingresá el CBU</Text>
+          <Text>Ingresá el Alias</Text>
 
           <input
-            name="cbu"
-            defaultValue={transferData?.receiver?.id}
+            name="alias"
+            defaultValue={transferData?.receiver?.alias}
             className="mt-1 border border-gray-300 rounded-lg  
              outline-0 focus:ring-2 ring-primary w-full p-2.5"
-            placeholder="CBU"
+            placeholder="Alias"
             required
           />
         </div>
         <Subtitle className="text-black">O elige entre tus contactos</Subtitle>
         <div className="flex gap-5 flex-wrap">
-          {contacts.map((contact, i) => (
+          {contacts.slice(0, 7).map((contact: any, i) => (
             <button
               key={i}
-              className="flex flex-col items-center gap-1 text-sm"
+              type="button"
+              className="flex flex-col items-center gap-1 text-xs"
+              onClick={() => verifyAlias(contact?.alias)}
             >
               <img
-                src={`https://picsum.photos/seed/${i + 1}/200/300`}
-                className="w-12 h-12 rounded-full col-start-2"
+                src={contact?.avatar}
+                className="w-10 h-10 rounded-full  object-cover"
               />
-              {contact.name}
+              {contact?.firstName}&nbsp;
+              {contact?.lastname}
             </button>
           ))}
         </div>
