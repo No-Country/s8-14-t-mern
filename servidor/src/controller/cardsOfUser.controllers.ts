@@ -67,13 +67,13 @@ const patchCardsOfUserCtrl = async (req: Request, res: Response) => {
   }
 }
 
-const deleteCardsOfUserCtrl = async (req: Request, res: Response) => {
-  try {
-    const id = req.params.id
-  } catch (error) {
-    if (error instanceof Error) res.status(400).json({ error: error.message })
-  }
-}
+// const deleteCardsOfUserCtrl = async (req: Request, res: Response) => {
+//   try {
+//     const id = req.params.id
+//   } catch (error) {
+//     if (error instanceof Error) res.status(400).json({ error: error.message })
+//   }
+// }
 
 export {
   getAllCardsOfUserCtrl,

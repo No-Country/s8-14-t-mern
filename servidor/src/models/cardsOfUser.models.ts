@@ -1,6 +1,5 @@
-import { Schema, model } from "mongoose";
-import { ICardsOfUser } from "../interfaces/cardsOfUser.interface";
-
+import { model, Schema } from 'mongoose'
+import { ICardsOfUser } from '../interfaces/cardsOfUser.interface'
 
 const cardsOfUserSchema = new Schema<ICardsOfUser>(
   {
@@ -10,7 +9,7 @@ const cardsOfUserSchema = new Schema<ICardsOfUser>(
     },
     cardOptions: {
       type: Schema.Types.ObjectId,
-      ref: 'Card',
+      ref: 'Card'
     },
     numberCard: {
       type: Number,
@@ -19,7 +18,7 @@ const cardsOfUserSchema = new Schema<ICardsOfUser>(
     },
     userId: {
       type: Schema.Types.ObjectId,
-      ref: 'User',
+      ref: 'User'
     }
   },
   { timestamps: true }
@@ -35,4 +34,4 @@ cardsOfUserSchema.set('toJSON', {
 
 const CardsOfUser = model<ICardsOfUser>('CardsOfUser', cardsOfUserSchema)
 
-export default CardsOfUser 
+export default CardsOfUser

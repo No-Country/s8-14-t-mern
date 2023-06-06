@@ -6,7 +6,11 @@ import { Request, Response } from 'express'
 import { v2 as cloudinary } from 'cloudinary'
 import config from '../config'
 cloudinary.config({ cloudinary: config.cloudinary })
-import { IUser, UserRequestI } from '../interfaces/user.interface'
+import {
+  CustomFileTypeI,
+  IUser,
+  UserRequestI
+} from '../interfaces/user.interface'
 import {
   fetchAddCard,
   fetchDelete,
@@ -14,15 +18,12 @@ import {
   fetchGetCards,
   fetchLogin,
   fetchPost,
-  fetchPut,
   fetchUpdate,
   forgotPsw,
   newPassword,
   verifyUserAccount
 } from '../services/users.services'
 import { instanceOfError } from '../utils/validations/httpErrorHandler'
-import { ICardsOfUser } from '../interfaces/cardsOfUser.interface'
-import { ObjectId } from 'mongoose'
 
 const getUserCtrl = async (_req: Request, res: Response) => {
   try {
@@ -38,15 +39,6 @@ const getUserIdCtrl = ({ user }: UserRequestI, res: Response) => {
   if (user) {
     res.json(user)
     user = undefined
-  }
-}
-
-const putUserCtrl = async (req: Request, res: Response) => {
-  try {
-    const data = await fetchPut(req.body)
-    res.status(201).json({ msg: 'user updated', data })
-  } catch (error) {
-    instanceOfError(res, error, 400)
   }
 }
 
@@ -70,17 +62,17 @@ const deleteUserCtrl = async ({ user }: UserRequestI, res: Response) => {
 const patchUserCtrl = async (req: Request, res: Response) => {
   try {
     const id = req.params.id
-    const { 
-      firstName, 
-      lastname, 
-      typeIdentification, 
-      phoneNumber, 
-      email, 
-      address, 
-      password, 
-      numberIdentification, 
-      country, 
-      city 
+    const {
+      firstName,
+      lastname,
+      typeIdentification,
+      phoneNumber,
+      email,
+      address,
+      password,
+      numberIdentification,
+      country,
+      city
     } = req.body
 
     const data: Partial<IUser> = {}
@@ -93,10 +85,10 @@ const patchUserCtrl = async (req: Request, res: Response) => {
     if (country) data.country = country
     if (city) data.city = city
 
-    if(firstName || lastname) {
-      res
-        .status(400)
-        .json({ msg: "This data can not be edited: 'firstName' and 'lastname' "})
+    if (firstName || lastname) {
+      res.status(400).json({
+        msg: "This data can not be edited: 'firstName' and 'lastname' "
+      })
       return
     }
 
@@ -118,7 +110,7 @@ const putImage = async (req: Request, res: Response) => {
       return res.status(400).json({ error: 'No avatar file provided' })
     }
 
-    const avatarFile = req.files.avatar as any
+    const avatarFile = req.files.avatar as CustomFileTypeI
 
     const uploadedImage = await cloudinary.uploader.upload(
       avatarFile.tempFilePath,
@@ -219,18 +211,17 @@ const loginUser = async (req: Request, res: Response) => {
 const postCardUserCtrl = async (req: Request, res: Response) => {
   try {
     const id = req.params.id
-    const { ...data } = req.body 
-    const cardData = { ...data } 
+    const { ...data } = req.body
+    const cardData = { ...data }
     const userData = {
       cards: [cardData]
     }
-    
+
     //ToDo: validar que el numero de tarjeta no se repita
 
     const userModified = await fetchAddCard(cardData, id, userData)
     console.log(userModified.cards)
     res.status(200).json({ success: true, user: userModified })
-
   } catch (error) {
     if (error instanceof Error) res.status(400).json({ error: error.message })
   }
@@ -239,7 +230,7 @@ const postCardUserCtrl = async (req: Request, res: Response) => {
 //This does not works
 const getUserCardsCtrl = async (req: Request, res: Response) => {
   try {
-    const {id}  = req.params
+    const { id } = req.params
     console.log(req.params)
     const getCards = await fetchGetCards(id)
     res.status(200).json(getCards)
@@ -251,16 +242,15 @@ const getUserCardsCtrl = async (req: Request, res: Response) => {
 export {
   deleteUserCtrl,
   forgotPasswordCtrl,
+  getUserCardsCtrl,
   getUserCtrl,
   getUserIdCtrl,
   loginUser,
   newPswCtrl,
   patchUserCtrl,
+  postCardUserCtrl,
   postUserCtrl,
   putImage,
-  putUserCtrl,
   verifyTokenPswCtrl,
-  verifyUserCtrl, 
-  postCardUserCtrl,
-  getUserCardsCtrl
+  verifyUserCtrl
 }
