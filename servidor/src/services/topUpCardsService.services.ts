@@ -1,17 +1,15 @@
-import { ITopUpCard } from "../interfaces/topUpCardsService.interface";
-import CardsOfUser from "../models/cardsOfUser.models";
-import TopUpCardService from "../models/topUpCardsService.models";
-import User from "../models/users.models";
-
-
+import { ITopUpCard } from '../interfaces/topUpCardsService.interface'
+import CardsOfUser from '../models/cardsOfUser.models'
+import TopUpCardService from '../models/topUpCardsService.models'
+import User from '../models/users.models'
 
 const fetchTopUpCard = async (data: ITopUpCard) => {
   try {
     const { amount, cardOfUserId, userId } = data
 
     const user = await User.findById(userId)
-    if(user?.balance !== undefined) {
-      if(user.balance < amount) {
+    if (user?.balance !== undefined) {
+      if (user.balance < amount) {
         throw new Error('Insufficient balance')
       }
     }
@@ -20,15 +18,15 @@ const fetchTopUpCard = async (data: ITopUpCard) => {
 
     //Decrease the sender's balance
     await User.findByIdAndUpdate(userId, {
-      $inc: { balance: - amount }
+      $inc: { balance: -amount }
     })
 
     //Increase the cardsOfUuser balance
     await CardsOfUser.findByIdAndUpdate(cardOfUserId, {
-      $inc: { balanceCard: amount}
+      $inc: { balanceCard: amount }
     })
 
-    return newTopUp 
+    return newTopUp
   } catch (e) {
     throw new Error(e as string)
   }
@@ -37,12 +35,12 @@ const fetchTopUpCard = async (data: ITopUpCard) => {
 const fetchFindAllTopUpCar = async (id: string) => {
   try {
     const user = await User.findById(id)
-    if(!user) {
+    if (!user) {
       throw new Error(`User with id: ${id} does not exist`)
     }
 
     const topUpCard = await TopUpCardService.find({
-      $or: [ {userId: id}, {cardOfUserId: id} ]
+      $or: [{ userId: id }, { cardOfUserId: id }]
     })
       .populate(
         'userId',
@@ -56,7 +54,4 @@ const fetchFindAllTopUpCar = async (id: string) => {
   }
 }
 
-export {
-  fetchTopUpCard,
-  fetchFindAllTopUpCar
-}
+export { fetchFindAllTopUpCar, fetchTopUpCard }
