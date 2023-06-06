@@ -40,10 +40,10 @@ export interface UserRequestI extends Request {
 }
 
 export interface CustomFileTypeI {
-  key: string
-  path: string
-  mimetype: string
-  originalname: string
-  size: number
+  key?: string
+  path?: string
+  mimetype?: string
+  originalname?: string
+  size?: number
   tempFilePath: string
 }
