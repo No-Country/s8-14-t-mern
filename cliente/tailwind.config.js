@@ -39,6 +39,12 @@ module.exports = {
         },
         background: "#FFFDFD",
       },
+      keyframes: {
+        upDown: {
+          '0%': { top: "5%" },
+          '100%': { top: "95%" },
+        }
+      }
     },
   },
   plugins: [],
