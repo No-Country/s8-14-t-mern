@@ -1,3 +1,5 @@
+import { useState } from "react";
+
 import { useFormik } from "formik";
 import { Link } from "react-router-dom";
 import { useUserData } from "@/context/UserContext";
@@ -9,8 +11,9 @@ import logo from "../assets/logo-light.svg";
 import Loader from "@/components/Loader";
 
 const LoginForm = (): JSX.Element => {
-  // Aa1234567$ password example
   const { setUserData } = useUserData();
+  const [isLoading, setIsLoading] = useState(false);
+
   const { values, handleChange, handleSubmit, errors, touched } = useFormik({
     initialValues: {
       email: "",
@@ -30,6 +33,7 @@ const LoginForm = (): JSX.Element => {
     }),
 
     onSubmit: async (values) => {
+      setIsLoading(true);
       try {
         const {
           data: { data },
@@ -42,6 +46,8 @@ const LoginForm = (): JSX.Element => {
       } catch (error: any) {
         console.log(error);
         toast.error(error?.response?.data || "Error al iniciar sesión");
+      } finally {
+        setIsLoading(false);
       }
     },
   });
@@ -85,13 +91,16 @@ const LoginForm = (): JSX.Element => {
         >
           ¿Olvidaste tu contraseña?
         </Link>
-        <button
-          type="submit"
-          className="bg-primary text-white w-full p-2 rounded mt-7"
-        >
-          Iniciar sesión
-        </button>
-        {/* <Loader /> */}
+        {isLoading ? (
+          <Loader />
+        ) : (
+          <button
+            type="submit"
+            className="bg-primary text-white w-full p-2 rounded mt-7"
+          >
+            Iniciar sesión
+          </button>
+        )}
       </form>
     </div>
   );
