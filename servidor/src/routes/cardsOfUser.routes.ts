@@ -1,11 +1,10 @@
-import { Router } from "express"
-import { 
-  getAllCardsOfUserCtrl, 
-  getCardsOfUserByIdCtrl, 
-  patchCardsOfUserCtrl, 
-  postCardOfUserCtrl, 
-} from "../controller/cardsOfUser.controllers"
-
+import { Router } from 'express'
+import {
+  getAllCardsOfUserCtrl,
+  getCardsOfUserByIdCtrl,
+  patchCardsOfUserCtrl,
+  postCardOfUserCtrl
+} from '../controller/cardsOfUser.controllers'
 
 const router = Router()
 

@@ -1,7 +1,6 @@
-import { PropsWithChildren } from "react";
 import { Outlet } from "react-router-dom";
 import NavBar from "../components/NavBar";
-export default function Layout({ children }: PropsWithChildren) {
+export default function Layout() {
   return (
     <>
       <main className="pb-20">

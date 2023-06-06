@@ -1,5 +1,4 @@
 import { config } from 'dotenv'
-import { Types } from 'mongoose'
 import Stripe from 'stripe'
 import { v4 as uuidv4 } from 'uuid'
 import { ITransactions } from '../interfaces/transaction.interface'
@@ -8,17 +7,24 @@ import User from '../models/users.models'
 
 config()
 const stripeSecretKey = process.env.STRIPE_KEY
-const ObjectId = Types.ObjectId
+//Random rate ARS
+const getRandomInt = (min: number, max: number) => {
+  min = Math.ceil(min)
+  max = Math.floor(max)
+  return Math.floor(Math.random() * (max - min) + min) // The maximum is exclusive and the minimum is inclusive
+}
+
+// const ObjectId = Types.ObjectId
 
 // Validator function
 
-const isValidObjectId = (id: any) => {
+/* const isValidObjectId = (id: any) => {
   if (ObjectId.isValid(id)) {
     if (String(new ObjectId(id)) === id) return true
     return false
   }
   return false
-}
+} */
 
 // verify receiver's account number
 
@@ -44,6 +50,7 @@ const isValidObjectId = (id: any) => {
 } */
 const fecthVerifyAccount = async (alias: any) => {
   try {
+    //Assume that this value comes from user
     const user = await User.findOne({ alias })
     if (!user) {
       throw new Error('Account not found')
@@ -68,12 +75,13 @@ const fecthTransfer = async (transaction: ITransactions) => {
     const { receiver, sender, amount } = transaction
     const user = await User.findById(sender)
     if (user?.balance !== undefined) {
-      if (user.balance <= amount) {
+      if (receiver === sender) {
+        throw new Error('Try to another receiver account')
+      } else if (amount < 20) {
+        throw new Error('Transfer minimun should be $20')
+      } else if (user.balance < amount) {
         throw new Error('Insufficient balance')
       } else {
-        if (receiver === sender) {
-          throw new Error('Try to another receiver account')
-        }
         // save the transaction
         const newTransaction = await Transaction.create(transaction)
         // show receiver info
@@ -168,13 +176,13 @@ const fecthDepositStripe = async (token: any, amount: any, id: any) => {
       }
     )
 
-    // save the transaction on db
-
+    // save the transaction on db calling getRandomInt() hardCore ARS values
+    const valueRate = getRandomInt(243, 246)
     if (charge.status === 'succeeded') {
       const transObject = {
         sender: id,
         receiver: id,
-        amount,
+        amount: amount * valueRate,
         transaction_type: 'deposit',
         reference: 'stripe deposit',
         status: 'success'
