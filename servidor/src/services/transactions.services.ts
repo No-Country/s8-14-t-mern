@@ -49,6 +49,7 @@ const fecthVerifyAccount = async (alias: any) => {
       throw new Error('Account not found')
     }
     const filterUser = {
+      id: user._id,
       firstName: user.firstName,
       lastName: user.lastname,
       avatar: user.avatar,
@@ -67,12 +68,13 @@ const fecthTransfer = async (transaction: ITransactions) => {
     const { receiver, sender, amount } = transaction
     const user = await User.findById(sender)
     if (user?.balance !== undefined) {
-      if (user.balance <= amount) {
+      if (receiver === sender) {
+        throw new Error('Try to another receiver account')
+      } else if (amount < 20) {
+        throw new Error('Transfer minimun should be $20')
+      } else if (user.balance < amount) {
         throw new Error('Insufficient balance')
       } else {
-        if (receiver === sender) {
-          throw new Error('Try to another receiver account')
-        }
         // save the transaction
         const newTransaction = await Transaction.create(transaction)
         // show receiver info

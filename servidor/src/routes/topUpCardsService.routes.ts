@@ -1,6 +1,8 @@
 import { Router } from 'express'
-import { getAllTopUpCardCtrl, postTopUpCardCtrl } from '../controller/topUpCardsService.controllers'
-
+import {
+  getAllTopUpCardCtrl,
+  postTopUpCardCtrl
+} from '../controller/topUpCardsService.controllers'
 
 const router = Router()
 

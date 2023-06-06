@@ -1,6 +1,7 @@
 export interface UserAccount {
   firstName: string;
   lastname: string;
+  lastName: string;
   email: string;
   avatar: string;
   password: string;
