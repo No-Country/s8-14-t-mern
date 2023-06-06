@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { useFormik } from "formik";
 import { Link } from "react-router-dom";
 import { useUserData } from "@/context/UserContext";
@@ -8,11 +9,13 @@ import toast from "react-hot-toast";
 import logo from "../assets/logo-light.svg";
 import eyesOn from '../assets/eye.svg';
 import eyesOff from '../assets/eyeslash.svg';
-import { useState } from "react";
+import Loader from "./Loader";
 
 const LoginForm = (): JSX.Element => {
   const [passType, setpassType] = useState('password');
   const { setUserData } = useUserData();
+  const [isLoading, setIsLoading] = useState(false);
+
   const { values, handleChange, handleSubmit, errors, touched } = useFormik({
     initialValues: {
       email: "",
@@ -33,6 +36,7 @@ const LoginForm = (): JSX.Element => {
         ),
     }),
     onSubmit: async (values) => {
+      setIsLoading(true);
       try {
         const {
           data: { data },
@@ -45,6 +49,8 @@ const LoginForm = (): JSX.Element => {
       } catch (error: any) {
         console.log(error);
         toast.error(error?.response?.data || "Error al iniciar sesión");
+      } finally {
+        setIsLoading(false);
       }
     },
   });
@@ -59,14 +65,14 @@ const LoginForm = (): JSX.Element => {
     <div className="min-h-screen flex justify-center items-center ">
       <form
         onSubmit={handleSubmit}
-        className="w-[328px] h-full flex flex-col gap-3 justify-center items-center"
+        className="w-[95vw] h-full flex flex-col gap-3 justify-center items-center"
       >
         <img src={logo} alt="logo" className="w-80" />
 
-        <label className="text-red-600 w-full flex justify-center mt-14">
+        <label className="text-red-600 w-full flex flex-col items-center justify-center mt-14">
           <input
             className="
-            w-[328px]
+            w-full
             h-12 
             p-2 
             border 
@@ -89,7 +95,7 @@ const LoginForm = (): JSX.Element => {
         <label className="text-red-600 w-full flex flex-col relative items-center">
           <input
             className="
-            w-[328px]
+            w-full
             h-12 
             p-2 
             border 
@@ -109,7 +115,7 @@ const LoginForm = (): JSX.Element => {
           <div id="eyepass" className="absolute w-12 h-12 flex justify-center items-center right-0 text-primary-400"
             onMouseEnter={handlePassword}
             onMouseOut={handlePassword}
-            >
+          >
             {
               passType === 'password' ?
                 <img className="w-8 h-8 " src={eyesOff} alt="showContrasena" />
@@ -119,22 +125,24 @@ const LoginForm = (): JSX.Element => {
           </div>
           {errors.password && touched.password && errors.password}
         </label>
-
         <div className="w-full flex justify-center">
           <Link
             to="/resetPassword/request"
-            className="text-primary self-start underline w-[328px]"
+            className="text-primary self-start underline w-full"
           >
             ¿Olvidaste tu contraseña?
           </Link>
         </div>
-
-        <button
-          type="submit"
-          className="bg-primary-300  text-white w-[328px] h-12 p-2 rounded-lg mt-7"
-        >
-          Iniciar sesión
-        </button>
+        {isLoading ? (
+          <Loader />
+        ) : (
+          <button
+            type="submit"
+            className="bg-primary text-white w-full p-2 rounded mt-7"
+          >
+            Iniciar sesión
+          </button>
+        )}
       </form>
     </div>
   );
