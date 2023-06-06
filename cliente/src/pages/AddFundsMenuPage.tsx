@@ -21,7 +21,7 @@ function AddFunsMenuPage(): ReactElement {
     <>
       <HeaderBackButton title="Agregar dinero" />
       <div className="px-5 my-10">
-        <Title>¿A quién deseas enviarle dinero?</Title>
+        <Title>¿que método utilizara para recargar dinero?</Title>
         <ul className="mt-10 flex flex-col gap-3">
           {MENU_ITEMS.map((item, i) => (
             <ListItem key={i} {...item} />
