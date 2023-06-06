@@ -21,9 +21,7 @@ const findUser = async (email?: string) => {
 const fetchGet = async () => {
   try {
     const users = await User.find({})
-    if (users) {
-      return users
-    }
+    return users
   } catch (error) {
     throw new Error('error')
   }
@@ -194,7 +192,7 @@ const fetchUpdate = async (id: string, data: Partial<IUser>) => {
 const fetchLogin = async (password: string, email: string) => {
   const user = await findUser(email)
 
-  if (!user) throw new Error('User not found!')
+  if (!user || !user.isActive) throw new Error('User not found!')
 
   const comparaPass = await verifyHash(password, user.password)
   if (!comparaPass) {
