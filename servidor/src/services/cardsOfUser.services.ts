@@ -1,6 +1,5 @@
-import { ICardsOfUser } from "../interfaces/cardsOfUser.interface"
-import CardsOfUser from "../models/cardsOfUser.models"
-
+import { ICardsOfUser } from '../interfaces/cardsOfUser.interface'
+import CardsOfUser from '../models/cardsOfUser.models'
 
 const fetchCreateCard = async (card: ICardsOfUser) => {
   try {
@@ -32,11 +31,11 @@ const fetchFindCardById = async (id: string) => {
 const fetchUpdateCard = async (id: string, data: Partial<ICardsOfUser>) => {
   try {
     const card = await CardsOfUser.findById(id)
-    if(!card) {
+    if (!card) {
       throw new Error(`Card with id: ${id} does not exist`)
     }
 
-    Object.assign(card, data) 
+    Object.assign(card, data)
     const modifiedCard = await card.save()
     return modifiedCard
   } catch (e) {
@@ -44,17 +43,16 @@ const fetchUpdateCard = async (id: string, data: Partial<ICardsOfUser>) => {
   }
 }
 
-const fetchDeleteCard = async () => {
-  try {
-    
-  } catch (e) {
-    throw new Error(e as string)
-  }
-}
+// const fetchDeleteCard = async () => {
+//   try {
+//   } catch (e) {
+//     throw new Error(e as string)
+//   }
+// }
 
 export {
-  fetchCreateCard, 
-  fetchFindAllCards, 
+  fetchCreateCard,
+  fetchFindAllCards,
   fetchFindCardById,
   fetchUpdateCard
 }

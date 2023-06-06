@@ -1,8 +1,7 @@
 import { model, Schema } from 'mongoose'
+import { ITopUpCard } from '../interfaces/topUpCardsService.interface'
 
-import { ITopUpCard } from "../interfaces/topUpCardsService.interface"
-
-const topUpCardServiceSchema =  new Schema<ITopUpCard>(
+const topUpCardServiceSchema = new Schema<ITopUpCard>(
   {
     cardOfUserId: {
       type: Schema.Types.ObjectId,
@@ -11,14 +10,14 @@ const topUpCardServiceSchema =  new Schema<ITopUpCard>(
     },
     amount: {
       type: Number,
-      required: true,
+      required: true
     },
     userId: {
       type: Schema.Types.ObjectId,
       ref: 'User',
       required: true
     }
-  }, 
+  },
   { timestamps: true }
 )
 
@@ -30,6 +29,9 @@ topUpCardServiceSchema.set('toJSON', {
   }
 })
 
-const TopUpCardService = model<ITopUpCard>('TopUpCardService', topUpCardServiceSchema)
+const TopUpCardService = model<ITopUpCard>(
+  'TopUpCardService',
+  topUpCardServiceSchema
+)
 
 export default TopUpCardService
