@@ -15,7 +15,6 @@ export default function useRegister() {
       email: "",
       password: "",
       repeatPassword: "",
-      aceptarTerminos: false,
     },
     validationSchema: Yup.object({
       firstName: Yup.string().required("Nombre de usuario requerido"),
@@ -35,9 +34,7 @@ export default function useRegister() {
         ),
       repeatPassword: Yup.string()
         .oneOf([Yup.ref("password")], "Las contraseñas deben coincidir")
-        .required("Confirmar contraseña es requerida"),
-      aceptarTerminos: Yup.boolean()
-        .oneOf([true], "Debes aceptar los términos y condiciones antes de continuar")
+        .required("Confirmar contraseña es requerida")
     }),
 
     onSubmit: async (values) => {

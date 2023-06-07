@@ -106,15 +106,15 @@ const RegisterForm = (): JSX.Element => {
             onChange={handleChange}
             value={values.password}
           />
-          <div className="absolute w-12 h-12 flex justify-center items-center right-0 text-primary-400 bg-red-600"
+          <div className="absolute w-12 h-12 flex justify-center items-center right-0 text-primary-400"
           >
             {
               passType === 'password' ?
                 <img id="eyepass" className="w-8 h-8 " src={eyesOff} alt="showContrasena2"
                   onMouseEnter={handlePassword}
-                  />
-                  :
-                  <img id="eyepass2" className="w-8 h-8 " src={eyesOn} alt="hiddenContrasena2"
+                />
+                :
+                <img id="eyepass2" className="w-8 h-8 " src={eyesOn} alt="hiddenContrasena2"
                   onMouseOut={handlePassword}
                 />
             }
@@ -150,7 +150,7 @@ const RegisterForm = (): JSX.Element => {
                   onMouseEnter={handlePassword}
                 />
                 :
-                <img id="reeyepass2"  className="w-8 h-8 " src={eyesOn} alt="hiddenContrasena"
+                <img id="reeyepass2" className="w-8 h-8 " src={eyesOn} alt="hiddenContrasena"
                   onMouseOut={handlePassword}
                 />
             }
@@ -166,17 +166,13 @@ const RegisterForm = (): JSX.Element => {
               className="w-5 h-8 mr-2"
               type="checkbox"
               name="aceptarTerminos"
-              checked={values.aceptarTerminos}
-              onChange={handleChange}
+              checked={true}
             />
             <p className="font-light text-lg">Aceptos los <strong className=" font-bold text-primary-700 underline">
               Términos y Condiciones y
               Políticas de privacidad
             </strong>
             </p>
-            {errors.aceptarTerminos && touched.aceptarTerminos && (
-              <div className=" text-red-600  error self-start  text-xs mt-2 absolute top-12">{errors.aceptarTerminos}</div>
-            )}
           </div>
 
         </div>
