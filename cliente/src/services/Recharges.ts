@@ -12,6 +12,15 @@ interface NumberUser {
     numberCard: number
     userId: string
 }
-export  function RechargeCardNumber(payload :NumberUser){
+export  function RechargeCardNumber(payload :NumberUser) {
     return axios.post(`/cardsOfUser/add-card`,payload)
 }
+interface RechargeAmountPayload {
+    cardOfUserId: string,
+    amount: number,
+    userId: string
+}
+export function CardService(payload: RechargeAmountPayload){
+    return axios.post(`/topUpCardsService/top-up`,payload)
+}
+ 

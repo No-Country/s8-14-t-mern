@@ -1,12 +1,12 @@
-import React, { useContext, useState } from 'react';
-import { useParams, useNavigate, Navigate } from 'react-router-dom';
-import { useUserData } from '@/context/UserContext';
-import { RechargeCardNumber } from '@/services/Recharges';
-import HeaderBackButton from '@/components/HeaderBackButton';
-import { Card, Text, Metric } from '@tremor/react';
-import Buttonc from '@/components/Buttonc';
-import moneylogo from '../assets/moneyLogo.png';
-import { RechargeContext } from '@/context/RechargeContext';
+import React, { useContext, useState } from "react";
+import { useParams, useNavigate, Navigate } from "react-router-dom";
+import { useUserData } from "@/context/UserContext";
+import { RechargeCardNumber } from "@/services/Recharges";
+import HeaderBackButton from "@/components/HeaderBackButton";
+import { Card, Text, Metric } from "@tremor/react";
+import Buttonc from "@/components/Buttonc";
+import moneylogo from "../assets/moneyLogo.png";
+import { RechargeContext } from "@/context/RechargeContext";
 
 function Inputs({ handleNumberChange }) {
   const { user } = useUserData();
@@ -39,8 +39,8 @@ function RechargeCardNumberComponent() {
   const { imageUrl } = useParams<{ imageUrl?: string }>();
   const { user } = useUserData();
   const [number, setNumberCard] = useState("");
-  const { cardId } = useContext(RechargeContext);
-  const navigate = useNavigate()
+  const { cardId,setRechargeId } = useContext(RechargeContext);
+  const navigate = useNavigate();
 
   const handleNumberChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setNumberCard(event.target.value);
@@ -48,12 +48,13 @@ function RechargeCardNumberComponent() {
 
   const handleRechargeCardNumber = () => {
     RechargeCardNumber({
-      cardOptions: cardId || '',
+      cardOptions: cardId || "",
       numberCard: parseInt(number),
-      userId: user?.id || '',
+      userId: user?.id || "",
     })
       .then((response) => {
-        navigate("/Recharge/amount")
+        setRechargeId(response.data.id)
+        navigate("/Recharge/amount");
         console.log(response.data);
       })
       .catch((error) => {
@@ -69,15 +70,22 @@ function RechargeCardNumberComponent() {
     <>
       <HeaderBackButton title="Recargas" />
       <div className="flex justify-center my-24 ">
-        <img className="w-20 h-10" src={decodeURIComponent(imageUrl)} alt="sube" />
+        <img
+          className="w-20 h-10"
+          src={decodeURIComponent(imageUrl)}
+          alt="sube"
+        />
       </div>
       <Inputs handleNumberChange={handleNumberChange} />
       <div className="flex justify-center">
-      <button className="bg-primary text-white w-11/12 rounded-md h-12"onClick={handleRechargeCardNumber}>
-        Continuar
-      </button>
+        <button
+          className="bg-primary text-white w-11/12 rounded-md h-12"
+          onClick={handleRechargeCardNumber}
+        >
+          Continuar
+        </button>
       </div>
-      
+
       <Buttonc styled={false} href="/home">
         Cancelar
       </Buttonc>
@@ -86,5 +94,3 @@ function RechargeCardNumberComponent() {
 }
 
 export default RechargeCardNumberComponent;
-
-

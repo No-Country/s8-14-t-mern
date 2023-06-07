@@ -16,8 +16,14 @@ const Cards: React.FC<{ cards: any[] }> = ({ cards }) => {
     <div className="drop-shadow-[0_4px_4px_rgba(0,0,0,0.25)]">
       <div className="grid grid-cols-2 gap-4">
         {cards.map((card) => (
-          <Link to={`/Recharge/cardnumber/${encodeURIComponent(card.image)}`} key={card.id}>
-            <Card className="w-36 p-0 h-36" onClick={() => handleCardClick(card.id)}>
+          <Link
+            to={`/Recharge/cardnumber/${encodeURIComponent(card.image)}`}
+            key={card.id}
+          >
+            <Card
+              className="w-36 p-0 h-36"
+              onClick={() => handleCardClick(card.id)}
+            >
               <div className="flex justify-center items-center bg-[#F5F2FF] h-3/4">
                 <img className="w-16" src={card.image} alt="images" />
               </div>
@@ -31,18 +37,20 @@ const Cards: React.FC<{ cards: any[] }> = ({ cards }) => {
 };
 
 const Recharge: React.FC = () => {
-  // const { cardId, setCardId } = useContext(RechargeContext);
+  const { cardId, setCardId } = useContext(RechargeContext);
   const [cards, setCards] = useState([]);
   const [transportCards, setTransportCards] = useState([]);
   const [phoneCards, setPhoneCards] = useState([]);
-  const [activeSection, setActiveSection] = useState<"transport" | "phone">("transport");
+  const [activeSection, setActiveSection] = useState<"transport" | "phone">(
+    "transport"
+  );
 
   useEffect(() => {
     const fetchData = async () => {
       try {
         // Fetch all cards
         const response = await getCards({
-          cardType: ""
+          cardType: "",
         });
         setCards(response.data);
 
@@ -117,5 +125,3 @@ const Recharge: React.FC = () => {
 };
 
 export default Recharge;
-
-
