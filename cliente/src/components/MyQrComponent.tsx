@@ -20,7 +20,7 @@ export default function MyQrComponent({ setScannerOpen }: { setScannerOpen: Reac
     const element = document.getElementById('qrToDownload');
     element && html2canvas(element).then((canvas) => {
       canvas.toBlob((blob) => {
-        blob && saveAs(blob, `Qr-Pigmeo-${user.firstName}-${user.lastName}.png`);
+        blob && saveAs(blob, `Qr-Pigmeo-${user.firstName}-${user.lastname}.png`);
       });
     });
   }

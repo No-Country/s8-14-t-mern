@@ -3,6 +3,7 @@ import { Card, Grid, Col, Text } from "@tremor/react";
 import 'swiper/css';
 import beneficios1 from '../assets/beneficio1.svg'
 import beneficios2 from '../assets/beneficio2.svg'
+import { Link } from 'react-router-dom';
 
 const benefit = [
   {
@@ -39,20 +40,18 @@ const Benefits = (): JSX.Element => {
       <Grid numCols={1} className='mt-14'>
         <Col className='w-full p-4'>
           <Col className='w-full justify-between flex'>
-            <Text className='text-lg  text-[#000]'>Beneficios</Text>
-            <Text className='text-sm  text-[#3B1B80]'>Ver todos</Text>
+            <p className='font-medium'>Beneficios</p>
+            <Link to={"/benefit"} className=' text-primary font-medium text-sm'>Ver todos</Link>
           </Col>
           <Swiper
-            className='select-none'
+            className='select-none z-0'
             spaceBetween={20}
             slidesPerView={'auto'}
-            onSlideChange={() => console.log('slide change')}
-            onSwiper={(swiper) => console.log(swiper)}
             slideClass='max-w-fit'
           >
 
-            {benefit.map((card) => (
-              <SwiperSlide className='max-w-fit'>
+            {benefit.map((card, index) => (
+              <SwiperSlide key={`benefit-home-${index}`} className='max-w-fit'>
                 <div className='w-52 h-28'>
                   <img className='w-full h-full' src={card.img} alt="" />
                 </div>
