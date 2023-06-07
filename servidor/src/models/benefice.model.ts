@@ -1,20 +1,7 @@
-import { Document, model, Schema } from 'mongoose'
+import { model, Schema } from 'mongoose'
+import { IBenefice } from '../interfaces/benefice.interface'
 
-interface Benefice extends Document {
-  name: string
-  category: string
-  description: string
-  startDate: Date
-  endDate: Date
-  isActive?: boolean
-  discountPercentage?: number
-  cashback?: number
-  promoCode?: string
-  theBest?: boolean
-  typeBenefice?: string
-}
-
-const beneficeSchema = new Schema<Benefice>({
+const beneficeSchema = new Schema<IBenefice>({
   name: { type: String, required: true },
   category: {
     type: String,
@@ -34,11 +21,14 @@ const beneficeSchema = new Schema<Benefice>({
   cashback: { type: Number, default: 0 },
   promoCode: {
     type: String,
-    default: function (this: Benefice) {
+    default: function (this: IBenefice) {
       const numeroRandom = Math.floor(Math.random() * 10000)
       return `${this.name}.Pigmeo.${numeroRandom}`
     }
-  }
+  },
+  image_1: { type: String },
+  image_2: { type: String },
+  image_3: { type: String }
 })
 
 beneficeSchema.set('toJSON', {
@@ -48,6 +38,6 @@ beneficeSchema.set('toJSON', {
     delete returnedObject.__v
   }
 })
-const BenefitModel = model<Benefice>('Benefice', beneficeSchema)
+const BenefitModel = model<IBenefice>('Benefice', beneficeSchema)
 
 export default BenefitModel
