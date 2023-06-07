@@ -9,3 +9,8 @@ export interface ITransactions extends Document {
   transaction_type: string
   status: string
 }
+
+export interface TokenStripeDepositI {
+  id: string
+  email: string
+}
