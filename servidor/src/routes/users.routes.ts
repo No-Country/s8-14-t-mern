@@ -19,7 +19,7 @@ import {
   verifyTokenPswCtrl,
   verifyUserCtrl
 } from '../controller/users.controllers'
-import { checkUserEmail, isAdmin, verifyToken } from '../middlewares'
+import { checkUserEmail, verifyToken } from '../middlewares'
 import {
   validatorLogin,
   validatorRegister,
@@ -47,8 +47,8 @@ router
   .route('/reset-password/:token')
   .get(validatorTokenAccount, verifyTokenPswCtrl)
   .post(validatorTokenAccount, newPswCtrl)
-
-router.get('/', [verifyToken, isAdmin], getUserCtrl)
+//[verifyToken, isAdmin],
+router.get('/', [verifyToken], getUserCtrl)
 
 router
   .route('/:id')
