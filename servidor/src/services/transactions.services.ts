@@ -7,6 +7,10 @@ import {
 } from '../interfaces/transaction.interface'
 import Transaction from '../models/transactions.models'
 import User from '../models/users.models'
+import {
+  sendMailMyTransfer,
+  sendMailReceiverTransfer
+} from '../utils/handleEmail'
 
 config()
 const stripeSecretKey = process.env.STRIPE_KEY
@@ -88,12 +92,15 @@ const fecthTransfer = async (transaction: ITransactions) => {
         // save the transaction
         const newTransaction = await Transaction.create(transaction)
         // show receiver info
-        const newTransactionPop = await Transaction.findById(
-          newTransaction._id
-        ).populate(
-          'receiver',
-          '-token -rol -createdAt -updatedAt -password -isActive -balance -benefices -topUpCard'
-        )
+        const newTransactionPop = await Transaction.findById(newTransaction._id)
+          .populate(
+            'receiver',
+            '-token -rol -createdAt -updatedAt -password -isActive -balance -benefices -topUpCard'
+          )
+          .populate({
+            path: 'sender',
+            select: 'email firstName lastname'
+          })
         // decrease the sender's balance
         await User.findByIdAndUpdate(sender, {
           $inc: { balance: -amount }
@@ -102,6 +109,36 @@ const fecthTransfer = async (transaction: ITransactions) => {
         await User.findByIdAndUpdate(receiver, {
           $inc: { balance: amount }
         })
+
+        if (newTransactionPop) {
+          const {
+            amount,
+            receiver: {
+              firstName: nameRece,
+              lastname: lastRece,
+              alias,
+              email: emailRece
+            },
+            sender: {
+              email: emailSender,
+              firstName: nameSender,
+              lastname: lastSender
+            }
+          } = newTransactionPop
+
+          //send email transfer
+          const fullname_receiver = `${nameRece} ${lastRece}`
+          const fullname_sender = `${nameSender} ${lastSender}`
+          //correo comprobante del sender
+          sendMailMyTransfer(fullname_receiver, amount, emailSender, alias)
+          //corrreo comprobante del receiver
+          sendMailReceiverTransfer(
+            fullname_sender,
+            amount,
+            emailSender,
+            emailRece
+          )
+        }
 
         return newTransactionPop
       }
@@ -142,6 +179,7 @@ const fecthGetTransfer = async (id: string) => {
       }
       return trans
     })
+
     return filterTrans
   } catch (e) {
     throw new Error(e as string)
@@ -197,7 +235,7 @@ const fecthDepositStripe = async (
 
       // increase the users's balance
       await User.findByIdAndUpdate(id, {
-        $inc: { balance: amount }
+        $inc: { balance: amount * valueRate }
       })
       return newTransaction
     } else {

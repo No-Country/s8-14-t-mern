@@ -49,6 +49,7 @@ const postTransferController = async (req: Request, res: Response) => {
       })
     }
     const newTransaction = await fecthTransfer(req.body)
+    console.log(newTransaction)
     res.status(201).json({
       msg: 'Transaction successfully',
       data: newTransaction || null,
