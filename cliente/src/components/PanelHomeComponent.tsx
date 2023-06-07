@@ -39,8 +39,8 @@ const PanelHome = (): JSX.Element => {
         '
       >
 
-        {ACTION_ITEMS.map((info) => (
-          <Link to={info.href}>
+        {ACTION_ITEMS.map((info, index) => (
+          <Link key={`panel-home-${index}`} to={info.href}>
             <div className='w-20  h-24 flex flex-col items-center '
             >
               <div className='
