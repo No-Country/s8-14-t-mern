@@ -1,9 +1,10 @@
-import { Document, Types } from 'mongoose'
+import { Document } from 'mongoose'
+import { IUser } from './user.interface'
 
 export interface ITransactions extends Document {
   amount: number
-  sender: Types.ObjectId
-  receiver: Types.ObjectId
+  sender: IUser
+  receiver: IUser
   reference: string
   charge: number
   transaction_type: string
