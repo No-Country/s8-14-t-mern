@@ -10,6 +10,24 @@ import User from '../models/users.models'
 
 config()
 const stripeSecretKey = process.env.STRIPE_KEY
+//Random rate ARS
+const getRandomInt = (min: number, max: number) => {
+  min = Math.ceil(min)
+  max = Math.floor(max)
+  return Math.floor(Math.random() * (max - min) + min) // The maximum is exclusive and the minimum is inclusive
+}
+
+// const ObjectId = Types.ObjectId
+
+// Validator function
+
+/* const isValidObjectId = (id: any) => {
+  if (ObjectId.isValid(id)) {
+    if (String(new ObjectId(id)) === id) return true
+    return false
+  }
+  return false
+} */
 
 // verify receiver's account number
 
@@ -35,6 +53,7 @@ const stripeSecretKey = process.env.STRIPE_KEY
 } */
 const fecthVerifyAccount = async (alias: string) => {
   try {
+    //Assume that this value comes from user
     const user = await User.findOne({ alias })
     if (!user) {
       throw new Error('Account not found')
@@ -163,12 +182,13 @@ const fecthDepositStripe = async (
       }
     )
 
-    // save the transaction on db
+    // save the transaction on db calling getRandomInt() hardCore ARS values
+    const valueRate = getRandomInt(243, 246)
     if (charge.status === 'succeeded') {
       const transObject = {
         sender: id,
         receiver: id,
-        amount,
+        amount: amount * valueRate,
         transaction_type: 'deposit',
         reference: 'stripe deposit',
         status: 'success'
