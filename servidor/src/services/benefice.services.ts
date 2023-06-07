@@ -83,7 +83,7 @@ export const desactiveBeneficio = async (
     benef => benef.name === beneficeFound?.name
   )
   if (findBenefice) {
-    const userUpdate = await User.updateOne(
+    await User.updateOne(
       { _id: idUser },
       { $pull: { benefices: beneficeFound } }
     )
