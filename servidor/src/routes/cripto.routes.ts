@@ -1,6 +1,5 @@
 import { Router } from 'express'
-import { criptoController
-} from '../controller/cripto.controllers'
+import { criptoController } from '../controller/cripto.controllers'
 
 const router = Router()
 

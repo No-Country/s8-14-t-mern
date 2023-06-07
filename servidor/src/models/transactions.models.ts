@@ -7,7 +7,7 @@ const transactionSchema = new Schema<ITransactions>(
     amount: {
       type: Number,
       validate: {
-        validator: function (v: any) {
+        validator: function (v: number) {
           return v >= 0
         },
         message: props => `${props.value} is not a correct amount!`
