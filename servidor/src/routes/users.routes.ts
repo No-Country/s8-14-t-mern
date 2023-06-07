@@ -46,7 +46,7 @@ router
   .route('/reset-password/:token')
   .get(validatorTokenAccount, verifyTokenPswCtrl)
   .post(validatorTokenAccount, newPswCtrl)
-//[verifyToken, isAdmin],
+
 router.get('/', [verifyToken], getUserCtrl)
 
 router
