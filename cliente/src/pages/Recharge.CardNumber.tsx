@@ -1,5 +1,5 @@
 import React, { useContext, useState } from "react";
-import { useParams, useNavigate, Navigate } from "react-router-dom";
+import {  useNavigate} from "react-router-dom";
 import { useUserData } from "@/context/UserContext";
 import { RechargeCardNumber } from "@/services/Recharges";
 import HeaderBackButton from "@/components/HeaderBackButton";
@@ -7,6 +7,8 @@ import { Card, Text, Metric } from "@tremor/react";
 import Buttonc from "@/components/Buttonc";
 import moneylogo from "../assets/moneyLogo.png";
 import { RechargeContext } from "@/context/RechargeContext";
+import toast from "react-hot-toast";
+
 
 function Inputs({ handleNumberChange }) {
   const { user } = useUserData();
@@ -36,35 +38,31 @@ function Inputs({ handleNumberChange }) {
 }
 
 function RechargeCardNumberComponent() {
-  const { imageUrl } = useParams<{ imageUrl?: string }>();
   const { user } = useUserData();
   const [number, setNumberCard] = useState("");
-  const { cardId,setRechargeId } = useContext(RechargeContext);
+  const { cardId,setRechargeId,selectedImage, setCatchNumberCard } = useContext(RechargeContext);
   const navigate = useNavigate();
 
   const handleNumberChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setNumberCard(event.target.value);
   };
 
-  const handleRechargeCardNumber = () => {
+  const handleRechargeCardNumber =  () => {
     RechargeCardNumber({
       cardOptions: cardId || "",
       numberCard: parseInt(number),
       userId: user?.id || "",
     })
       .then((response) => {
+        setCatchNumberCard(response.data.numberCard)
         setRechargeId(response.data.id)
         navigate("/Recharge/amount");
-        console.log(response.data);
       })
       .catch((error) => {
-        console.log(error.message);
+        toast.error(error.response.data.error || "Error en la recarga");
       });
   };
 
-  if (!imageUrl) {
-    return <div>No image selected</div>;
-  }
 
   return (
     <>
@@ -72,8 +70,8 @@ function RechargeCardNumberComponent() {
       <div className="flex justify-center my-24 ">
         <img
           className="w-20 h-10"
-          src={decodeURIComponent(imageUrl)}
-          alt="sube"
+          src={selectedImage || ""}
+          alt="selected Image"
         />
       </div>
       <Inputs handleNumberChange={handleNumberChange} />

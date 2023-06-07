@@ -1,34 +1,37 @@
 import { ReactElement, useContext, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import { Text, Flex } from "@tremor/react";
 import HeaderBackButton from "@/components/HeaderBackButton";
 import Buttonc from "@/components/Buttonc";
 import { CardService } from "@/services/Recharges";
 import { useUserData } from "@/context/UserContext";
 import { RechargeContext } from "@/context/RechargeContext";
+import toast from "react-hot-toast";
 
 
 function RechargeAmount(): ReactElement {
-  // const { imageUrl } = useParams<{ imageUrl?: string }>();
   const { user } = useUserData();
-  const { rechargeId } = useContext(RechargeContext);
-  
+  const { rechargeId, selectedImage, setAmountUser } = useContext(RechargeContext);
   const [moneyAmount, setMoneyAmount] = useState("");
+  const navigate = useNavigate()
 
   const handlAmountChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setMoneyAmount(event.target.value);
   };
   const handleRecharge = () => {
     CardService({
-      cardOfUserId: rechargeId,
+      cardOfUserId: rechargeId  || "",
       amount: parseInt(moneyAmount),
       userId: user?.id || "",
     })
       .then((response) => {
+        setAmountUser(response.data.amount);
+        navigate("/Recharge/send");
         console.log(response.data);
       })
       .catch((error) => {
-        console.error(error);
+        toast.error(error.response.data.error || "Error en la recarga");
+    
       });
   };
   // if (!imageUrl) {
@@ -43,7 +46,7 @@ function RechargeAmount(): ReactElement {
         alignItems="center"
       >
         <img
-          // src={decodeURIComponent(imageUrl)}
+          src={selectedImage || ""}
           className="w-20 h-10 rounded-full col-start-2"
         />
         <div className="w-full flex-grow flex flex-col justify-center items-center ">
