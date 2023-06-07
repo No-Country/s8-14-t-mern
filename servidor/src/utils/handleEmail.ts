@@ -11,7 +11,8 @@ enum Project {
 enum templateFiles {
   RESET_PSW = 'forgotPassword.hbs',
   CONFIRM = 'confirmAccount.hbs',
-  MYTRANSF = 'transferSent.hbs'
+  MYTRANSF = 'transferSent.hbs',
+  RECERANSF = 'transferReceiver.hbs'
 }
 
 const initTransport = () => {
@@ -80,26 +81,47 @@ export const sendMailForgotPassword = async (
 }
 
 export const sendMailMyTransfer = async (
-  addresse: string,
-  amount: string,
-  email: string,
-  cbu: number,
-  dni: number
+  fullNameReceiver: string,
+  amount: number,
+  emailSender: string,
+  aliasReceiver: string
 ) => {
   const transport = initTransport()
   const data = {
-    addresse,
+    fullNameReceiver,
     amount,
-    cbu,
-    dni
+    aliasReceiver
   }
   const htmlContent = generateHbsTemplate(templateFiles.MYTRANSF, data)
 
   await transport.sendMail({
     from: `${Project.NAME_PROJECT} <${Project.NAME_PROJECT}-mern@gmail.com>`,
-    to: email,
+    to: emailSender,
     subject: 'Transferencia realizada',
     text: 'Transferencia realizada',
+    html: htmlContent
+  })
+}
+
+export const sendMailReceiverTransfer = async (
+  fullNameSender: string,
+  amount: number,
+  emailSender: string,
+  emailReceiver: string
+) => {
+  const transport = initTransport()
+  const data = {
+    fullNameSender,
+    amount,
+    emailSender
+  }
+  const htmlContent = generateHbsTemplate(templateFiles.RECERANSF, data)
+
+  await transport.sendMail({
+    from: `${Project.NAME_PROJECT} <${Project.NAME_PROJECT}-mern@gmail.com>`,
+    to: emailReceiver,
+    subject: 'Recibiste una transferencia',
+    text: 'Recibiste una transferencia',
     html: htmlContent
   })
 }
