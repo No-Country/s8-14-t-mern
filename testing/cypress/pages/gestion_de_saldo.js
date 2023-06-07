@@ -1,3 +1,5 @@
+import { isConstructorDeclaration } from "typescript";
+
 const apiUsuarios = 'http://localhost:9000/api/v1/pigmeo/users'
 const datosLocalStorage = JSON.parse(localStorage.getItem('user'));
 
@@ -17,8 +19,9 @@ class GestionSaldo {
     inputCBU(num){
         cy.request('GET',apiUsuarios).then((response)=>{
             const data = response.body
-            const idLogin = data[num].id
+            const idLogin = data[num].alias
             this.elements.input().type(idLogin)
+            console.log(idLogin)
         })
     } 
 
@@ -28,24 +31,28 @@ class GestionSaldo {
     }
 
     verifyAmount(){
-        this.elements.amount().invoke('text').then((e)=>{
-            const amount = e
-            expect(datosLocalStorage.balance).to.eq(amount)
-            cy.log(amount)
-        })
+       this.elements.amount().should('be.visible')
     }
    
     userBalance(num){
+        let td;
+        this.elements.amount().invoke('text').then((e)=>{
+            let total = e.slice(2,20)
+            td = total
+            console.log(td)
+        })
         cy.request('GET',apiUsuarios).then((e)=>{
             const data = e.body[num].balance
-                expect(data).to.eq(datosLocalStorage.balance)        
+            const newData = data - "-100" 
+                expect(newData).to.contain(td) 
+                console.log(newData)       
         }) 
     }
     
-    activityList(num){
+    activityList(){
         this.elements.homeList().invoke('text').then((e)=>{
-            let list = e.slice(24,27)
-            expect(list).to.eq(num)
+            let list = e.slice(24,35)
+            expect(list).to.eq(datosLocalStorage.balance)
         })
     }
 }

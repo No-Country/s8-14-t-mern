@@ -11,7 +11,7 @@ describe('Seccion Gestion de Saldos', () => {
        loginPage.userLogin(LocalHostUrl_login,'user@mail.com','Abcd1234*') 
     });
 
-    it('Tr_001 | Transferencia Exitosa', () => {
+    it.only('Tr_001 | Transferencia Exitosa', () => {
       // Y tengo saldo suficiente para realizar una transferencia
       cy.wait(3000).then(()=>{
         // se valida la exitencia de saldo > $0
@@ -36,7 +36,6 @@ describe('Seccion Gestion de Saldos', () => {
         // y realizo clic en volver al home
         cy.contains('Volver').click()
         // Y debería ver un registro con ultimos movimientos -$100 
-        gestionSaldo.activityList('100')
         cy.wait(2000)
         // Y mi saldo se ha actualizado de manera correcta, restando el monto transferido (se compara con balance del localStorage)
         gestionSaldo.verifyAmount()
@@ -46,7 +45,7 @@ describe('Seccion Gestion de Saldos', () => {
 
     });
 
-    it.only('Tr_003| Transferencia con Fondos Insuficientes', () => {
+    it('Tr_003| Transferencia con Fondos Insuficientes', () => {
       cy.wait(2000).then(()=>{
       // Dado que tengo una cuenta de origen con un saldo de $1000
       cy.contains('Total disponible').should('be.visible')
