@@ -55,7 +55,7 @@ export default function OnboardingPage(): ReactElement {
   }
   setTimeout(() => {
     setintro(false)
-  }, 4000);
+  }, 3000);
 
   return (
     <>
@@ -96,7 +96,7 @@ export default function OnboardingPage(): ReactElement {
 
             <Buttonc
               styled={false}
-              href={(currentSlide < 2) ? "/auth/register" : "/auth/login"}
+              href={(currentSlide < 2) ? "/auth/login" : "/auth/login"}
             >{(currentSlide < 2) ? "Saltar" : "Ya tengo cuenta"}</Buttonc>
           </Col>
         </Grid>

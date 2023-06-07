@@ -8,6 +8,7 @@ import { NewTransferProvider } from "@/context/NewTransferContext";
 import MainLayout from "@/utils/Layout";
 import ResponsPage from "@/pages/ResponsPage";
 import BenefitPage from "@/pages/BenefitPage";
+import Loader from "@/components/Loader";
 
 const OnboardingPage: React.LazyExoticComponent<() => JSX.Element> = lazy(
   () => import("../pages/OnboardingPage")
@@ -77,7 +78,11 @@ const CriptoPage: React.LazyExoticComponent<() => JSX.Element> = lazy(
 export default function AppRouter(): JSX.Element {
   const { isAuthenticated } = useUserData();
   return (
-    <Suspense fallback={<p>Loading...</p>}>
+    <Suspense fallback={
+      <div className="w-screen h-screen  flex justify-center items-center bg-primary-500">
+        <Loader />
+      </div>
+    }>
       <BrowserRouter>
         <Routes>
           {!isAuthenticated && (
