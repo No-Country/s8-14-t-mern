@@ -1,5 +1,4 @@
 import { useState } from "react";
-
 import { useFormik } from "formik";
 import { Link } from "react-router-dom";
 import { useUserData } from "@/context/UserContext";
@@ -8,9 +7,12 @@ import apiUsers from "@/services/users";
 import * as Yup from "yup";
 import toast from "react-hot-toast";
 import logo from "../assets/logo-light.svg";
-import Loader from "@/components/Loader";
+import eyesOn from '../assets/eye.svg';
+import eyesOff from '../assets/eyeslash.svg';
+import Loader from "./Loader";
 
 const LoginForm = (): JSX.Element => {
+  const [passType, setpassType] = useState('password');
   const { setUserData } = useUserData();
   const [isLoading, setIsLoading] = useState(false);
 
@@ -21,17 +23,18 @@ const LoginForm = (): JSX.Element => {
     },
     validationSchema: Yup.object({
       email: Yup.string()
-        .email("Enter a valid email")
-        .required("Email is required"),
-      password: Yup.string().required("Password is required"),
-      /* .min(8, "Password must contain at least 8 characters")
-        .matches(/[A-Z]/, "Password must contain at least one uppercase letter")
+        .email("Ingresar un email valido")
+        .required("Email es requerido"),
+      password: Yup.string()
+        .required("Contraseña es requerida")
+        .min(8, "Contraseña debe contener min 8 caracteres")
+        .matches(/[A-Z]/, "Contraseña debe contener una Mayuscula")
+        .matches(/[a-z]/, "Contraseña debe contener una minuscula")
         .matches(
           /[!@#$%^&*(),.?":{}|<>]/,
-          "Password must contain at least one special character"
-        ), */
+          "Contraseña debe contener una caracter especial"
+        ),
     }),
-
     onSubmit: async (values) => {
       setIsLoading(true);
       try {
@@ -52,17 +55,33 @@ const LoginForm = (): JSX.Element => {
     },
   });
 
+  const handlePassword = () => {
+    if (passType === 'password')
+      setpassType('text')
+    else setpassType('password')
+  }
+
   return (
-    <div className="min-h-screen grid place-items-center">
+    <div className="min-h-screen flex justify-center items-center ">
       <form
         onSubmit={handleSubmit}
-        className="w-11/12 max-w-md mx-auto flex flex-col gap-5 justify-center items-center"
+        className="w-[95vw] h-full flex flex-col gap-3 justify-center items-center"
       >
-        <img src={logo} alt="logo" className="w-full mb-10 -mt-5" />
-        <label className="text-red-600 w-full">
+        <img src={logo} alt="logo" className="w-80" />
+
+        <label className="text-red-600 w-full flex flex-col items-center justify-center mt-14">
           <input
-            className="border border-gray-300 rounded-lg  
-          outline-0 focus:ring ring-primary-200 w-full p-2.5 text-black"
+            className="
+            w-full
+            h-12 
+            p-2 
+            border 
+            border-gray-300 
+            rounded-lg  
+            outline-0 
+            focus:ring 
+            ring-primary-200 
+            text-black"
             placeholder="Correo electrónico"
             name="email"
             id="email"
@@ -72,25 +91,48 @@ const LoginForm = (): JSX.Element => {
           />
           {errors.email && touched.email && errors.email}
         </label>
-        <label className="text-red-600 w-full">
+
+        <label className="text-red-600 w-full flex flex-col relative items-center">
           <input
-            className="border border-gray-300 rounded-lg  
-          outline-0 focus:ring ring-primary-200 w-full p-2.5 text-black"
+            className="
+            w-full
+            h-12 
+            p-2 
+            border 
+            border-gray-300 
+            rounded-lg  
+            outline-0 
+            focus:ring 
+            ring-primary-200 
+            text-black"
             placeholder="Contraseña"
             name="password"
             id="password"
-            type="password"
+            type={passType}
             onChange={handleChange}
             value={values.password}
           />
+          <div id="eyepass" className="absolute w-12 h-12 flex justify-center items-center right-0 text-primary-400"
+            onMouseEnter={handlePassword}
+            onMouseOut={handlePassword}
+          >
+            {
+              passType === 'password' ?
+                <img className="w-8 h-8 " src={eyesOff} alt="showContrasena" />
+                :
+                <img className="w-8 h-8 " src={eyesOn} alt="hiddenContrasena" />
+            }
+          </div>
           {errors.password && touched.password && errors.password}
         </label>
-        <Link
-          to="/resetPassword/request"
-          className="text-primary self-start underline"
-        >
-          ¿Olvidaste tu contraseña?
-        </Link>
+        <div className="w-full flex justify-center">
+          <Link
+            to="/resetPassword/request"
+            className="text-primary self-start underline w-full"
+          >
+            ¿Olvidaste tu contraseña?
+          </Link>
+        </div>
         {isLoading ? (
           <Loader />
         ) : (

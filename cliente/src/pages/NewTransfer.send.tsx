@@ -21,6 +21,7 @@ function TransferMoney() {
     try {
       const payload = {
         ...transferData,
+        status:"succes",
         sender: user?.id,
         receiver: transferData?.receiver?.id,
       };
