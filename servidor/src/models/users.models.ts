@@ -81,7 +81,8 @@ const userSchema = new Schema<IUser>(
       default: uuidv4()
     },
     benefices: { type: [] },
-    topUpCard: { type: [] }
+    topUpCard: { type: [] },
+    cards: { type: [] }
   },
   { timestamps: true }
 )

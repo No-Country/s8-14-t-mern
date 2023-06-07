@@ -40,7 +40,6 @@ function NewTransfer(): ReactElement {
             required
             type="number"
             name="amount"
-            defaultValue={transferData?.amount}
             min="20"
             placeholder="Monto"
             className="text-center border-b-2 border-primary  py-5 mb-5 text-2xl font-bold
@@ -54,13 +53,10 @@ function NewTransfer(): ReactElement {
         >
           Continuar
         </button>
+        <Buttonc styled={false} href="/home">
+          Cancelar
+        </Buttonc>
       </form>
-      {/*       <Buttonc styled={true} action="continuar" href="/newTransfer/category">
-        Continuar
-      </Buttonc> */}
-      <Buttonc styled={false} href="/home">
-        Cancelar
-      </Buttonc>
     </>
   );
 }

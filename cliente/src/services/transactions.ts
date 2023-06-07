@@ -1,8 +1,9 @@
+import { Token } from "react-stripe-checkout";
 import axios from "./config";
 
-export function verifyCBU(cbu: string) {
+export function verifyAlias(alias: string) {
   const payload = {
-    receiver: cbu,
+    alias,
   };
   return axios.post(`/transactions/verify-account`, payload);
 }
@@ -20,7 +21,7 @@ export function getUserTransactions(userId: string | undefined) {
   return axios.get(`/transactions/get-all-transactions-by-user/${userId}`);
 }
 interface stripePayload {
-  token: string;
+  token: Token;
   amount: number;
   id?: string;
 }
@@ -34,7 +35,7 @@ export function stripeTransaction({ token, amount, id }: stripePayload) {
 }
 
 export default {
-  verifyCBU,
+  verifyAlias,
   transferFunds,
   getUserTransactions,
   stripeTransaction,

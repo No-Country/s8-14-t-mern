@@ -5,6 +5,8 @@
    - PORT : port where you go to run the server.
    - DB_URL : URI of the mongo database.
    - SECRET : secret key used for JWT
+   - STRIPE_KEY : secret key Stripe platform
+   - CLOUDINARY_URL = URI of cloudinary server
    - EMAIL_HOST= email host provider
    - EMAIL_PORT= port host provider
    - EMAIL_USER= user host provider
@@ -51,8 +53,35 @@
 | balance              | Number                          | NO       | 0                        |
 | isActive             | Boolean                         | NO       | false                    |
 | token                | String                          | NO       | uuid()                   |
+| benefices            | Array                           | NO       | -                        |
+| topUpCard            | Array                           | NO       | -                        |
 
-## POSTMAN DOCUMENTATION
+
+## Transactions
+
+|    TYPE    |                    DETAIL                     |                      ENDPOINT                     |                            DATA                          |
+| :--------: | :-------------------------------------------: | :-----------------------------------------------: | :------------------------------------------------------: |
+|  **POST**  |                verify account                 |         **transactions/verify-account**           |                       body: { alias }                    |
+|  **POST**  |               make transaction                |         **transactions/transfer-funds**           |  body: { amount, sender, receiver, reference, status }   |
+|  **GET**   |              transactions by id               | **transactions/get-all-transactions-by-user/:id** |                                                          |
+|  **POST**  |            deposit funds by Stripe            |       **transactions/deposit-funds-stripe**       |                body: { token, amount, userId }           |
+
+### Transaction Schema
+
+| KEY                  | TYPE                            | REQUIRED | DEFAULT                  |
+| -------------------- | ------------------------------- | -------- | ------------------------ |
+| amount               | Number                          | YES      | -                        |
+| sender               | ObjectId                        | YES      | -                        |
+| receiver             | ObjectId                        | YES      | -                        |
+| reference            | String                          | YES      | -                        |
+| charge               | Number                          | NO       | 0                        |
+| transaction_type     | String                          | NO       | null                     |
+| status               | String                          | NO       | success                  |
+
+
+## Benefices
+
+### DOCUMENTATION BENEFICES
 
 |   TYPE   |                 DETAIL                  |                     ENDPOINT                      |                                                            DATA                                                             |
 | :------: | :-------------------------------------: | :-----------------------------------------------: | :-------------------------------------------------------------------------------------------------------------------------: |
@@ -61,5 +90,62 @@
 | **GET**  |    OBTENER BENEFICIOS POR CATEGORIAS    | **api/v1/pigmeo/benefice/category/:categoryName** |                                                  params: { categoryName }                                                   |
 | **GET**  |        OBTENER BENEFICIO POR ID         |      **api/v1/pigmeo/benefice//:idBenefice**      |                                                   params: { idBenefice }                                                    |
 | **PUT**  | ACTIVAR/DESACTIVAR BENEFICIO EN USUARIO |        **api/v1/pigmeo/benefice/activate**        |                                            body: { idUser, idBenefice, active }                                             |
+
+
+## Cards
+
+|    TYPE    |                    DETAIL                     |                      ENDPOINT                     |                            DATA                          |
+| :--------: | :-------------------------------------------: | :-----------------------------------------------: | :------------------------------------------------------: |
+|  **POST**  |                create new card                 |         **cards/create**           |                       body: { cardType, name, image }                    |
+|  **GET**  |               all cards                |         **cards/**           |     |
+|  **GET**   |              card by id               | **cards/:id** |                      params: { id of card }                                     |
+|  **PATCH**  |            edit card            |       **CardsOfUser/:id**       |                body: { cardType, name, image }, params: { id of card }           |
+
+### Card Schema
+
+| KEY                  | TYPE                            | REQUIRED | DEFAULT                  |
+| -------------------- | ------------------------------- | -------- | ------------------------ |
+| cardType             | String                          |YES       | -                        |
+| image                | String                         | YES       | -                        |
+| name                 | String                          | YES      | -                        |
+|
+
+
+## Cards of user
+
+|    TYPE    |                    DETAIL                     |                      ENDPOINT                     |                            DATA                          |
+| :--------: | :-------------------------------------------: | :-----------------------------------------------: | :------------------------------------------------------: |
+|  **POST**  |                add new card                 |         **cardsOfUser/add-card**           |                       body: { cardOptions, numberCard, userId }                    |
+|  **GET**  |               all cards of a user                |         **cardsOfUser/**           |     |
+|  **GET**   |              card by id               | **cardsOfUser/:id** |                      params: { id of card of user }                                    |
+|  **PATCH**  |            edit card            |       **cardsOfUser/:id**       |                body: { cardOptions, numberCard }, params: { id of card of user }           |
+
+### Cards of user Schema
+
+| KEY                  | TYPE                            | REQUIRED | DEFAULT                  |
+| -------------------- | ------------------------------- | -------- | ------------------------ |
+| balanceCard          | Number                          | NO       | 0                        |
+| cardOptions          | ObjectId                        | NO       | -                        |
+| numberCard           | Number                          | YES      | -                        |
+| userId               | ObjectId                        | NO       | -                        |
+|
+
+
+## Top-up cards service
+
+|    TYPE    |                    DETAIL                     |                      ENDPOINT                     |                            DATA                          |
+| :--------: | :-------------------------------------------: | :-----------------------------------------------: | :------------------------------------------------------: |
+|  **POST**  |                top-up card                 |         **topUpCardsService/top-up**           |                       body: { cardOfUserId, amount, userId }                    |
+|  **GET**  |               all top-up cards by user                |         **topUpCardsService/top-up-by-user/:id**           |  params: { id of user}   |
+|
+
+### Top-up cards service Schema
+
+| KEY                  | TYPE                            | REQUIRED | DEFAULT                  |
+| -------------------- | ------------------------------- | -------- | ------------------------ |
+| cardOfUserId         | ObjectId                        | YES      | -                        |
+| amount               | Number                          | YES      | -                        |
+| userId               | ObjectId                        | YES      | -                        |
+|
 
 Link here

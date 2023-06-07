@@ -1,23 +1,19 @@
 import { model, Schema } from 'mongoose'
 import { CardType, ICard } from '../interfaces/card.interface'
 
-const cardSchema =  new Schema<ICard>({
-  numberCard: {
-    type: Number,
-    required: true
-  },
+const cardSchema = new Schema<ICard>({
   cardType: {
     type: String,
     enum: Object.values(CardType),
-    required: true,
+    required: true
   },
   image: {
     type: String,
-    required: true,
+    required: true
   },
   name: {
     type: String,
-    required: true,
+    required: true
   }
 })
 

@@ -6,14 +6,15 @@ import { Router } from 'express'
 import {
   deleteUserCtrl,
   forgotPasswordCtrl,
+  getUserCardsCtrl,
   getUserCtrl,
   getUserIdCtrl,
   loginUser,
   newPswCtrl,
   patchUserCtrl,
+  postCardUserCtrl,
   postUserCtrl,
   putImage,
-  putUserCtrl,
   verifyTokenPswCtrl,
   verifyUserCtrl
 } from '../controller/users.controllers'
@@ -46,17 +47,16 @@ router
   .get(validatorTokenAccount, verifyTokenPswCtrl)
   .post(validatorTokenAccount, newPswCtrl)
 
-router.route('/').get(getUserCtrl)
+router.get('/', [verifyToken], getUserCtrl)
 
 router
   .route('/:id')
   .get([verifyToken, validatorUserId], getUserIdCtrl)
   .delete([verifyToken, validatorUserId], deleteUserCtrl)
-
-router.put('/edit', putUserCtrl)
-
-router.route('/:id').patch(patchUserCtrl)
+  .patch(patchUserCtrl)
 
 router.put('/:id/image', putImage)
+router.post('/:id/card', postCardUserCtrl)
+router.get('/:id/card/:idCard', getUserCardsCtrl)
 
 export { router }

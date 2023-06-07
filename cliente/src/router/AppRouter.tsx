@@ -8,9 +8,13 @@ import { NewTransferProvider } from "@/context/NewTransferContext";
 import MainLayout from "@/utils/Layout";
 import ResponsPage from "@/pages/ResponsPage";
 import BenefitPage from "@/pages/BenefitPage";
+import Loader from "@/components/Loader";
 
 const OnboardingPage: React.LazyExoticComponent<() => JSX.Element> = lazy(
   () => import("../pages/OnboardingPage")
+);
+const AddMoneyPage: React.LazyExoticComponent<() => JSX.Element> = lazy(
+  () => import("../pages/AddMoneyPage")
 );
 
 const AuthPage: React.LazyExoticComponent<() => JSX.Element> = lazy(
@@ -74,7 +78,11 @@ const CriptoPage: React.LazyExoticComponent<() => JSX.Element> = lazy(
 export default function AppRouter(): JSX.Element {
   const { isAuthenticated } = useUserData();
   return (
-    <Suspense fallback={<p>Loading...</p>}>
+    <Suspense fallback={
+      <div className="w-screen h-screen  flex justify-center items-center bg-primary-500">
+        <Loader />
+      </div>
+    }>
       <BrowserRouter>
         <Routes>
           {!isAuthenticated && (
@@ -128,7 +136,7 @@ export default function AppRouter(): JSX.Element {
               <Route path="/addFunds" element={<AddFundsMenuPage />} />
               <Route
                 path="/addFunds/transfer"
-                element={<AddFundsByTransferPage />}
+                element={<AddMoneyPage />}
               />
               <Route
                 path="/addFunds/cash"
@@ -144,7 +152,7 @@ export default function AppRouter(): JSX.Element {
               <Route path="/cripto" element={<CriptoPage />} />
 
               <Route path="*" element={<Navigate to="/home" />} />
-              <Route path="/response" element={<ResponsPage backmsg="" />} />
+              <Route path="/response" element={<ResponsPage />} />
             </>
           )}
           <Route path="*" element={<h1>404</h1>} />
