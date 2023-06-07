@@ -39,7 +39,7 @@ export interface UserRequestI extends Request {
   user?: IUser
 }
 
-export interface CustomFileTypeI {
+export interface FileI {
   key?: string
   path?: string
   mimetype?: string

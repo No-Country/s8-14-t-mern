@@ -11,7 +11,8 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "lint": "eslint --ext .ts src/",
     "lint:fix": "eslint --ext .ts src/ --fix",
-    "docs": "typedoc"
+    "docs": "typedoc",
+    "prepare": "cd .. && husky install servidor/.husky"
   },
   "keywords": [
     "Nodejs",
@@ -62,6 +63,7 @@
     "eslint-plugin-prettier": "^4.2.1",
     "eslint-plugin-simple-import-sort": "^10.0.0",
     "eslint-plugin-unused-imports": "^2.0.0",
+    "husky": "^8.0.3",
     "ts-node": "^10.9.1",
     "ts-node-dev": "^2.0.0",
     "typedoc": "^0.24.7",

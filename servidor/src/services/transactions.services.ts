@@ -1,9 +1,16 @@
 import { config } from 'dotenv'
 import Stripe from 'stripe'
 import { v4 as uuidv4 } from 'uuid'
-import { ITransactions } from '../interfaces/transaction.interface'
+import {
+  ITransactions,
+  TokenStripeDepositI
+} from '../interfaces/transaction.interface'
 import Transaction from '../models/transactions.models'
 import User from '../models/users.models'
+import {
+  sendMailMyTransfer,
+  sendMailReceiverTransfer
+} from '../utils/handleEmail'
 
 config()
 const stripeSecretKey = process.env.STRIPE_KEY
@@ -48,7 +55,7 @@ const getRandomInt = (min: number, max: number) => {
     throw new Error(e as string)
   }
 } */
-const fecthVerifyAccount = async (alias: any) => {
+const fecthVerifyAccount = async (alias: string) => {
   try {
     //Assume that this value comes from user
     const user = await User.findOne({ alias })
@@ -85,12 +92,15 @@ const fecthTransfer = async (transaction: ITransactions) => {
         // save the transaction
         const newTransaction = await Transaction.create(transaction)
         // show receiver info
-        const newTransactionPop = await Transaction.findById(
-          newTransaction._id
-        ).populate(
-          'receiver',
-          '-token -rol -createdAt -updatedAt -password -isActive -balance -benefices -topUpCard'
-        )
+        const newTransactionPop = await Transaction.findById(newTransaction._id)
+          .populate(
+            'receiver',
+            '-token -rol -createdAt -updatedAt -password -isActive -balance -benefices -topUpCard'
+          )
+          .populate({
+            path: 'sender',
+            select: 'email firstName lastname'
+          })
         // decrease the sender's balance
         await User.findByIdAndUpdate(sender, {
           $inc: { balance: -amount }
@@ -99,6 +109,37 @@ const fecthTransfer = async (transaction: ITransactions) => {
         await User.findByIdAndUpdate(receiver, {
           $inc: { balance: amount }
         })
+
+        if (newTransactionPop) {
+          const {
+            amount,
+            receiver: {
+              firstName: nameRece,
+              lastname: lastRece,
+              alias,
+              email: emailRece
+            },
+            sender: {
+              email: emailSender,
+              firstName: nameSender,
+              lastname: lastSender
+            }
+          } = newTransactionPop
+
+          //send email transfer
+          const fullname_receiver = `${nameRece} ${lastRece}`
+          const fullname_sender = `${nameSender} ${lastSender}`
+          //correo comprobante del sender
+          sendMailMyTransfer(fullname_receiver, amount, emailSender, alias)
+          //corrreo comprobante del receiver
+          sendMailReceiverTransfer(
+            fullname_sender,
+            amount,
+            emailSender,
+            emailRece
+          )
+        }
+
         return newTransactionPop
       }
     }
@@ -109,7 +150,7 @@ const fecthTransfer = async (transaction: ITransactions) => {
 
 // get all transactions for a user
 
-const fecthGetTransfer = async (id: any) => {
+const fecthGetTransfer = async (id: string) => {
   try {
     const user = await User.findById(id)
     if (!user) {
@@ -138,6 +179,7 @@ const fecthGetTransfer = async (id: any) => {
       }
       return trans
     })
+
     return filterTrans
   } catch (e) {
     throw new Error(e as string)
@@ -145,14 +187,17 @@ const fecthGetTransfer = async (id: any) => {
 }
 
 // deposit funds using stripe
-
-const fecthDepositStripe = async (token: any, amount: any, id: any) => {
+const fecthDepositStripe = async (
+  token: TokenStripeDepositI,
+  amount: number,
+  id: string
+) => {
   try {
-    const stripe = new Stripe(stripeSecretKey!, {
+    if (!stripeSecretKey) throw new Error('stripe Key not found!.')
+    const stripe = new Stripe(stripeSecretKey, {
       apiVersion: '2022-11-15'
     })
     // create customer
-
     const params: Stripe.CustomerCreateParams = {
       description: 'test customer',
       email: token.email,
@@ -162,7 +207,6 @@ const fecthDepositStripe = async (token: any, amount: any, id: any) => {
     const customer: Stripe.Customer = await stripe.customers.create(params)
 
     // create charge
-
     const charge: Stripe.Charge = await stripe.charges.create(
       {
         amount: amount * 100,
@@ -190,9 +234,8 @@ const fecthDepositStripe = async (token: any, amount: any, id: any) => {
       const newTransaction = await Transaction.create(transObject)
 
       // increase the users's balance
-
       await User.findByIdAndUpdate(id, {
-        $inc: { balance: amount }
+        $inc: { balance: amount * valueRate }
       })
       return newTransaction
     } else {

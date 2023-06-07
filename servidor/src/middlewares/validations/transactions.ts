@@ -12,13 +12,7 @@ export const validatorDepositTrns = [
     })
     .withMessage('Los datos de la transacción contiene campos invalidos'),
 
-  body('token')
-    .trim()
-    .notEmpty()
-    .withMessage('Token requerido')
-    .bail()
-    .isString()
-    .withMessage('Token no válido'),
+  body('token').notEmpty().withMessage('Token requerido'),
 
   body('amount')
     .trim()

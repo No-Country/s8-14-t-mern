@@ -1,9 +1,9 @@
 import { Request, Response } from 'express'
 import { v2 as cloudinary } from 'cloudinary'
 import config from '../config'
+import { FileI } from '../interfaces/user.interface'
 import { fetchGet, fetchPost, findCardType } from '../services/cards.services'
 cloudinary.config({ cloudinary: config.cloudinary })
-
 
 const postCardCtrl = async (req: Request, res: Response) => {
   try {
@@ -13,7 +13,7 @@ const postCardCtrl = async (req: Request, res: Response) => {
       return res.status(400).json({ error: 'No image file provided' })
     }
 
-    const imageCardFile = req.files.image as any
+    const imageCardFile = req.files.image as FileI
 
     const uploadedImage = await cloudinary.uploader.upload(
       imageCardFile.tempFilePath,
