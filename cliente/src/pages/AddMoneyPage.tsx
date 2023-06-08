@@ -18,9 +18,9 @@ export default function AddMoneyPage() {
             required
             type="number"
             name="monto"
-            value={monto}
+            placeholder='Monto'
             onChange={handleChange}
-            className="w-full h-20 text-center border-b-2 border-primary   text-2xl font-bold
+            className="w-[90%] mx-auto h-20 text-center border-b-2 border-primary   text-2xl font-bold
           outline-0 focus:ring ring-primary-50 "
           />
           <div>
