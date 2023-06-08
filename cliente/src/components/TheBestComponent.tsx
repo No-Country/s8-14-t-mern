@@ -8,12 +8,11 @@ import { Benefice } from '@/hooks/useBenefice';
 import clarologo from '../assets/claro-logo.png';
 
 type typeProp = {
-  title: string
+  title?: string
   Benefice: Benefice[] | undefined
 }
 
 const styles = {
-  backgroundImage: `url(${clarologo})`,
   backgroundSize: 'fit-content',
   backgroundRepeat: 'no-repeat',
   backgroundPosition: 'center',
@@ -22,6 +21,7 @@ const styles = {
 
 export default function TheBestComponent({ title, Benefice }: typeProp) {
   return (
+
     <Col numColSpan={12} className=' mx-2'>
       <Title className='ml-2 mb-4'>{title}</Title>
       <Swiper
@@ -31,20 +31,25 @@ export default function TheBestComponent({ title, Benefice }: typeProp) {
         slideClass='max-w-fit'
       >
 
+
         {Benefice && Benefice.map((benefice, index) => (
-          <SwiperSlide key={index} className='max-w-fit h-32 ml-2'>
-            <div
-              key={index}
-              className={`w-[180px] h-[78px] rounded-lg shadow-md border bg-primary-50  flex  items-center justify-end`}
-              style={styles}
-            >
-              <div className='p-2 flex  flex-col gap-2'>
-                <Text className='font-bold text-1xl text-primary'>{benefice.discountPercentage}%</Text>
-                <Text className='font-normal text-sm text-black'>{benefice.description}</Text>
+            <SwiperSlide key={index} className='max-w-fit h-32 ml-2'>
+              <div
+                key={index}
+                className={`w-[180px] h-[78px] rounded-lg shadow-md border bg-primary-50  flex  items-center justify-center `}
+                style={{
+                  ...styles,
+                  backgroundImage: `url(${benefice.image_1})`
+                }}
+              >
+                <div className='flex  flex-col items-center gap-5'>
+                  <Text className={`font-bold  text-1xl text-primary flex justify-start  ${(benefice.category === "viajes") ? 'text-white' : "text-black"}  w-[150px]`}>{benefice.description.substring(0, 4)}</Text>
+                  <Text className={`font-normal text-sm 
+                ${(benefice.category === "viajes") ? 'text-white' : "text-black"}  flex justify-end  w-[150px]`}>{benefice.description.substring(4)}</Text>
+                </div>
               </div>
-            </div>
-          </SwiperSlide>
-        ))}
+            </SwiperSlide>
+          ))}
       </Swiper>
     </Col>
   )

@@ -58,7 +58,7 @@ export default function BenefitPage() {
 
         <Col className='p-4'>
           <Title className='mb-4'>Busca por categoria</Title>
-          <div className='flex justify-center  w-full gap-9'>
+          <div className='flex justify-center  w-full gap-6'>
             {CATEGORY_ITEMS.map((item, index) => (
               <div key={index} className='w-20 h-auto flex items-center justify-center  '>
                 <button className=' h-16  w-16  text-center  text-[#3B1B80] bg-secondary-200 rounded-xl'>
@@ -68,11 +68,20 @@ export default function BenefitPage() {
             ))}
           </div>
         </Col>
-        
+
         <Col className=' h-full z-10'>
-          {Refound?.length !== 0 && <DescountAndReintegro title="Reintegros" Benefice={Refound} />}
-          {Descount?.length !== 0 && <DescountAndReintegro title="Descuentos" Benefice={Descount} />}
-          {TheBest?.length !== 0 && <TheBestComponent title='Los mejores descuentos & reitegros' Benefice={TheBest} />}
+          {<DescountAndReintegro title="Reintegros" Benefice={Refound} />}
+          {<DescountAndReintegro title="Descuentos" Benefice={Descount} />}
+          {
+            (TheBest?.length === 0) ? (
+              <Col numColSpan={12} className=' mx-2'>
+                <Title className='ml-2 mb-4'>'Los mejores descuentos & reitegros' </Title>
+                <div className='w-full h-20  ml-2 flex justify-center items-center'>
+                  <h1 className='text-center '>  NO HAY POR EL MOMENTO</h1>
+                </div>
+              </Col>
+            ) :
+              <TheBestComponent title='Los mejores descuentos & reitegros' Benefice={TheBest} />}
         </Col>
       </div>
     </div>
