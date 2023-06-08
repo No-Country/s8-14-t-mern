@@ -149,11 +149,11 @@ export default function AppRouter(): JSX.Element {
               />
               <Route path="/recharge" element={<RechargePage />} />
               <Route
-                path="/recharge/cardnumber"
+                path="/recharge/cardnumber/"
                 element={<RechargeCardNumberPage />}
               />
-              <Route path="/recharge/amount" element={<RechargeAmountPage />} />
-              <Route path="/recharge/send" element={<RechargeSendPage />} />
+              <Route path="/recharge/amount/" element={<RechargeAmountPage />} />
+              <Route path="/recharge/send/" element={<RechargeSendPage />} />
               <Route path="/cripto" element={<CriptoPage />} />
 
               <Route path="*" element={<Navigate to="/home" />} />
