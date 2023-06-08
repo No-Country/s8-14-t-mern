@@ -54,13 +54,13 @@ function NewTransfer(): ReactElement {
         >
           Continuar
         </button>
+        <Buttonc styled={false} href="/home">
+          Cancelar
+        </Buttonc>
       </form>
       {/*       <Buttonc styled={true} action="continuar" href="/newTransfer/category">
         Continuar
       </Buttonc> */}
-      <Buttonc styled={false} href="/home">
-        Cancelar
-      </Buttonc>
     </>
   );
 }
