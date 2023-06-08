@@ -106,7 +106,7 @@ const RegisterForm = (): JSX.Element => {
             onChange={handleChange}
             value={values.password}
           />
-          <div className="absolute w-12 h-12 flex justify-center items-center right-0 text-primary-400 bg-red-600"
+          <div className="absolute w-12 h-12 flex justify-center items-center right-0 text-primary-400"
           >
             {
               passType === 'password' ?
