@@ -1,5 +1,4 @@
 import HeaderBackButton from "@/components/HeaderBackButton";
-import { Card, Text } from "@tremor/react";
 import TransferButton from "@/components/Buttonc";
 import { RechargeContext } from "@/context/RechargeContext";
 import { useContext } from "react";

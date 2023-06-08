@@ -1,5 +1,5 @@
 import { ReactElement, useContext, useState } from "react";
-import { useParams, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { Text, Flex } from "@tremor/react";
 import HeaderBackButton from "@/components/HeaderBackButton";
 import Buttonc from "@/components/Buttonc";
@@ -27,16 +27,13 @@ function RechargeAmount(): ReactElement {
       .then((response) => {
         setAmountUser(response.data.amount);
         navigate("/Recharge/send");
-        console.log(response.data);
+        
       })
       .catch((error) => {
         toast.error(error.response.data.error || "Error en la recarga");
     
       });
   };
-  // if (!imageUrl) {
-  //   return <div>No image selected</div>;
-  // }
   return (
     <>
       <HeaderBackButton title="Recargas" />
@@ -51,7 +48,6 @@ function RechargeAmount(): ReactElement {
         />
         <div className="w-full flex-grow flex flex-col justify-center items-center ">
           <input
-            defaultValue="0,000"
             placeholder="Monto"
             className="text-center border-b-2 border-primary  py-5 mb-5 text-2xl font-bold
             outline-0 focus:ring ring-primary-50 "
