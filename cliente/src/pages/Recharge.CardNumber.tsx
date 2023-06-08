@@ -1,5 +1,5 @@
 import React, { useContext, useState } from "react";
-import {  useNavigate} from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useUserData } from "@/context/UserContext";
 import { RechargeCardNumber } from "@/services/Recharges";
 import HeaderBackButton from "@/components/HeaderBackButton";
@@ -14,7 +14,7 @@ function Inputs({ handleNumberChange }) {
   const { user } = useUserData();
 
   return (
-    <div className="flex flex-col w-full mt-7 ml-7 mb-32">
+    <div className="flex flex-col items-center max-w-full h-full">
       <label htmlFor="Numero de tarjeta" className="mb-2 text-black">
         Número de tarjeta
       </label>
@@ -23,14 +23,14 @@ function Inputs({ handleNumberChange }) {
         className="outline-0 focus:border-[#3B1B80] border-2 border-[#9BA4B4] h-14 rounded-lg w-11/12"
         onChange={handleNumberChange}
       />
-      <Card className="bg-[#F5F2FF] mt-6 w-11/12 flex flex-col items-center">
+      <Card className="bg-[#F5F2FF] mt-6 w-full flex flex-col items-center">
         <div className="flex flex-row mr-16">
-          <img className="mr-5" src={moneylogo} alt="moneylogo" />
-          <Text className="text-sm mb-4 font-normal">
+          <img className="mr-5 " src={moneylogo} alt="moneylogo" />
+          <Text className="text-sm mb-7 font-normal">
             Pagaras con tu saldo de Pigmeo
           </Text>
         </div>
-        <Text className="text-black">Disponible</Text>
+        <Text className="text-black mb-6">Disponible</Text>
         <Metric>{user?.balance}</Metric>
       </Card>
     </div>
@@ -40,14 +40,14 @@ function Inputs({ handleNumberChange }) {
 function RechargeCardNumberComponent() {
   const { user } = useUserData();
   const [number, setNumberCard] = useState("");
-  const { cardId,setRechargeId,selectedImage, setCatchNumberCard } = useContext(RechargeContext);
+  const { cardId, setRechargeId, selectedImage, setCatchNumberCard } = useContext(RechargeContext);
   const navigate = useNavigate();
 
   const handleNumberChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setNumberCard(event.target.value);
   };
 
-  const handleRechargeCardNumber =  () => {
+  const handleRechargeCardNumber = () => {
     RechargeCardNumber({
       cardOptions: cardId || "",
       numberCard: parseInt(number),
@@ -67,7 +67,7 @@ function RechargeCardNumberComponent() {
   return (
     <>
       <HeaderBackButton title="Recargas" />
-      <div className="flex justify-center my-24 ">
+      <div className="flex justify-center my-14 ">
         <img
           className="w-20 h-10"
           src={selectedImage || ""}
