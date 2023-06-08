@@ -6,7 +6,9 @@ import { useContext } from "react";
 
 
 function RechargeSend() {
- const {selectedImage, selectName,amountUser, catchNumberCard} = useContext(RechargeContext)
+  const { selectedImage, selectName, amountUser, catchNumberCard } = useContext(RechargeContext)
+
+
   return (
     <>
       <HeaderBackButton title="Transferencia" />
@@ -17,7 +19,7 @@ function RechargeSend() {
         {amountUser}
       </h1>
       <div className="mx-4 mt-14 mb-20">
-        <h2 className="border-b-2 pb-2.5 text-sm">Numero de Tarjeta {selectName + ":" +" " + catchNumberCard} </h2>
+        <h2 className="border-b-2 pb-2.5 text-sm">Numero de Tarjeta {selectName + ":" + " " + catchNumberCard} </h2>
         <h3 className="border-b-2 pb-2.5 mt-5 text-sm">
           Fecha:{" "}
           {new Date().toLocaleDateString("default", {
@@ -29,8 +31,8 @@ function RechargeSend() {
         </h3>
         <h4 className="mt-5 text-sm">pagas con tu saldo pigmeo</h4>
       </div>
-      <TransferButton children="Recargar" styled={true} action="" />
-      <TransferButton children="Cancelar" styled={false} action="" />
+      <TransferButton children="Recargar" styled={true} action="recargar" />
+      <TransferButton children="Cancelar" styled={false} action="volver" href="/" />
     </>
   );
 }

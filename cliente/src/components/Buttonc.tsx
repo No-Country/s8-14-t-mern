@@ -15,8 +15,6 @@ const Buttonc: React.FC<Props> = ({ children, styled, action, href }) => {
   function OnHanddleAction() {
     switch (action) {
       case "transferir":
-        // Realizar peticion al back 
-        // Luego re-dirigir a la responsePage.tsx
         if (href) {
           navigate(href);
         }
@@ -32,6 +30,9 @@ const Buttonc: React.FC<Props> = ({ children, styled, action, href }) => {
         }
         break;
       case "recargar":
+        navigate("/response", {
+          state: { msg: "Tu recarga se realizó con éxito" },
+        });
         break;
       default:
         if (href) {
@@ -41,12 +42,11 @@ const Buttonc: React.FC<Props> = ({ children, styled, action, href }) => {
     }
 
   }
-
   return (
     <Grid
       className='w-full flex justify-center my-4'
     >
-      <Button className={`${styled ? "w-80 h-11 rounded-3xl bg-primary border-bg-primary hover:bg-primary-700" : "w-80 h-11 rounded-3xl bg-transparent border-0 text-black hover:bg-transparent cursor-pointer shadow-none"}`}
+      <Button className={`${styled ? "w-80 h-11 rounded-xl bg-primary border-bg-primary hover:bg-primary-700" : "w-80 h-11 rounded-xl bg-transparent border-0 text-black hover:bg-transparent cursor-pointer shadow-none"}`}
         onClick={OnHanddleAction}
       >
         {children}

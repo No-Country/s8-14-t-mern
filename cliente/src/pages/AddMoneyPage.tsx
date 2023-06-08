@@ -11,16 +11,16 @@ export default function AddMoneyPage() {
       <Grid className="text-center"
         style={{ height: '100vh', width: '100%' }}>
         <Title className="text-black mt-12 ">
-          Ingresá la cifra que deseas transeferirse
+          Ingresá la cifra que deseas transferirte
         </Title>
         <div className='flex flex-col gap-10'>
           <input
             required
             type="number"
             name="monto"
-            value={monto}
+            placeholder='Monto'
             onChange={handleChange}
-            className="w-full h-20 text-center border-b-2 border-primary   text-2xl font-bold
+            className="w-[90%] mx-auto h-20 text-center border-b-2 border-primary   text-2xl font-bold
           outline-0 focus:ring ring-primary-50 "
           />
           <div>

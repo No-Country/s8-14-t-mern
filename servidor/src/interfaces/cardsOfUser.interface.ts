@@ -1,6 +1,5 @@
-import { Request } from "express";
-import { Document, Types } from "mongoose";
-
+import { Request } from 'express'
+import { Document, Types } from 'mongoose'
 
 export interface ICardsOfUser extends Document {
   balanceCard: number

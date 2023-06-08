@@ -1,0 +1,11 @@
+#!/usr/bin/env sh
+. "$(dirname -- "$0")/_/husky.sh"
+
+cd servidor
+
+echo "📝 Checking eslint..."
+
+npm run lint || {
+  echo "❌ Linting failed. Please fix the linting errors before committing."
+  exit 1
+}

@@ -1,6 +1,9 @@
 import { Router } from 'express'
-import { findCardByType, getCardCtrl, postCardCtrl } from '../controller/cards.controllers'
-
+import {
+  findCardByType,
+  getCardCtrl,
+  postCardCtrl
+} from '../controller/cards.controllers'
 
 const router = Router()
 
@@ -9,4 +12,3 @@ router.get('/', getCardCtrl)
 router.get('/:card-type', findCardByType) //No funciona aun
 
 export { router }
-

@@ -12,9 +12,11 @@
   },
   "dependencies": {
     "@heroicons/react": "1.0.6",
+    "@react-spring/web": "^9.7.2",
     "@reduxjs/toolkit": "^1.9.5",
     "@tremor/react": "^2.6.1",
     "@yudiel/react-qr-scanner": "^1.1.8",
+    "animate.css": "^4.1.1",
     "axios": "^1.4.0",
     "file-saver": "^2.0.5",
     "formik": "^2.2.9",

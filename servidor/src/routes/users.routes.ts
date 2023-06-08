@@ -15,7 +15,6 @@ import {
   postCardUserCtrl,
   postUserCtrl,
   putImage,
-  putUserCtrl,
   verifyTokenPswCtrl,
   verifyUserCtrl
 } from '../controller/users.controllers'
@@ -48,17 +47,13 @@ router
   .get(validatorTokenAccount, verifyTokenPswCtrl)
   .post(validatorTokenAccount, newPswCtrl)
 
-//TODO: middleware para que solo vea el admin todos los usuarios
-router.route('/').get(getUserCtrl)
+router.get('/', [verifyToken], getUserCtrl)
 
 router
   .route('/:id')
   .get([verifyToken, validatorUserId], getUserIdCtrl)
   .delete([verifyToken, validatorUserId], deleteUserCtrl)
-
-router.put('/edit', putUserCtrl)
-
-router.route('/:id').patch(patchUserCtrl)
+  .patch(patchUserCtrl)
 
 router.put('/:id/image', putImage)
 router.post('/:id/card', postCardUserCtrl)

@@ -1,12 +1,12 @@
 //TODO: Validaciones
 import jwt from 'jsonwebtoken'
 import { v4 as uuidv4 } from 'uuid'
+import { ICardsOfUser } from '../interfaces/cardsOfUser.interface'
+import CardsOfUser from '../models/cardsOfUser.models'
 import User from '../models/users.models'
 import { sendMailForgotPassword, sendVerifyMail } from '../utils/handleEmail'
 import { encrypt, verifyHash } from '../utils/handlePassword'
 import { IUser } from './../interfaces/user.interface'
-import { ICardsOfUser } from '../interfaces/cardsOfUser.interface'
-import CardsOfUser from '../models/cardsOfUser.models'
 const secretKey = 'pigmeo123'
 
 //Retorna el usuario encontrado por email recibido.
@@ -21,65 +21,9 @@ const findUser = async (email?: string) => {
 const fetchGet = async () => {
   try {
     const users = await User.find({})
-    if (users) {
-      return users
-    }
+    return users
   } catch (error) {
     throw new Error('error')
-  }
-}
-
-const fetchPut = async (user: any) => {
-  try {
-    // const userMatch = await User.find({ _id: user._id })
-    // if (userMatch.length){
-    // const firstName =
-    //   user.firstName !== '' ? user.firstName : userMatch.firstName
-    // const lastname = user.lastname !== '' ? user.lastname : userMatch.lastname
-    // const typeIdentification =
-    //   user.typeIdentification !== ''
-    //     ? user.typeIdentification
-    //     : userMatch.typeIdentification
-    // const alias = user.alias !== '' ? user.alias : userMatch.alias
-    // const phoneNumber =
-    //   user.phoneNumber !== '' ? user.phoneNumber : userMatch.phoneNumber
-    // const email = user.email !== '' ? user.email : userMatch.email
-    // const address = user.address !== '' ? user.address : userMatch.address
-    // const avatar = user.avatar !== '' ? user.avatar : userMatch.avatar
-    // const password = user.password !== '' ? user.password : userMatch.password
-    // const balance = user.balance !== '' ? user.balance : userMatch.balance
-    // const isActive = user.isActive !== '' ? user.isActive : userMatch.isActive
-    // const rol = user.rol !== '' ? user.rol : userMatch.rol
-    // const token = user.token !== '' ? user.token : userMatch.token
-    //   const resp = await User.findByIdAndUpdate(
-    //     user.id,
-    //     {
-    //       $set: {
-    //         firstName,
-    //         lastname,
-    //         typeIdentification,
-    //         alias,
-    //         phoneNumber,
-    //         email,
-    //         address,
-    //         avatar,
-    //         password,
-    //         balance,
-    //         isActive,
-    //         rol,
-    //         token
-    //       }
-    //     },
-    //     { new: true }
-    //   )
-    //   return {
-    //     error: false,
-    //     data: resp
-    //   }
-    // }
-  } catch (error) {
-    console.log(error)
-    return { data: error }
   }
 }
 
@@ -194,7 +138,7 @@ const fetchUpdate = async (id: string, data: Partial<IUser>) => {
 const fetchLogin = async (password: string, email: string) => {
   const user = await findUser(email)
 
-  if (!user) throw new Error('User not found!')
+  if (!user || !user.isActive) throw new Error('User not found!')
 
   const comparaPass = await verifyHash(password, user.password)
   if (!comparaPass) {
@@ -225,10 +169,14 @@ const fetchLogin = async (password: string, email: string) => {
 
 /* ----------CARDS OF USER---------- */
 
-const fetchAddCard = async (cardData: ICardsOfUser, id: string, userData: Partial<IUser>) => {
+const fetchAddCard = async (
+  cardData: ICardsOfUser,
+  id: string,
+  _userData: Partial<IUser>
+) => {
   try {
-    let newCard = await CardsOfUser.create(cardData)
-    
+    const newCard = await CardsOfUser.create(cardData)
+
     //Update the user pushing newCard on user.cards
     const user = await User.findById(id)
     if (!user) {
@@ -244,7 +192,7 @@ const fetchAddCard = async (cardData: ICardsOfUser, id: string, userData: Partia
 }
 
 //This does not works
-const fetchGetCards = async (id: any) => {
+const fetchGetCards = async (id: string) => {
   try {
     const userCard = await CardsOfUser.findById(id)
     return userCard
@@ -254,15 +202,14 @@ const fetchGetCards = async (id: any) => {
 }
 
 export {
+  fetchAddCard,
   fetchDelete,
   fetchGet,
+  fetchGetCards,
   fetchLogin,
   fetchPost,
-  fetchPut,
   fetchUpdate,
   forgotPsw,
   newPassword,
-  verifyUserAccount,
-  fetchAddCard,
-  fetchGetCards
+  verifyUserAccount
 }
