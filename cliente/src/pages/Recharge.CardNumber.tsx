@@ -23,15 +23,15 @@ function Inputs({ handleNumberChange }) {
         className="outline-0 focus:border-[#3B1B80] border-2 border-[#9BA4B4] h-14 rounded-lg w-11/12"
         onChange={handleNumberChange}
       />
-      <Card className="bg-[#F5F2FF] mt-6 w-full flex flex-col items-center">
-        <div className="flex flex-row mr-16">
-          <img className="mr-5 " src={moneylogo} alt="moneylogo" />
-          <Text className="text-sm mb-7 font-normal">
+      <Card className="bg-[#F5F2FF] mt-6 w-[90%] flex flex-col items-center gap-3 mb-4">
+        <div className="flex flex-row w-full">
+          <img className="mr-4 " src={moneylogo} alt="moneylogo" />
+          <Text className="text-sm  font-normal">
             Pagaras con tu saldo de Pigmeo
           </Text>
         </div>
-        <Text className="text-black mb-6">Disponible</Text>
-        <Metric>{user?.balance}</Metric>
+        <Text className="text-black">Disponible</Text>
+        <Metric>${user?.balance}</Metric>
       </Card>
     </div>
   );
