@@ -39,7 +39,7 @@ QA
 | <a href="https://www.linkedin.com/in/maxi-barbosa/"><img src="https://img.shields.io/badge/linkedin%20-%230077B5.svg?&style=for-the-badge&logo=linkedin&logoColor=white"/></a> |
 
 ## Ux/Ui:
-| <img src="https://ui-avatars.com/api/?name=Yanina" width=80 /> 
+| <img src="https://ca.slack-edge.com/T032Y55Q6VC-U0561KR8MJS-91e6e573e87d-512" width=80 /> 
 |:-:|
 | **Yanina Calviello** |
 | <a href="https://github.com/"><img src="https://img.shields.io/badge/github-%23121011.svg?&style=for-the-badge&logo=github&logoColor=white"/></a> |
