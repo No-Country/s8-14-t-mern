@@ -17,7 +17,7 @@ $(Posibles funciones extras que se desarrollaran)
 5)$ Herramientas extras: Conversor de divisas
 
 ## FrontEnd: 
-| <img src="https://ui-avatars.com/api/?name=Lautaro" width=80 /> | <img src="https://ui-avatars.com/api/?name=Antonio" width=80 /> | <img src="[https://ui-avatars.com/api/?name=Nelson](https://avatars.githubusercontent.com/u/76495548?s=400&u=ae81f1eeadb3e2a47724777c88f2aecc16ebfee5&v=4)" width=80 /> | <img src="https://ui-avatars.com/api/?name=E" width=80 /> | 
+| <img src="https://ui-avatars.com/api/?name=Lautaro" width=80 /> | <img src="https://ui-avatars.com/api/?name=Antonio" width=80 /> | <img src="https://avatars.githubusercontent.com/u/76495548?s=400&u=ae81f1eeadb3e2a47724777c88f2aecc16ebfee5&v=4" width=80 /> | <img src="https://ui-avatars.com/api/?name=E" width=80 /> | 
 |:-:|:-:|:-:|:-:| 
 | **Lautaro Duran** | **Juan Antonio Ayola Cortes** | **Nelson Ismael Rosas** | **Ever Rojas** | <!---Github-->
 | <a href="https://github.com/"><img src="https://img.shields.io/badge/github-%23121011.svg?&style=for-the-badge&logo=github&logoColor=white"/></a> | <a href="https://github.com/"><img src="https://img.shields.io/badge/github-%23121011.svg?&style=for-the-badge&logo=github&logoColor=white"/></a> | <a href="https://github.com/Ismaelnelro"><img src="https://img.shields.io/badge/github-%23121011.svg?&style=for-the-badge&logo=github&logoColor=white"/></a> | <a href="https://github.com/"><img src="https://img.shields.io/badge/github-%23121011.svg?&style=for-the-badge&logo=github&logoColor=white"/></a> |<!---Linkedin-->
