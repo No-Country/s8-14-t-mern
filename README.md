@@ -16,40 +16,43 @@ $(Posibles funciones extras que se desarrollaran)
 
 5)$ Herramientas extras: Conversor de divisas
 
-## FrontEnd:
-- Lautaro Duran
-- Juan Antonio Ayola Cortes
-- Nelson Ismael Rosas
-- Ever Rojas
+## FrontEnd: 
+| <img src="https://ui-avatars.com/api/?name=Lautaro" width=80 /> | <img src="https://ui-avatars.com/api/?name=Juan" width=80 /> | <img src="https://ui-avatars.com/api/?name=Nelson" width=80 /> | <img src="https://ui-avatars.com/api/?name=E" width=80 /> | 
+|:-:|:-:|:-:|:-:| 
+| **Lautaro Duran** | **Juan Antonio Ayola Cortes** | **Nelson Ismael Rosas** | **Ever Rojas** | <!---Github-->
+| <a href="https://github.com/"><img src="https://img.shields.io/badge/github-%23121011.svg?&style=for-the-badge&logo=github&logoColor=white"/></a> | <a href="https://github.com/"><img src="https://img.shields.io/badge/github-%23121011.svg?&style=for-the-badge&logo=github&logoColor=white"/></a> | <a href="https://github.com/"><img src="https://img.shields.io/badge/github-%23121011.svg?&style=for-the-badge&logo=github&logoColor=white"/></a> | <a href="https://github.com/"><img src="https://img.shields.io/badge/github-%23121011.svg?&style=for-the-badge&logo=github&logoColor=white"/></a> |<!---Linkedin-->
+| <a href="https://www.linkedin.com/"><img src="https://img.shields.io/badge/linkedin%20-%230077B5.svg?&style=for-the-badge&logo=linkedin&logoColor=white"/></a> | <a href="https://www.linkedin.com/"><img src="https://img.shields.io/badge/linkedin%20-%230077B5.svg?&style=for-the-badge&logo=linkedin&logoColor=white"/></a> | <a href="https://www.linkedin.com/"><img src="https://img.shields.io/badge/linkedin%20-%230077B5.svg?&style=for-the-badge&logo=linkedin&logoColor=white"/></a> | <a href="https://www.linkedin.com/"><img src="https://img.shields.io/badge/linkedin%20-%230077B5.svg?&style=for-the-badge&logo=linkedin&logoColor=white"/></a> |
 
 ## BackEnd:
-- Pablo Swistoniuk 
-- Marco Antonio Reyes Del Angel
-- Gaston Saravia
-- Orlando Rodriguez
-- Fabian Jorge Sanchez  
-  
+| <img src="https://ca.slack-edge.com/T02KS88FB0E-U04MEGXSAAJ-f87dd59680fa-512" width=80/> | <img src="https://ui-avatars.com/api/?name=orlando" width=80 /> | <img src="https://ui-avatars.com/api/?name=Marco" width=80 /> | <img src="https://ui-avatars.com/api/?name=Pablo" width=80 /> | <img src="https://ui-avatars.com/api/?name=Gaston" width=80 /> |
+|:-:|:-:|:-:|:-:|:-:|
+| **Fabian Jorge Sanchez** | **Orlando Rodriguez** | **Marco Antonio Reyes Del Angel** | **Pablo Swistoniuk** | **Gaston Saravia** |
+| <a href="https://github.com/fabisanz-dev"><img src="https://img.shields.io/badge/github-%23121011.svg?&style=for-the-badge&logo=github&logoColor=white"/></a> | <a href="https://github.com/"><img src="https://img.shields.io/badge/github-%23121011.svg?&style=for-the-badge&logo=github&logoColor=white"/></a> | <a href="https://github.com/"><img src="https://img.shields.io/badge/github-%23121011.svg?&style=for-the-badge&logo=github&logoColor=white"/></a> | <a href="https://github.com/"><img src="https://img.shields.io/badge/github-%23121011.svg?&style=for-the-badge&logo=github&logoColor=white"/></a> | <a href="https://github.com/"><img src="https://img.shields.io/badge/github-%23121011.svg?&style=for-the-badge&logo=github&logoColor=white"/></a> |
+| <a href="https://www.linkedin.com/in/fabian-sanchez-j/"><img src="https://img.shields.io/badge/linkedin%20-%230077B5.svg?&style=for-the-badge&logo=linkedin&logoColor=white"/></a> | <a href="https://www.linkedin.com/"><img src="https://img.shields.io/badge/linkedin%20-%230077B5.svg?&style=for-the-badge&logo=linkedin&logoColor=white"/></a> | <a href="https://www.linkedin.com/"><img src="https://img.shields.io/badge/linkedin%20-%230077B5.svg?&style=for-the-badge&logo=linkedin&logoColor=white"/></a> | <a href="https://www.linkedin.com/"><img src="https://img.shields.io/badge/linkedin%20-%230077B5.svg?&style=for-the-badge&logo=linkedin&logoColor=white"/></a> | <a href="https://www.linkedin.com/"><img src="https://img.shields.io/badge/linkedin%20-%230077B5.svg?&style=for-the-badge&logo=linkedin&logoColor=white"/></a> |
+
 ## QA
-- Maximiliano Barbosa 
+| <img src="https://ui-avatars.com/api/?name=Maximiliano" width=80 /> 
+|:-:|
+| **Maximiliano Barbosa** |
+| <a href="https://github.com/"><img src="https://img.shields.io/badge/github-%23121011.svg?&style=for-the-badge&logo=github&logoColor=white"/></a> |
+| <a href="https://www.linkedin.com/"><img src="https://img.shields.io/badge/linkedin%20-%230077B5.svg?&style=for-the-badge&logo=linkedin&logoColor=white"/></a> |
 
 ## Ux/Ui:
-- Yanina Calviello
-  
-  
+| <img src="https://ui-avatars.com/api/?name=Yanina" width=80 /> 
+|:-:|
+| **Yanina Calviello** |
+| <a href="https://github.com/"><img src="https://img.shields.io/badge/github-%23121011.svg?&style=for-the-badge&logo=github&logoColor=white"/></a> |
+| <a href="https://www.linkedin.com/"><img src="https://img.shields.io/badge/linkedin%20-%230077B5.svg?&style=for-the-badge&logo=linkedin&logoColor=white"/></a> |
+
 ## STACK FrontEnd:
-  -React
-  -Sass
-  -Redux(Redux Toolkit)
-  -Axios
+![React](https://img.shields.io/badge/React-149eca?style=for-the-badge&logo=react&logoColor=fff) ![Redux](https://img.shields.io/badge/Redux-593D88?style=for-the-badge&logo=redux&logoColor=white) ![Sass](https://img.shields.io/badge/Sass-CC6699?style=for-the-badge&logo=sass&logoColor=white) ![Axios](https://img.shields.io/badge/-Axios-671ddf?style=for-the-badge&logo=axios&logoColor=white)
+
 
   
 ## STACK BackEnd:
-  -Node.js
-  -Express
-  -MongoDB
-  -Mongoose
-  
-  
+![NodeJS](https://img.shields.io/badge/Node.js-6DA55F?style=for-the-badge&logo=Node.js&logoColor=white) ![Express.js](https://img.shields.io/badge/Express.js-%23404d59.svg?style=for-the-badge&logo=Express&logoColor=%2361DAFB) ![TypeScript](https://img.shields.io/badge/TypeScript-blue.svg?style=for-the-badge&logo=TypeScript&logoColor=white) ![MongoDB](https://img.shields.io/badge/MongoDB-%234ea94b.svg?style=for-the-badge&logo=MongoDB&logoColor=white) ![Mongoose](https://img.shields.io/badge/Mongoose-%2320232a.svg?style=for-the-badge&logo=Mongoose&logoColor=%%2361DAFB) ![Nodemailer](https://img.shields.io/badge/Nodemailer-0F9DCE?style=for-the-badge&logo=Nodemailer&logoColor=fff) ![Eslint](https://img.shields.io/badge/EsLint-4B32C3?style=for-the-badge&logo=Eslint&logoColor=fff) ![Husky](https://img.shields.io/badge/Husky🐶-FFF?style=for-the-badge)
+
+ 
   ##ADMINISTRADOR
 Quiero poder ver una lista de los usuarios registrados para tener un control 
 Quiero poder habilitar o deshabilitar usuarios para tener una mejor gestiona
