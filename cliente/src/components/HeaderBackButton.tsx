@@ -27,7 +27,7 @@ function HeaderBackButton({
       <button onClick={handleBackButton}>
         <ArrowLeftIcon className="w-6 h-6" />
       </button>
-      <Title className="text-lg text-inherit">{title}</Title>
+      <Title className="text-lg text-inherit capitalize">{title}</Title>
       <div>{children}</div>
     </header>
   );

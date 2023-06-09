@@ -8,6 +8,7 @@ import {
 import Transaction from '../models/transactions.models'
 import User from '../models/users.models'
 import {
+  sendMailDeposit,
   sendMailMyTransfer,
   sendMailReceiverTransfer
 } from '../utils/handleEmail'
@@ -237,6 +238,8 @@ const fecthDepositStripe = async (
       await User.findByIdAndUpdate(id, {
         $inc: { balance: amount * valueRate }
       })
+      //send mail deposit
+      sendMailDeposit(token.email, amount)
       return newTransaction
     } else {
       return { message: 'Transaction failed', charge: charge }

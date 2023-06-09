@@ -27,7 +27,7 @@ export default function Lists(): JSX.Element {
     <div className="mx-4">
       <div className="flex justify-between items-center p-2">
         <p className="font-medium">Actividad</p>
-        <Link className=" text-primary font-medium" to={"/transactions"}>Ver todo</Link>
+        <Link className=" text-primary font-medium text-sm"  to={"/transactions"}>Ver todo</Link>
       </div>
       <Card>
         <p className=" font-normal">Recientes</p>

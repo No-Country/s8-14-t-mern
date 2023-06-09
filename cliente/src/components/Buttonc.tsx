@@ -30,6 +30,9 @@ const Buttonc: React.FC<Props> = ({ children, styled, action, href }) => {
         }
         break;
       case "recargar":
+        navigate("/response", {
+          state: { msg: "Tu recarga se realizó con éxito" },
+        });
         break;
       default:
         if (href) {

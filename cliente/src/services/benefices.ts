@@ -22,7 +22,7 @@ export function getBenefice(beneficeId: string) {
 export function getBeneficesByCategory(category: string) {
   return axios.get(`/benefice/category/${category}`);
 }
-interface UserBeneficeHandler {
+export interface UserBeneficeHandler {
   idUser: string;
   idBenefice: string;
   active: boolean;
