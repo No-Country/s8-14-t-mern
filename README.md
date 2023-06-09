@@ -21,16 +21,20 @@ Creación de espacios personales que permiten gestionar los fondos personales de
 | <img src="https://ca.slack-edge.com/T032Y55Q6VC-U04FVCG1EM7-d46ad23b7feb-512" width=80 /> | <img src="https://github.com/No-Country/s8-14-t-mern/assets/35477201/de51ea05-de6d-410f-b8d5-536cb1752eb9" width=80 /> | <img src="https://avatars.githubusercontent.com/u/76495548?s=400&u=ae81f1eeadb3e2a47724777c88f2aecc16ebfee5&v=4" width=80 /> | <img src="https://avatars.githubusercontent.com/u/91352297?v=4" width=80 /> | 
 |:-:|:-:|:-:|:-:| 
 | **Lautaro Duran** | **Juan Antonio Ayola Cortes** | **Nelson Ismael Rosas** | **Ever Rojas** | <!---Github-->
-| <a href="https://github.com/LautaroLD"><img src="https://img.shields.io/badge/github-%23121011.svg?&style=for-the-badge&logo=github&logoColor=white"/></a> | <a href="https://github.com/Tono2007"><img src="https://img.shields.io/badge/github-%23121011.svg?&style=for-the-badge&logo=github&logoColor=white"/></a> | <a href="https://github.com/Ismaelnelro"><img src="https://img.shields.io/badge/github-%23121011.svg?&style=for-the-badge&logo=github&logoColor=white"/></a> | <a href="https://github.com/Everjr18"><img src="https://img.shields.io/badge/github-%23121011.svg?&style=for-the-badge&logo=github&logoColor=white"/></a> |<!---Linkedin-->
+| <a href="https://github.com/LautaroLD"><img src="https://img.shields.io/badge/github-%23121011.svg?&style=for-the-badge&logo=github&logoColor=white"/></a> | <a href="https://github.com/Tono2007"><img src="https://img.shields.io/badge/github-%23121011.svg?&style=for-the-badge&logo=github&logoColor=white"/></a> | <a href="https://github.com/Ismaelnelro"><img src="https://img.shields.io/badge/github-%23121011.svg?&style=for-the-badge&logo=github&logoColor=white"/></a> | <a href="https://github.com/Everjr18"><img src="https://img.shields.io/badge/github-%23121011.svg?&style=for-the-badge&logo=github&logoColor=white"/></a> |<!---LinkedIn-->
 | <a href="https://www.linkedin.com/in/lautaro-duran/"><img src="https://img.shields.io/badge/linkedin%20-%230077B5.svg?&style=for-the-badge&logo=linkedin&logoColor=white"/></a> | <a href="https://www.linkedin.com/in/antonio-ayola"><img src="https://img.shields.io/badge/linkedin%20-%230077B5.svg?&style=for-the-badge&logo=linkedin&logoColor=white"/></a> | <a href="https://www.linkedin.com/in/ismaelrosas/"><img src="https://img.shields.io/badge/linkedin%20-%230077B5.svg?&style=for-the-badge&logo=linkedin&logoColor=white"/></a> | <a href="https://www.linkedin.com/in/ever-jose-rojas-perez-39aa0722a/"><img src="https://img.shields.io/badge/linkedin%20-%230077B5.svg?&style=for-the-badge&logo=linkedin&logoColor=white"/></a> |
+<!---Country-->
+| <p>Argentina</p> | <p>México</p> | <p>Argentina</p> | <p>Colombia</p> |
 
 ## BackEnd:
 | <img src="https://ca.slack-edge.com/T02KS88FB0E-U04MEGXSAAJ-f87dd59680fa-512" width=80/> | <img src="https://avatars.githubusercontent.com/u/22499448?v=4" width=80 /> | <img src="https://ca.slack-edge.com/T032Y55Q6VC-U054WGFQ7NY-33867d0f3b68-512" width=80 /> | <img src="https://ca.slack-edge.com/T032Y55Q6VC-U0556MM7SCR-055c06ac4c45-512" width=80 /> | <img src="https://ca.slack-edge.com/T032Y55Q6VC-U054WG8B6AY-db7684346626-512" width=80 /> |
 |:-:|:-:|:-:|:-:|:-:|
 | **Fabian Jorge Sanchez** | **Orlando Rodriguez** | **Marco Antonio Reyes Del Angel** | **Pablo Swistoniuk** | **Gaston Saravia** |
 | <a href="https://github.com/fabisanz-dev"><img src="https://img.shields.io/badge/github-%23121011.svg?&style=for-the-badge&logo=github&logoColor=white"/></a> | <a href="https://github.com/orlandogvk"><img src="https://img.shields.io/badge/github-%23121011.svg?&style=for-the-badge&logo=github&logoColor=white"/></a> | <a href="https://github.com/MarkMarda"><img src="https://img.shields.io/badge/github-%23121011.svg?&style=for-the-badge&logo=github&logoColor=white"/></a> | <a href="https://github.com/Pabloswis"><img src="https://img.shields.io/badge/github-%23121011.svg?&style=for-the-badge&logo=github&logoColor=white"/></a> | <a href="https://github.com/Gasnis"><img src="https://img.shields.io/badge/github-%23121011.svg?&style=for-the-badge&logo=github&logoColor=white"/></a> |
+<!---LinkedIn-->
 | <a href="https://www.linkedin.com/in/fabian-sanchez-j/"><img src="https://img.shields.io/badge/linkedin%20-%230077B5.svg?&style=for-the-badge&logo=linkedin&logoColor=white"/></a> | <a href="https://www.linkedin.com/in/orlandogavik/"><img src="https://img.shields.io/badge/linkedin%20-%230077B5.svg?&style=for-the-badge&logo=linkedin&logoColor=white"/></a> | <a href="https://www.linkedin.com/in/marda/?locale=en_US"><img src="https://img.shields.io/badge/linkedin%20-%230077B5.svg?&style=for-the-badge&logo=linkedin&logoColor=white"/></a> | <a href="https://www.linkedin.com/in/pablo-swistoniuk-0b15a6247/"><img src="https://img.shields.io/badge/linkedin%20-%230077B5.svg?&style=for-the-badge&logo=linkedin&logoColor=white"/></a> | <a href="https://www.linkedin.com/in/gast%C3%B3n-saravia-1b4452182/"><img src="https://img.shields.io/badge/linkedin%20-%230077B5.svg?&style=for-the-badge&logo=linkedin&logoColor=white"/></a> |
-
+<!---Country-->
+| <p>Argentina</p> | <p>Colombia</p> | <p>México</p> | <p>Argentina</p> | <p>Argentina</p> |
 
 QA
 | <img src="https://github.com/No-Country/s8-14-t-mern/assets/86979361/e3f13ff1-9bc1-405d-88d5-44148d9b73cc" width=80 /> 
@@ -38,6 +42,8 @@ QA
 | **Maximiliano Barbosa** |
 | <a href="https://github.com/MaxiBarbo"><img src="https://img.shields.io/badge/github-%23121011.svg?&style=for-the-badge&logo=github&logoColor=white"/></a> |
 | <a href="https://www.linkedin.com/in/maxi-barbosa/"><img src="https://img.shields.io/badge/linkedin%20-%230077B5.svg?&style=for-the-badge&logo=linkedin&logoColor=white"/></a> |
+<!---Country-->
+| <p>Argentina</p> |
 
 ## Ux/Ui:
 | <img src="https://ca.slack-edge.com/T032Y55Q6VC-U0561KR8MJS-91e6e573e87d-512" width=80 /> 
@@ -45,6 +51,8 @@ QA
 | **Yanina Calviello** |
 | <a href="https://github.com/yanifc24"><img src="https://img.shields.io/badge/github-%23121011.svg?&style=for-the-badge&logo=github&logoColor=white"/></a> |
 | <a href="https://www.linkedin.com/in/yanina-calviello/"><img src="https://img.shields.io/badge/linkedin%20-%230077B5.svg?&style=for-the-badge&logo=linkedin&logoColor=white"/></a> |
+<!---Country-->
+| <p>Argentina</p> |
 
 ## STACK FrontEnd:
 ![React](https://img.shields.io/badge/React-149eca?style=for-the-badge&logo=react&logoColor=fff) ![Redux](https://img.shields.io/badge/Redux-593D88?style=for-the-badge&logo=redux&logoColor=white) ![Sass](https://img.shields.io/badge/Sass-CC6699?style=for-the-badge&logo=sass&logoColor=white) ![Axios](https://img.shields.io/badge/-Axios-671ddf?style=for-the-badge&logo=axios&logoColor=white)
