@@ -11,10 +11,11 @@ Creación de espacios personales que permiten gestionar los fondos personales de
 
 3) Pagos y Transferencias:  Permitir al usuario realizar pagos con el móvil y transferencias haciendo uso de un QR
 
-$(Posibles funciones extras que se desarrollaran)
-4)$ Visualización de Mercado Financiero y Cripto: La aplicación proporciona una visión integral del mercado financiero, incluyendo información en tiempo real sobre acciones, índices, divisas y criptomonedas. Los usuarios podrán monitorear y realizar un seguimiento de sus inversiones.
+(Posibles funciones extras que se desarrollaran en las proximas versiones)
 
-5)$ Herramientas extras: Conversor de divisas
+4) Visualización de Mercado Financiero y Cripto: La aplicación proporciona una visión integral del mercado financiero, incluyendo información en tiempo real sobre acciones, índices, divisas y criptomonedas. Los usuarios podrán monitorear y realizar un seguimiento de sus inversiones.
+
+5) Herramientas extras: Conversor de divisas
 
 ## FrontEnd: 
 | <img src="https://ca.slack-edge.com/T032Y55Q6VC-U04FVCG1EM7-d46ad23b7feb-512" width=80 /> | <img src="https://github.com/No-Country/s8-14-t-mern/assets/35477201/de51ea05-de6d-410f-b8d5-536cb1752eb9" width=80 /> | <img src="https://avatars.githubusercontent.com/u/76495548?s=400&u=ae81f1eeadb3e2a47724777c88f2aecc16ebfee5&v=4" width=80 /> | <img src="https://avatars.githubusercontent.com/u/91352297?v=4" width=80 /> | 
