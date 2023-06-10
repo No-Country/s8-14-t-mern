@@ -7,6 +7,12 @@ import config from './config'
 import dataBase from './utils/database'
 import openapiDocument from './utils/openapiDoc'
 import mainRouter from './routes'
+
+const options = {
+  swaggerOptions: {
+    validatorUrl: null
+  }
+}
 class Server {
   private app: Application
 
@@ -35,9 +41,9 @@ class Server {
     // Aquí se pueden agregar más rutas o middlewares si es necesario
     this.app.use('/api/v1/pigmeo', mainRouter)
     this.app.use(
-      '/api/v1/pigmeo/api-docs',
+      '/api-docs',
       swaqqerUi.serve,
-      swaqqerUi.setup(openapiDocument)
+      swaqqerUi.setup(openapiDocument, options)
     )
   }
 
