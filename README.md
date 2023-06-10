@@ -1,6 +1,6 @@
 # s8-14-t-mern
-Proyecto Pigmeo?
-Pigmeo es una Webapp  que consiste en el desarrollo de una billetera tradicional enfocado en la web. Con esta solución, los usuarios podrán tener un control total de sus finanzas y realizar diversas transacciones de forma rápida, segura.
+
+Pigmeo es una app movil desarrollada en React JS que consiste en el desarrollo de una billetera tradicional. Con esta solución, los usuarios podrán tener un control total de sus finanzas y realizar diversas transacciones de forma rápida, segura.
 
 *Características*:
 1) Billetera Virtual:
