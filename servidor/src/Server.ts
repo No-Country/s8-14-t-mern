@@ -10,7 +10,8 @@ import mainRouter from './routes'
 
 const options = {
   swaggerOptions: {
-    validatorUrl: null
+    validatorUrl: null,
+    url: 'https://pigmeo-server.onrender.com'
   }
 }
 class Server {
