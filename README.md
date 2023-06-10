@@ -1,3 +1,6 @@
+
+<iframe width="560" height="315" src="https://www.canva.com/design/DAFlVKWl5v8/tsOPMDCtZvSjTaK66n5ffw/watch?utm_content=DAFlVKWl5v8&utm_campaign=designshare&utm_medium=link&utm_source=publishsharelink" frameborder="0" allowfullscreen></iframe>
+
 # s8-14-t-mern
 
 Pigmeo es una app movil desarrollada en React JS que consiste en el desarrollo de una billetera tradicional. Con esta solución, los usuarios podrán tener un control total de sus finanzas y realizar diversas transacciones de forma rápida, segura.
