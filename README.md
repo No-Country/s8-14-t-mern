@@ -1,5 +1,5 @@
-<a href="https://www.youtube.com/watch?v=UJ5vFleryLM" target="_blank">
- <img src="https://img.youtube.com/vi/UJ5vFleryLM/hqdefault.jpg" alt="Watch the video pigmeo" width="240" height="180" border="10" />
+<a href="https://www.youtube.com/watch?v=UJ5vFleryLM">
+ <img src="https://img.youtube.com/vi/UJ5vFleryLM/hqdefault.jpg" alt="Watch the video pigmeo" width="300" height="180" border="10" />
 </a>
 
 # s8-14-t-mern
