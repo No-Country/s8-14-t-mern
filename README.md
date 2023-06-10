@@ -3,7 +3,7 @@
   <img src="https://img.youtube.com/vi/UJ5vFleryLM/hqdefault.jpg" alt="Watch the video pigmeo" width="340" height="280" border="10" />
  </a>
 </div>
-# s8-14-t-mern
+# Grupo s8-14-t-mern No Country
 
 Pigmeo es una app movil desarrollada en React JS que consiste en el desarrollo de una billetera tradicional. Con esta solución, los usuarios podrán tener un control total de sus finanzas y realizar diversas transacciones de forma rápida, segura.
 
