@@ -5,7 +5,7 @@
   </a>
 </div>
 
-Pigmeo es una app movil desarrollada por el grupo s8-14-t-mern en React JS, que consiste en el desarrollo de una billetera tradicional. Con esta solución, los usuarios podrán tener un control total de sus finanzas y realizar diversas transacciones de forma rápida, segura.
+Pigmeo es una Webapp movil desarrollada para brindar a los usuarios un control total de sus finanzas y facilitar la realización de diversas transacciones de forma rápida y segura.
 
 *Características*:
 
