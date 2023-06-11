@@ -1,7 +1,8 @@
-<div style="text-align:center;">
- <a href="https://www.youtube.com/watch?v=UJ5vFleryLM">
-  <img src="https://img.youtube.com/vi/UJ5vFleryLM/hqdefault.jpg" alt="Watch the video pigmeo" width="340" height="280" border="10" />
- </a>
+
+<div align="center">
+  <a href="https://www.youtube.com/watch?v=UJ5vFleryLM">
+    <img src="https://img.youtube.com/vi/UJ5vFleryLM/hqdefault.jpg" alt="Watch the video pigmeo" width="340" height="280" border="10" />
+  </a>
 </div>
 
 Pigmeo es una app movil desarrollada por el grupo s8-14-t-mern en React JS, que consiste en el desarrollo de una billetera tradicional. Con esta solución, los usuarios podrán tener un control total de sus finanzas y realizar diversas transacciones de forma rápida, segura.
@@ -22,6 +23,20 @@ Creación de espacios personales que permiten gestionar los fondos personales de
 
 5) Herramientas extras: Conversor de divisas
 
+<hr/>
+
+## STACK FrontEnd:
+![React](https://img.shields.io/badge/React-149eca?style=for-the-badge&logo=react&logoColor=fff) ![Redux](https://img.shields.io/badge/Redux-593D88?style=for-the-badge&logo=redux&logoColor=white) ![Sass](https://img.shields.io/badge/Sass-CC6699?style=for-the-badge&logo=sass&logoColor=white) ![Axios](https://img.shields.io/badge/-Axios-671ddf?style=for-the-badge&logo=axios&logoColor=white)
+
+
+  
+## STACK BackEnd:
+![NodeJS](https://img.shields.io/badge/Node.js-6DA55F?style=for-the-badge&logo=Node.js&logoColor=white) ![Express.js](https://img.shields.io/badge/Express.js-%23404d59.svg?style=for-the-badge&logo=Express&logoColor=%2361DAFB) ![TypeScript](https://img.shields.io/badge/TypeScript-blue.svg?style=for-the-badge&logo=TypeScript&logoColor=white) ![MongoDB](https://img.shields.io/badge/MongoDB-%234ea94b.svg?style=for-the-badge&logo=MongoDB&logoColor=white) ![Mongoose](https://img.shields.io/badge/Mongoose-%2320232a.svg?style=for-the-badge&logo=Mongoose&logoColor=%%2361DAFB) ![Eslint](https://img.shields.io/badge/EsLint-4B32C3?style=for-the-badge&logo=Eslint&logoColor=fff) ![Husky](https://img.shields.io/badge/Husky🐶-FFF?style=for-the-badge) ![Nodemailer](https://img.shields.io/badge/Nodemailer-0F9DCE?style=for-the-badge&logo=Nodemailer&logoColor=fff) ![handlebars](https://img.shields.io/badge/handlebars-e61?style=for-the-badge&logo=Handlebars&logoColor=fff)
+
+### 🔗 <a href="https://github.com/No-Country/s8-14-t-mern/blob/develop/servidor/README.md">Documentacion Backend</a>
+
+<hr/>
+
 ## FrontEnd: 
 | <img src="https://ca.slack-edge.com/T032Y55Q6VC-U04FVCG1EM7-d46ad23b7feb-512" width=80 /> | <img src="https://github.com/No-Country/s8-14-t-mern/assets/35477201/de51ea05-de6d-410f-b8d5-536cb1752eb9" width=80 /> | <img src="https://avatars.githubusercontent.com/u/76495548?s=400&u=ae81f1eeadb3e2a47724777c88f2aecc16ebfee5&v=4" width=80 /> | <img src="https://avatars.githubusercontent.com/u/91352297?v=4" width=80 /> | 
 |:-:|:-:|:-:|:-:| 
@@ -36,7 +51,7 @@ Creación de espacios personales que permiten gestionar los fondos personales de
 | <a href="https://github.com/fabisanz-dev"><img src="https://img.shields.io/badge/github-%23121011.svg?&style=for-the-badge&logo=github&logoColor=white"/></a> | <a href="https://github.com/orlandogvk"><img src="https://img.shields.io/badge/github-%23121011.svg?&style=for-the-badge&logo=github&logoColor=white"/></a> | <a href="https://github.com/MarkMarda"><img src="https://img.shields.io/badge/github-%23121011.svg?&style=for-the-badge&logo=github&logoColor=white"/></a> | <a href="https://github.com/Pabloswis"><img src="https://img.shields.io/badge/github-%23121011.svg?&style=for-the-badge&logo=github&logoColor=white"/></a> | <a href="https://github.com/Gasnis"><img src="https://img.shields.io/badge/github-%23121011.svg?&style=for-the-badge&logo=github&logoColor=white"/></a> |
 | <a href="https://www.linkedin.com/in/fabian-sanchez-j/"><img src="https://img.shields.io/badge/linkedin%20-%230077B5.svg?&style=for-the-badge&logo=linkedin&logoColor=white"/></a><p><img src="./cliente/src/assets/AR.png"/></p> | <a href="https://www.linkedin.com/in/orlandogavik/"><img src="https://img.shields.io/badge/linkedin%20-%230077B5.svg?&style=for-the-badge&logo=linkedin&logoColor=white"/></a><p><img src="./cliente/src/assets/CO.png"/></p> | <a href="https://www.linkedin.com/in/marda/?locale=en_US"><img src="https://img.shields.io/badge/linkedin%20-%230077B5.svg?&style=for-the-badge&logo=linkedin&logoColor=white"/></a><p><img src="./cliente/src/assets/MX.png"/></p> | <a href="https://www.linkedin.com/in/pablo-swistoniuk-0b15a6247/"><img src="https://img.shields.io/badge/linkedin%20-%230077B5.svg?&style=for-the-badge&logo=linkedin&logoColor=white"/></a><p><img src="./cliente/src/assets/AR.png"/></p> | <a href="https://www.linkedin.com/in/gast%C3%B3n-saravia-1b4452182/"><img src="https://img.shields.io/badge/linkedin%20-%230077B5.svg?&style=for-the-badge&logo=linkedin&logoColor=white"/></a><p><img src="./cliente/src/assets/AR.png"/></p> |
 
-QA
+## QA:
 | <img src="https://github.com/No-Country/s8-14-t-mern/assets/86979361/e3f13ff1-9bc1-405d-88d5-44148d9b73cc" width=80 /> 
 |:-:|
 | **Maximiliano Barbosa** |
@@ -50,14 +65,11 @@ QA
 | <a href="https://github.com/yanifc24"><img src="https://img.shields.io/badge/github-%23121011.svg?&style=for-the-badge&logo=github&logoColor=white"/></a> |
 | <a href="https://www.linkedin.com/in/yanina-calviello/"><img src="https://img.shields.io/badge/linkedin%20-%230077B5.svg?&style=for-the-badge&logo=linkedin&logoColor=white"/></a><p><img src="./cliente/src/assets/AR.png"/></p> |
 
-## STACK FrontEnd:
-![React](https://img.shields.io/badge/React-149eca?style=for-the-badge&logo=react&logoColor=fff) ![Redux](https://img.shields.io/badge/Redux-593D88?style=for-the-badge&logo=redux&logoColor=white) ![Sass](https://img.shields.io/badge/Sass-CC6699?style=for-the-badge&logo=sass&logoColor=white) ![Axios](https://img.shields.io/badge/-Axios-671ddf?style=for-the-badge&logo=axios&logoColor=white)
+ <hr/>
+ 
+ ### 🔗 <a href="https://github.com/No-Country/s8-14-t-mern/user-history.md">User history</a>
 
-
-  
-## STACK BackEnd:
-![NodeJS](https://img.shields.io/badge/Node.js-6DA55F?style=for-the-badge&logo=Node.js&logoColor=white) ![Express.js](https://img.shields.io/badge/Express.js-%23404d59.svg?style=for-the-badge&logo=Express&logoColor=%2361DAFB) ![TypeScript](https://img.shields.io/badge/TypeScript-blue.svg?style=for-the-badge&logo=TypeScript&logoColor=white) ![MongoDB](https://img.shields.io/badge/MongoDB-%234ea94b.svg?style=for-the-badge&logo=MongoDB&logoColor=white) ![Mongoose](https://img.shields.io/badge/Mongoose-%2320232a.svg?style=for-the-badge&logo=Mongoose&logoColor=%%2361DAFB) ![Nodemailer](https://img.shields.io/badge/Nodemailer-0F9DCE?style=for-the-badge&logo=Nodemailer&logoColor=fff) ![Eslint](https://img.shields.io/badge/EsLint-4B32C3?style=for-the-badge&logo=Eslint&logoColor=fff) ![Husky](https://img.shields.io/badge/Husky🐶-FFF?style=for-the-badge)
-
+ 
  
   ##ADMINISTRADOR
 Quiero poder ver una lista de los usuarios registrados para tener un control 
