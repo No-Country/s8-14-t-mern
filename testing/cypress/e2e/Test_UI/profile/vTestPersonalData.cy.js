@@ -5,6 +5,7 @@ const LocalHostUrl_PersonalData = 'http://localhost:3000/personalData'
 describe('UI Test en Perfil / Mis datos', () => {
     beforeEach(() => {
         cy.visit(LocalHostUrl_PersonalData)
+        
     });
 
     it('Validacion Elementos en Header', () => {

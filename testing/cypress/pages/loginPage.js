@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 
 class LoginPage {
 
@@ -15,10 +16,22 @@ class LoginPage {
     userLogin(url,username,password){
       this.elements.loginPage(url)
       this.elements.emailInput().type(username);
+=======
+class LoginPage {
+    elements = {
+      usernameInput: () => cy.get('[name="email"]'),
+      passwordInput: () => cy.get('[name="password"]'),
+      loginBtn: () => cy.get('button').eq(0),
+    };
+  
+    userLogin(username,password){
+      this.elements.usernameInput().type(username);
+>>>>>>> develop
       this.elements.passwordInput().type(password);
       this.elements.loginBtn().click()
     }
 
+<<<<<<< HEAD
     submitLogin(username,password){
       this.elements.emailInput().type(username);
       this.elements.passwordInput().type(password);  
@@ -26,6 +39,10 @@ class LoginPage {
 
     typeUsername(username) {
       this.elements.emailInput().type(username);
+=======
+    typeUsername(username) {
+      this.elements.usernameInput().type(username);
+>>>>>>> develop
     }
   
     typePassword(password) {
@@ -35,11 +52,15 @@ class LoginPage {
     clickLogin() {
       this.elements.loginBtn().click();
     }
+<<<<<<< HEAD
 
+=======
+>>>>>>> develop
     message(text){
       cy.assertionCheck(text).should('contain',text)
     }
 
+<<<<<<< HEAD
     imgLogin(alt,visible){
       this.elements.img().then((img)=>{
         expect(img).to.have.attr(alt).and.not.empty
@@ -80,9 +101,18 @@ class LoginPage {
       this.elements.forgotPassBtn().click().then(()=>{
         cy.url().should('equal',localhost)
       })
+=======
+    submitLogin(username,password){
+      this.elements.usernameInput().type(username);
+      this.elements.passwordInput().type(password);  
+>>>>>>> develop
     }
   }
   
   export const loginPage = new LoginPage();
+<<<<<<< HEAD
 
+=======
+  
+>>>>>>> develop
 

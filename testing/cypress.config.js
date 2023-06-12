@@ -34,8 +34,13 @@ module.exports = defineConfig({
     env: {
       allureReuseAfterSpec: true,
     },
+<<<<<<< HEAD
     specPattern: ["cypress/e2e/**/*.cy.{js,jsx,ts,tsx}"],//"**/*.feature", 
     // baseUrl: "",
+=======
+    specPattern: ["cypress/e2e/**/*.cy.{js,jsx,ts,tsx}"],// "**/*.feature",
+    // reporter:'cypress-multi-reporters',
+>>>>>>> develop
     reporterOptions:{
       reportDir: 'cypress/results/json',
       reportFilename: '[name].html',
@@ -44,6 +49,10 @@ module.exports = defineConfig({
       html:false,
       json:true,
       video:true,
+<<<<<<< HEAD
+=======
+      // reporterDir:"cypress/mochawesome-report"
+>>>>>>> develop
     },
       viewportHeight:848,
       viewportWidth:390,

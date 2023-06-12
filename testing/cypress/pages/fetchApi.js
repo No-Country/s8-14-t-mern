@@ -13,8 +13,12 @@ class FetchApis {
         cy.fixture('users').should((users)=>{
             expect(users[0].firstName).to.exist
         })   
+<<<<<<< HEAD
     }   
     
+=======
+    }    
+>>>>>>> develop
 }
 
 export const fetchApis = new FetchApis();
