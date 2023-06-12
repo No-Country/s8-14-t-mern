@@ -1,6 +1,8 @@
 import { Request } from 'express'
 import { Document } from 'mongoose'
-
+import { IBenefice } from './benefice.interface'
+import { ICardsOfUser } from './cardsOfUser.interface'
+import { ITopUpCard } from './topUpCardsService.interface'
 export enum rolType {
   admin = 'admin',
   user = 'user'
@@ -28,8 +30,20 @@ export interface IUser extends Document {
   rol: rolType
   token: string
   repeatPassword: string
+  benefices: IBenefice[]
+  topUpCard: ITopUpCard[]
+  cards: ICardsOfUser[]
 }
 
 export interface UserRequestI extends Request {
-  user?: IUser // Reemplazar 'any' con el tipo adecuado para el objeto 'user'
+  user?: IUser
+}
+
+export interface FileI {
+  key?: string
+  path?: string
+  mimetype?: string
+  originalname?: string
+  size?: number
+  tempFilePath: string
 }

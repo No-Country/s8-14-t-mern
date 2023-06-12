@@ -3,15 +3,34 @@ import { Suspense, lazy } from "react";
 import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
 
 import { useUserData } from "@/context/UserContext";
+import { NewTransferProvider } from "@/context/NewTransferContext";
 
 import MainLayout from "@/utils/Layout";
 import ResponsPage from "@/pages/ResponsPage";
+import BenefitPage from "@/pages/BenefitPage";
+import Loader from "@/components/Loader";
 
-const Onboarding: React.LazyExoticComponent<() => JSX.Element> = lazy(
-  () => import("../pages/Onboarding")
+const OnboardingPage: React.LazyExoticComponent<() => JSX.Element> = lazy(
+  () => import("../pages/OnboardingPage")
 );
+const AddMoneyPage: React.LazyExoticComponent<() => JSX.Element> = lazy(
+  () => import("../pages/AddMoneyPage")
+);
+
+const BeneficeDetailPage:React.LazyExoticComponent<() => JSX.Element> = lazy(
+  () => import("../pages/BeneficeDetailPage")
+);
+
 const AuthPage: React.LazyExoticComponent<() => JSX.Element> = lazy(
   () => import("../pages/AuthPage")
+);
+const ResetPasswordRequestPage: React.LazyExoticComponent<() => JSX.Element> =
+  lazy(() => import("../pages/ResetPassword.request"));
+const ResetPasswordPage: React.LazyExoticComponent<() => JSX.Element> = lazy(
+  () => import("../pages/ResetPassword")
+);
+const VerifyAccountPage: React.LazyExoticComponent<() => JSX.Element> = lazy(
+  () => import("../pages/VerifyAccountPage")
 );
 const HomePage: React.LazyExoticComponent<() => JSX.Element> = lazy(
   () => import("../pages/HomePage")
@@ -48,23 +67,41 @@ const TransactionsPage: React.LazyExoticComponent<() => JSX.Element> = lazy(
 const RechargePage: React.LazyExoticComponent<React.FC> = lazy(
   () => import("../pages/Recharge")
 );
-const RechargeAmountPage: React.LazyExoticComponent<() => JSX.Element> = lazy(
-  () => import("../pages/Recharge.amount")
-);
+const RechargeCardNumberPage: React.LazyExoticComponent<() => JSX.Element> =
+  lazy(() => import("../pages/Recharge.CardNumber"));
 const RechargeSendPage: React.LazyExoticComponent<React.FC> = lazy(
   () => import("../pages/Recharge.send")
+);
+const RechargeAmountPage: React.LazyExoticComponent<() => JSX.Element> = lazy(
+  () => import("../pages/Recharge.Amount")
+);
+const CriptoPage: React.LazyExoticComponent<() => JSX.Element> = lazy(
+  () => import("../pages/CriptoPage")
 );
 
 export default function AppRouter(): JSX.Element {
   const { isAuthenticated } = useUserData();
   return (
-    <Suspense fallback={<p>Loading...</p>}>
+    <Suspense fallback={
+      <div className="w-screen h-screen  flex justify-center items-center bg-primary-500">
+        <Loader />
+      </div>
+    }>
       <BrowserRouter>
         <Routes>
           {!isAuthenticated && (
             <>
-              <Route path="/" element={<Onboarding />} />
+              <Route path="/" element={<OnboardingPage />} />
               <Route path="/auth/:slug" element={<AuthPage />} />
+              <Route
+                path="/resetPassword/request"
+                element={<ResetPasswordRequestPage />}
+              />
+              <Route
+                path="/olvide-password/:token"
+                element={<ResetPasswordPage />}
+              />
+              <Route path="/confirmar/:token" element={<VerifyAccountPage />} />
               <Route path="*" element={<Navigate to="/" />} />
             </>
           )}
@@ -73,48 +110,54 @@ export default function AppRouter(): JSX.Element {
               <Route path="/" element={<MainLayout />}>
                 <Route index element={<HomePage />} />
                 <Route path="/home" element={<HomePage />} />
+                <Route path="/transactions" element={<TransactionsPage />} />
                 <Route path="/profile" element={<ProfilePage />} />
                 <Route path="/personalData" element={<PersonalDataPage />} />
                 <Route path="/changename" element={<ChangeName />} />
+                <Route path="/benefit" element={<BenefitPage />} />
+                <Route path="/benefice/:id" element={<BeneficeDetailPage />} />
               </Route>
-              <Route
-                path="/newTransfer/receiver"
-                element={<NewTransferReceiverPage />}
-              />
-              <Route
-                path="/newTransfer/amount"
-                element={<NewTransferAmountPage />}
-              />
-              <Route
-                path="/newTransfer/category"
-                element={<NewTransferCategoryPage />}
-              />
-              <Route
-                path="/newTransfer/send"
-                element={<NewTransferSendPage />}
-              />
+
+              <Route element={<NewTransferProvider />}>
+                <Route
+                  path="/newTransfer/receiver"
+                  element={<NewTransferReceiverPage />}
+                />
+                <Route
+                  path="/newTransfer/amount"
+                  element={<NewTransferAmountPage />}
+                />
+                <Route
+                  path="/newTransfer/category"
+                  element={<NewTransferCategoryPage />}
+                />
+                <Route
+                  path="/newTransfer/send"
+                  element={<NewTransferSendPage />}
+                />
+                <Route path="/scanner" element={<ScannerQrPage />} />
+              </Route>
+
               <Route path="/addFunds" element={<AddFundsMenuPage />} />
               <Route
                 path="/addFunds/transfer"
-                element={<AddFundsByTransferPage />}
+                element={<AddMoneyPage />}
               />
               <Route
                 path="/addFunds/cash"
                 element={<AddFundsByTransferPage />}
               />
-              <Route path="/transactions" element={<TransactionsPage />} />
               <Route path="/recharge" element={<RechargePage />} />
-              <Route path="/recharge/amount" element={<RechargeAmountPage />} />
-              <Route path="/recharge/send" element={<RechargeSendPage />} />
-
-              <Route path="/scanner" element={<ScannerQrPage />} />
-              <Route path="*" element={<Navigate to="/home" />} />
               <Route
-                path="/response"
-                element={
-                  <ResponsPage backmsg="Tu envio se realizo con exito" />
-                }
+                path="/recharge/cardnumber/"
+                element={<RechargeCardNumberPage />}
               />
+              <Route path="/recharge/amount/" element={<RechargeAmountPage />} />
+              <Route path="/recharge/send/" element={<RechargeSendPage />} />
+              <Route path="/cripto" element={<CriptoPage />} />
+
+              <Route path="*" element={<Navigate to="/home" />} />
+              <Route path="/response" element={<ResponsPage />} />
             </>
           )}
           <Route path="*" element={<h1>404</h1>} />

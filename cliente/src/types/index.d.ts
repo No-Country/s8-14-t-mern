@@ -1,28 +1,39 @@
-export interface IUser {
+export interface UserAccount {
   firstName: string;
   lastname: string;
+  lastName: string;
+  email: string;
+  avatar: string;
+  password: string;
+  balance: number;
+  isActive: boolean;
+  rol: "admin" | "user";
+  token: string;
+  alias: string;
+  createdAt: Date;
+  updatedAt: Date;
+  id: string;
+}
+
+export interface IUser extends UserAccount {
   alias: string;
   avatar: string;
   phoneNumber: string;
-  email: string;
   typeIdentification: "dni" | "cedula" | "pasaporte";
   numberIdentification: number;
   address: string;
   country: string;
   city: string;
-  password: string;
-  repeatPassword: string;
-  balance: number;
-  isActive: boolean;
-  rol: "admin" | "user";
-  token: string;
 }
 
 export interface ITransactions {
   amount: number;
-  sender: string;
-  receiver: string;
+  sender: UserAccount;
+  receiver: UserAccount;
   reference: string;
-  transaction_type: string;
+  transaction_type: "deposit" | "debit" | "credit";
   status: string;
+  createdAt: Date;
+  updatedAt: Date;
+  id: string;
 }

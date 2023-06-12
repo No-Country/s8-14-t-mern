@@ -1,19 +1,20 @@
 /**
  * Controlador para manejar las operaciones relacionadas con los usuarios.
+ * @group Controller/User
  */
 import { Request, Response } from 'express'
 import { v2 as cloudinary } from 'cloudinary'
 import config from '../config'
 cloudinary.config({ cloudinary: config.cloudinary })
-import { IUser, UserRequestI } from '../interfaces/user.interface'
+import { FileI, IUser, UserRequestI } from '../interfaces/user.interface'
 import {
+  fetchAddCard,
   fetchDelete,
   fetchGet,
+  fetchGetCards,
   fetchLogin,
   fetchPost,
-  fetchPut,
   fetchUpdate,
-  fetchUserId,
   forgotPsw,
   newPassword,
   verifyUserAccount
@@ -30,39 +31,45 @@ const getUserCtrl = async (_req: Request, res: Response) => {
   }
 }
 
-const getUserId = async (req: Request, res: Response) => {
-  const { id } = req.params
-  try {
-    const user = await fetchUserId(id)
-    res.status(200).json(user)
-  } catch (error) {
-    instanceOfError(res, error, 404)
+const getUserIdCtrl = ({ user }: UserRequestI, res: Response) => {
+  if (user) {
+    res.json(user)
+    user = undefined
   }
 }
 
-const putUserCtrl = async (req: Request, res: Response) => {
+/**
+ * Toma el req.user que setea el middleware y llama al servicio para procesar
+ * SoftDelete del usuario
+ * @param user: UserRequestI
+ * @param res: Response
+ * @return Promise<void>
+ */
+const deleteUserCtrl = async ({ user }: UserRequestI, res: Response) => {
   try {
-    const data = await fetchPut(req.body)
-    res.status(201).json({ msg: 'user updated', data })
-  } catch (error) {
-    instanceOfError(res, error, 400)
-  }
-}
-
-const deleteUserCtrl = async ({ params: { id } }: Request, res: Response) => {
-  try {
-    const data = await fetchDelete(id)
+    const data = await fetchDelete(user)
+    user = undefined
     res.status(200).json({ msg: 'user deleted', data })
   } catch (error) {
-    instanceOfError(res, error, 404)
+    instanceOfError(res, error, 500)
   }
 }
 
 const patchUserCtrl = async (req: Request, res: Response) => {
   try {
     const id = req.params.id
-    const { typeIdentification, phoneNumber, email, address, password } =
-      req.body
+    const {
+      firstName,
+      lastname,
+      typeIdentification,
+      phoneNumber,
+      email,
+      address,
+      password,
+      numberIdentification,
+      country,
+      city
+    } = req.body
 
     const data: Partial<IUser> = {}
     if (typeIdentification) data.typeIdentification = typeIdentification
@@ -70,6 +77,16 @@ const patchUserCtrl = async (req: Request, res: Response) => {
     if (email) data.email = email
     if (address) data.address = address
     if (password) data.password = password
+    if (numberIdentification) data.numberIdentification = numberIdentification
+    if (country) data.country = country
+    if (city) data.city = city
+
+    if (firstName || lastname) {
+      res.status(400).json({
+        msg: "This data can not be edited: 'firstName' and 'lastname' "
+      })
+      return
+    }
 
     const userModified = await fetchUpdate(id, data)
 
@@ -89,7 +106,7 @@ const putImage = async (req: Request, res: Response) => {
       return res.status(400).json({ error: 'No avatar file provided' })
     }
 
-    const avatarFile = req.files.avatar as any
+    const avatarFile = req.files.avatar as FileI
 
     const uploadedImage = await cloudinary.uploader.upload(
       avatarFile.tempFilePath,
@@ -140,11 +157,8 @@ const verifyUserCtrl = ({ user }: UserRequestI, res: Response) => {
     })
 }
 
-const forgotPasswordCtrl = (
-  { body: { email } }: Request,
-  res: Response
-): void => {
-  forgotPsw(email)
+const forgotPasswordCtrl = ({ user }: UserRequestI, res: Response): void => {
+  forgotPsw(user)
     .then(msg => res.json(msg))
     .catch(error => {
       instanceOfError(res, error, 500)
@@ -184,21 +198,55 @@ const loginUser = async (req: Request, res: Response) => {
     const data = await fetchLogin(password, email)
     res.status(201).json({ msg: 'User login succeful', data })
   } catch (error) {
-    instanceOfError(res, error, 400)
+    instanceOfError(res, error, 404)
+  }
+}
+
+/* ----------CARDS OF USER---------- */
+
+const postCardUserCtrl = async (req: Request, res: Response) => {
+  try {
+    const id = req.params.id
+    const { ...data } = req.body
+    const cardData = { ...data }
+    const userData = {
+      cards: [cardData]
+    }
+
+    //ToDo: validar que el numero de tarjeta no se repita
+
+    const userModified = await fetchAddCard(cardData, id, userData)
+    console.log(userModified.cards)
+    res.status(200).json({ success: true, user: userModified })
+  } catch (error) {
+    if (error instanceof Error) res.status(400).json({ error: error.message })
+  }
+}
+
+//This does not works
+const getUserCardsCtrl = async (req: Request, res: Response) => {
+  try {
+    const { id } = req.params
+    console.log(req.params)
+    const getCards = await fetchGetCards(id)
+    res.status(200).json(getCards)
+  } catch (error) {
+    if (error instanceof Error) res.status(400).json({ error: error.message })
   }
 }
 
 export {
   deleteUserCtrl,
   forgotPasswordCtrl,
+  getUserCardsCtrl,
   getUserCtrl,
-  getUserId,
+  getUserIdCtrl,
   loginUser,
   newPswCtrl,
   patchUserCtrl,
+  postCardUserCtrl,
   postUserCtrl,
   putImage,
-  putUserCtrl,
   verifyTokenPswCtrl,
   verifyUserCtrl
 }

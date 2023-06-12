@@ -1,48 +1,112 @@
-import { ReactElement } from "react";
+import { ReactElement, FormEvent, useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import toast from "react-hot-toast";
 
-import { Subtitle, Text, Title, TextInput, Flex } from "@tremor/react";
+import { Subtitle, Text, Title } from "@tremor/react";
+
+import { useNewTranferData } from "@/context/NewTransferContext";
+import { useUserData } from "@/context/UserContext";
 
 import HeaderBackButton from "@/components/HeaderBackButton";
 import Buttonc from "@/components/Buttonc";
 
-const contacts: { name: string }[] = [
-  { name: "Raúl Perez" },
-  { name: "Micaela Gómez" },
-  { name: "Mariana Gómez" },
-  { name: "Ale Paz" },
-];
+import apiTransactions from "@/services/transactions";
+import apiUsers from "@/services/users";
 
 function NewTransfer(): ReactElement {
+  const { transferData, setTransferData } = useNewTranferData();
+  const { user } = useUserData();
+  const navigate = useNavigate();
+  const [contacts, setContacts] = useState([]);
+
+  useEffect(() => {
+    (async () => {
+      try {
+        const { data } = await apiUsers.getUsers();
+        console.log(data);
+        setContacts(data);
+      } catch (error) {
+        console.log(error);
+      }
+    })();
+  }, []);
+
+  const submitHandler = (e: FormEvent<HTMLFormElement>) => {
+    console.log("submit");
+    e.preventDefault();
+    const form = e.currentTarget;
+    const formData = new FormData(form);
+    const alias = formData.get("alias") as string;
+    if (alias === user?.id) {
+      toast.error("ingresa un alias diferente");
+      return;
+    }
+    verifyAlias(alias);
+  };
+
+  const verifyAlias = async (alias: string) => {
+    try {
+      console.log(alias);
+      const response = await apiTransactions.verifyAlias(alias);
+      const receiver = response?.data?.data;
+      console.log(response);
+      setTransferData((prev) => ({ ...prev, receiver }));
+      navigate("/newTransfer/amount");
+    } catch (error: any) {
+      console.log(error);
+      //toast.error(error?.response?.data?.error || "Error al buscar cbu");
+      toast.error("Alias Incorrecto");
+    }
+  };
+
   return (
     <>
       <HeaderBackButton title="Transferencia" />
-      <Flex className="p-5 gap-7" flexDirection="col" alignItems="start">
+      <form onSubmit={submitHandler} className="flex flex-col p-5 gap-7">
         <Title>¿A quién deseas enviarle dinero?</Title>
         <div className=" w-full">
-          <Text>Ingresá el CBU</Text>
-          <TextInput placeholder="CBU" />
+          <Text>Ingresá el Alias</Text>
+
+          <input
+            name="alias"
+            defaultValue={transferData?.receiver?.alias}
+            className="mt-1 border border-gray-300 rounded-lg  
+             outline-0 focus:ring-2 ring-primary w-full p-2.5"
+            placeholder="Alias"
+            required
+          />
         </div>
         <Subtitle className="text-black">O elige entre tus contactos</Subtitle>
-        <ul className="w-full flex flex-col gap-3">
-          {contacts.map((contact, i) => (
-            <li className="" key={i}>
-              <button className="rounded bg-[#E3DADA] w-full flex items-center gap-5">
-                <img
-                  src={`https://picsum.photos/seed/${i + 1}/200/300`}
-                  className="w-14 h-14 rounded col-start-2"
-                />
-                {contact.name}
-              </button>
-            </li>
+        <div className="flex gap-5 flex-wrap">
+          {contacts.slice(0, 7).map((contact: any, i) => (
+            <button
+              key={i}
+              type="button"
+              className="flex flex-col items-center gap-1 text-xs"
+              onClick={() => verifyAlias(contact?.alias)}
+            >
+              <img
+                src={contact?.avatar}
+                className="w-10 h-10 rounded-full  object-cover"
+              />
+              {contact?.firstName}&nbsp;
+              {contact?.lastname}
+            </button>
           ))}
-        </ul>
-      </Flex>
-      <Buttonc styled={true} action="continuar" href="/newTransfer/amount">
-        Continuar
-      </Buttonc>
-      <Buttonc styled={false} href="/home">
-        Cancerl
-      </Buttonc>
+        </div>
+        <button
+          type="submit"
+          className="bg-primary text-white px-5 py-3 rounded-2xl w-full"
+        >
+          Continuar
+        </button>
+        {/*  <Buttonc styled={true} action="continuar" href="/newTransfer/amount">
+          Continuar
+        </Buttonc> */}
+        <Buttonc styled={false} href="/home">
+          Cancelar
+        </Buttonc>
+      </form>
     </>
   );
 }

@@ -1,21 +1,9 @@
 import { NextFunction, Request, Response } from 'express'
 import { body } from 'express-validator'
-import { UserRequestI } from '../../interfaces/user.interface'
+import { rolType, UserRequestI } from '../../interfaces/user.interface'
 import User from '../../models/users.models'
 import { instanceOfError } from '../../utils/validations/httpErrorHandler'
 import { validateResults } from '../../utils/validations/validatorHandler'
-
-export const checkUser = (req: Request, res: Response, next: NextFunction) => {
-  /*
-	Todo: 
-	Obtener el id del usuario y rol a traves del middleware auth 
-	Comprobar que el id del usario logueado sea el mismo que el parametro del usuario que quiere consultar
-	Comprobar el rol del usuario admin-user
-	*/
-  //   const { id: userId } = req.params
-  //   httpErrorHandler(res, { message: 'Server error' }, 500)
-  next()
-}
 
 export const validatorRegister = [
   body()
@@ -135,6 +123,43 @@ export const validatorTokenAccount = async (
     req.user = user
     next()
   } catch (error) {
+    console.log(error)
     instanceOfError(res, error, 401)
+  }
+}
+
+export const validatorUserId = (
+  req: UserRequestI,
+  res: Response,
+  next: NextFunction
+) => {
+  const { id: userId } = req.params
+  const authenticatedUserId = req.user?.id
+  const authenticatedUserRole = req.user?.rol
+  try {
+    if (
+      userId !== authenticatedUserId &&
+      authenticatedUserRole !== rolType.admin
+    ) {
+      throw new Error('No tienes permiso para acceder a este recurso.')
+    }
+    if (authenticatedUserRole === rolType.admin) {
+      User.findById(userId)
+        .then(userFound => {
+          if (!userFound) {
+            instanceOfError(res, new Error('User not found'), 404)
+          } else {
+            req.user = userFound
+            next()
+          }
+        })
+        .catch(error => {
+          instanceOfError(res, error, 500)
+        })
+      return
+    }
+    next()
+  } catch (error) {
+    instanceOfError(res, error, 403)
   }
 }

@@ -1,62 +1,41 @@
-import { Swiper, SwiperSlide } from 'swiper/react';
-import { Card, Grid, Col, Text } from "@tremor/react";
+import { Grid, Col, Text } from "@tremor/react";
 import 'swiper/css';
+import { Link } from 'react-router-dom';
+import { useEffect } from 'react';
+import useBenefice from '@/hooks/useBenefice';
+import TheBestComponent from './TheBestComponent';
 
-const benefit = [
-  {
-    company: "Coto",
-    benefit: "8% descount"
-  },
-  {
-    company: "Mc Donal",
-    benefit: "28% descount"
-  },
-  {
-    company: "Burger King",
-    benefit: "18% descount"
-  },
-  {
-    company: "Vea Supermarket",
-    benefit: "18% descount"
-  },
-  {
-    company: "Vea Supermarket",
-    benefit: "18% descount"
-  }
-]
+
 
 const Benefits = (): JSX.Element => {
 
+  const { getBestBenefits, TheBests } = useBenefice()
+
+  useEffect(() => {
+    getBestBenefits();
+  }, [])
+
+  const styles = {
+    backgroundSize: 'fit-content',
+    backgroundRepeat: 'no-repeat',
+    backgroundPosition: 'center',
+  };
+
   return (
     <>
-      <Grid numCols={1} className='gap-2'>
-        <Col className='w-full justify-between flex p-2'>
-          <Text className='text-2xl'>Beneficios</Text>
-          <Text className='text-lg'>Ver todos</Text>
-        </Col>
-        <Col className='w-full p-2'>
-          <Swiper
-            className='select-none'
-            spaceBetween={-80}
-            slidesPerView={1}
-            onSlideChange={() => console.log('slide change')}
-            onSwiper={(swiper) => console.log(swiper)}
-          >
-
-            {benefit.map((card) => (
-              <SwiperSlide>
-                <Card
-                  className="w-64 h-auto mt-2"
-                  decoration="left"
-                  decorationColor="indigo"
-                >
-                  <Text>{card.company}</Text>
-                  <Text>{card.benefit}</Text>
-                </Card>
-              </SwiperSlide>
-            ))}
-          </Swiper>
+      <Grid numCols={1} className='mt-20'>
+        <Col className='w-full'>
+          <Col className='w-full flex  justify-between items-end px-5'>
+            <Text className='text-base font-semibold  text-black'>Beneficios</Text>
+            <Text className='text-sm font-medium  text-primary-600'>
+              <Link to={"/benefit"}>
+                Ver todos
+              </Link>
+            </Text>
           </Col>
+
+          <TheBestComponent Benefice={TheBests} />
+        </Col>
       </Grid>
     </>
   );

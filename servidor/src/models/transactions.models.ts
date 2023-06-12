@@ -1,11 +1,20 @@
-import { Schema, model } from 'mongoose'
+// eslint-disable-next-line prettier/prettier
+import { model, Schema } from 'mongoose'
 import { ITransactions } from '../interfaces/transaction.interface'
 
 const transactionSchema = new Schema<ITransactions>(
   {
     amount: {
       type: Number,
-      required: true
+      validate: {
+        validator: function (v: number) {
+          return v >= 0
+        },
+        message: props => `${props.value} is not a correct amount!`
+      },
+      required: true,
+      min: 1,
+      max: 999999999
     },
     sender: {
       type: Schema.Types.ObjectId,
@@ -21,13 +30,17 @@ const transactionSchema = new Schema<ITransactions>(
       type: String,
       required: true
     },
+    charge: {
+      type: Number,
+      default: 0
+    },
     transaction_type: {
       type: String,
       default: null
     },
     status: {
       type: String,
-      default: "success"
+      default: 'success'
     }
   },
   { timestamps: true }

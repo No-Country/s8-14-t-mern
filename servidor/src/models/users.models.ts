@@ -5,6 +5,7 @@ import {
   IUser,
   rolType
 } from '../interfaces/user.interface'
+// import { Benefice } from '../interfaces/benefice.interface'
 
 //TODO: modificar el campo requerido para que solo sea nombre, apellido, email y contraseña
 //TODO: agregar datos para modificar perfil acorde al figma
@@ -55,8 +56,6 @@ const userSchema = new Schema<IUser>(
     avatar: {
       type: String,
       required: false
-      // default:
-      //   'https://res.cloudinary.com/dnautzk6f/image/upload/v1684479601/User-Pigmeo_ucusuy.jpg'
     },
     password: {
       type: String,
@@ -80,7 +79,10 @@ const userSchema = new Schema<IUser>(
     token: {
       type: String,
       default: uuidv4()
-    }
+    },
+    benefices: { type: [] },
+    topUpCard: { type: [] },
+    cards: { type: [] }
   },
   { timestamps: true }
 )
