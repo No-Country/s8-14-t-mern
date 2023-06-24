@@ -39,7 +39,7 @@ Creación de espacios personales que permiten gestionar los fondos personales de
 <hr/>
 
 ## FrontEnd: 
-| <img src="https://ca.slack-edge.com/T032Y55Q6VC-U04FVCG1EM7-d46ad23b7feb-512" width=80 /> | <img src="https://github.com/No-Country/s8-14-t-mern/assets/35477201/de51ea05-de6d-410f-b8d5-536cb1752eb9" width=80 /> | <img src="https://avatars.githubusercontent.com/u/76495548?s=400&u=ae81f1eeadb3e2a47724777c88f2aecc16ebfee5&v=4" width=80 /> | <img src="https://avatars.githubusercontent.com/u/91352297?v=4" width=80 /> | 
+| <img src="https://ca.slack-edge.com/T032Y55Q6VC-U04FVCG1EM7-d46ad23b7feb-512" width=80 /> | <img src="https://github.com/No-Country/s8-14-t-mern/assets/35477201/b8f4029f-aaba-4ab8-a231-18b1b14c8607" width=80 /> | <img src="https://avatars.githubusercontent.com/u/76495548?s=400&u=ae81f1eeadb3e2a47724777c88f2aecc16ebfee5&v=4" width=80 /> | <img src="https://avatars.githubusercontent.com/u/91352297?v=4" width=80 /> | 
 |:-:|:-:|:-:|:-:| 
 | **Lautaro Duran** | **Juan Antonio Ayola Cortes** | **Nelson Ismael Rosas** | **Ever Rojas** | <!---Github-->
 | <a href="https://github.com/LautaroLD"><img src="https://img.shields.io/badge/github-%23121011.svg?&style=for-the-badge&logo=github&logoColor=white"/></a> | <a href="https://github.com/Tono2007"><img src="https://img.shields.io/badge/github-%23121011.svg?&style=for-the-badge&logo=github&logoColor=white"/></a> | <a href="https://github.com/Ismaelnelro"><img src="https://img.shields.io/badge/github-%23121011.svg?&style=for-the-badge&logo=github&logoColor=white"/></a> | <a href="https://github.com/Everjr18"><img src="https://img.shields.io/badge/github-%23121011.svg?&style=for-the-badge&logo=github&logoColor=white"/></a> |<!---LinkedIn-->
@@ -65,5 +65,13 @@ Creación de espacios personales que permiten gestionar los fondos personales de
 | **Yanina Calviello** |
 | <a href="https://github.com/yanifc24"><img src="https://img.shields.io/badge/github-%23121011.svg?&style=for-the-badge&logo=github&logoColor=white"/></a> |
 | <a href="https://www.linkedin.com/in/yanina-calviello/"><img src="https://img.shields.io/badge/linkedin%20-%230077B5.svg?&style=for-the-badge&logo=linkedin&logoColor=white"/></a><p><img src="./cliente/src/assets/AR.png"/></p> |
+
+## TL:
+| <img src="https://avatars.githubusercontent.com/u/95238399?v=4" width=80 /> 
+|:-:|
+| **Matias E. Carballo** |
+| <a href="https://github.com/lokywolf2295"><img src="https://img.shields.io/badge/github-%23121011.svg?&style=for-the-badge&logo=github&logoColor=white"/></a> |
+| <a href="https://www.linkedin.com/in/matias-es-carballo"><img src="https://img.shields.io/badge/linkedin%20-%230077B5.svg?&style=for-the-badge&logo=linkedin&logoColor=white"/></a><p><img src="./cliente/src/assets/AR.png"/></p> |
+
 
  <hr/>
