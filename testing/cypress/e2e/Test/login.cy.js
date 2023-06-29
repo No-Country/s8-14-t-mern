@@ -2,6 +2,7 @@ import { loginPage } from "../../pages/loginPage";
 
 const LocalHostUrl = 'http://localhost:3000/home'
 const LocalHostUrl_login = 'http://localhost:3000/auth/login'
+// const LocalHostUrl_login = 'https://pigmeo-app.netlify.app/'
 
 describe('Login en Sistema', () => {
     beforeEach(() => {
