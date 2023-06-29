@@ -1,8 +1,5 @@
 import { expect, type Locator, type Page } from "@playwright/test";
-
 //     await expect(page.getByRole('listitem')).toHaveCount(5);
-
-
 export class LoginPage {
     //Variables
     readonly inputEmail: Locator

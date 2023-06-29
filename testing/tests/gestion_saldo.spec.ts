@@ -1,3 +1,4 @@
+// @ts-check
 import { test, expect, type Page } from "@playwright/test";
 import { TransactionPage } from "../pages/gestion_saldo";
 
@@ -14,7 +15,15 @@ test.describe("Gestion de Saldo", () => {
         await transactionPage.submitLogin(dataUser[0],dataUser[1])
 
        });
-          
+
+test.afterEach( async ({ page }, testInfo) => {
+    console.log(`Finished ${testInfo.title} with status ${testInfo.status}`);
+
+    if (testInfo.status !== testInfo.expectedStatus)
+        console.log(`Did not run as expected, ended up at ${page.url()}`);
+    // clean up all the data we created for this test through API calls
+});     
+     
        test("Tr_001 | ID_01 | Saldo Insuficiente", async ({ page }) => {
         
        });

@@ -1,3 +1,4 @@
+// @ts-check
 import { test, expect, type Page } from "@playwright/test";
 import { LoginPage } from "../pages/login";
 
@@ -12,7 +13,15 @@ test.describe("Login en Sistema", () => {
       await page.goto(loginURL);
       loginPage = new LoginPage(page)
     });
-       
+
+test.afterEach( async ({ page }, testInfo) => {
+    console.log(`Finished ${testInfo.title} with status ${testInfo.status}`);
+
+    if (testInfo.status !== testInfo.expectedStatus)
+        console.log(`Did not run as expected, ended up at ${page.url()}`);
+    // clean up all the data we created for this test through API calls
+});    
+   
     test("Login_001 | ID_01 | Login Exitoso", async ({ page }) => {
     // dado que el usuario abre la pagina de login    
         await expect(page).toHaveURL(/.*login/);
