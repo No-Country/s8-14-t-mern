@@ -1,0 +1,51 @@
+{
+  "users": [
+    {
+      "id": 1,
+      "name": "John Doe"
+    },
+    {
+      "id": 2,
+      "name": "Jane Smith"
+    },
+    {
+      "id": 8,
+      "name": "Max Powel"
+    },
+    {
+      "id": "[Bug] report 1",
+      "name": "Bug description"
+    },
+    {
+      "name": "Bug description",
+      "id": 9
+    },
+    {
+      "name": "Bug description",
+      "id": 10
+    },
+    {
+      "name": "Bug description",
+      "id": 11
+    }
+  ],
+  "products": [
+    {
+      "id": 1,
+      "name": "Product 1",
+      "price": 10.99
+    },
+    {
+      "id": 2,
+      "name": "Product 2",
+      "price": 19.99
+    }
+  ],
+  "extras": [
+    {
+      "email": "user",
+      "name": "markus",
+      "pass": "Abcd1234*"
+    }
+  ]
+}

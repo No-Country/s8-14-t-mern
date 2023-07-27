@@ -1,4 +1,4 @@
-// @ts-check
+ 
 const { defineConfig, devices } = require('@playwright/test');
 
 
@@ -30,7 +30,8 @@ module.exports = defineConfig({
 
     /* Collect trace when retrying the failed test. See https://playwright.dev/docs/trace-viewer */
     trace: 'on-first-retry',
-    screenshot: 'only-on-failure'
+    screenshot: 'only-on-failure',
+    video:'retain-on-failure'
   },
 
   /* Configure projects for major browsers */
@@ -51,10 +52,7 @@ module.exports = defineConfig({
     // },
 
     /* Test against mobile viewports. */
-    // {
-    //   name: 'Mobile Chrome',
-    //   use: { ...devices['Pixel 5'] },
-    // },
+    //  
     // {
     //   name: 'Mobile Safari',
     //   use: { ...devices['iPhone 12'] },

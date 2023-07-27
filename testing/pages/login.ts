@@ -7,20 +7,32 @@ export class LoginPage {
     readonly btnIniciarSesion: Locator
     readonly btnPerfil: Locator
     readonly btnCerrarSesion: Locator
+    readonly userName: Locator
 
     //contructor
     constructor(readonly page:Page){
-      this.inputEmail = page.getByPlaceholder('Correo electrónico',{exact:true})
+      this.inputEmail = page.getByPlaceholder('Correo electrónico',{exact:true}) 
       this.inputPass = page.getByPlaceholder('Contraseña',{exact:true})
       this.btnIniciarSesion = page.getByText('Iniciar sesión',{exact:true})
       this.btnPerfil = page.getByRole('button',{name:'Perfil'})
       this.btnCerrarSesion = page.getByRole('listitem').filter({ hasText: 'Cerrar sesión'}) 
+      this.userName = page.locator('//*[@id="root"]/main/div/div/p')
     }
 
     //methods
     async submitLogin(email: string, pass: string){
         await this.inputEmail.fill(email)
         await this.inputPass.fill(pass) 
+        console.log('Email ingresado: ' + await this.inputEmail.inputValue())
+        console.log('Contraseña ingresada: ' + await this.inputPass.inputValue())
+    }
+
+    async userLogin(email: string, pass: string){
+        await this.inputEmail.fill(email)
+        await this.inputPass.fill(pass) 
+        await this.btnIniciarSesion.click() 
+        console.log('Email ingresado: ' + await this.inputEmail.inputValue())
+        console.log('Contraseña ingresada: ' + await this.inputPass.inputValue())
     }
 
     async btnSesion(){
@@ -35,9 +47,9 @@ export class LoginPage {
         await this.btnCerrarSesion.click()
     }
 
-    async userText(){
-        const text = await this.page.$('p')
-        const valor = await text?.textContent()
-        console.log(valor)
+    async nameUser(value:string){
+        const name = await this.userName.textContent()
+        expect(name).toContain(value)
+        console.log('Nombre obtenido del perfil: ' + name)
     }
 }

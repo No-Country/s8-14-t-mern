@@ -4,15 +4,22 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test:e2e": "npx playwright test tests/",
-    "uiMode": "npx playwright test --ui"
+    "test:all": "npx playwright test tests/",
+    "test:only": "npx playwright test",
+    "uiMode": "npx playwright test --ui",
+    "codegen:pigmeo": "npx playwright codegen https://pigmeo-app.netlify.app/auth/login ",
+    "server:json": "node pages/json-server.js",
+    "allure:data":"npx playwright test --reporter=line,allure-playwright",
+    "allure:report":"allure generate ./allure-results --clean && allure open ./allure-report"
   },
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "@playwright/test": "^1.35.1"
+    "@playwright/test": "^1.35.1",
+    "allure-playwright": "^2.4.0"
   },
   "dependencies": {
+    "json-server": "^0.17.3",
     "standard": "^17.1.0"
   }
 }
