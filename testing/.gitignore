@@ -1,8 +1,5 @@
 node_modules/
-<<<<<<< HEAD
-download/
-Utils/
-=======
-Utils/
-download/
->>>>>>> develop
+/test-results/
+/playwright/.cache/
+.env
+/utils/

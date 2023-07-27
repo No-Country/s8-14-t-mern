@@ -1,58 +1,25 @@
 {
-  "name": "cypress_testing",
+  "name": "pigmeo_playwright-tests",
   "version": "1.0.0",
-  "description": "Qa",
+  "description": "",
   "main": "index.js",
   "scripts": {
-    "cypress:runner": "cypress open --e2e --browser chrome",
-    "cypress:execution": "cypress run --spec cypress/e2e/Test/*",
-<<<<<<< HEAD
-    "cypress:folder": "cypress run --spec cypress/e2e/Test_UI/profile/*.cy.js",
-    "cypress:page": "cypress run --spec cypress/e2e/Test_UI/profile/VisualTest_profile.cy.js",
-    "test:chrome": "cypress run --browser chrome",
-    "cypress:chrome": "cypress run --browser chrome --spec cypress/e2e/Test/*.cy.js",
-    "cypress:open": "cypress open"
-=======
-    "test:chrome": "cypress run --browser chrome",
-    "cypress:chrome": "cypress run --browser chrome --spec cypress/e2e/**/*.cy.js",
-    "cypress:open": "cypress open",
-    "newman:run": "newman run download/LocalHost-Pigmeo.postman_collection.json -e download/LocalHost.postman_environment.json -r htmlextra"
->>>>>>> develop
-  },
-  "repository": {
-    "type": "git",
-    "url": ""
+    "test:all": "npx playwright test tests/",
+    "test:only": "npx playwright test",
+    "uiMode": "npx playwright test --ui",
+    "codegen:pigmeo": "npx playwright codegen https://pigmeo-app.netlify.app/auth/login ",
+    "server:json": "node pages/json-server.js",
+    "allure:data":"npx playwright test --reporter=line,allure-playwright",
+    "allure:report":"allure generate ./allure-results --clean && allure open ./allure-report"
   },
   "author": "",
   "license": "ISC",
-  "dependencies": {
-    "@applitools/eyes-cypress": "^3.32.2",
-    "@badeball/cypress-cucumber-preprocessor": "^17.1.0",
-    "chai": "^4.3.7",
-    "cy-spok": "^1.5.2",
-    "cypress-plugin-api": "^2.11.0",
-    "cypress-plugin-steps": "^1.1.1",
-    "cypress-xpath": "^2.0.1",
-    "newman": "^5.3.0",
-    "prettier": "^2.8.3",
-    "start-server-and-test": "^1.15.3",
-    "typescript": "^4.9.5"
-  },
   "devDependencies": {
-    "@bahmutov/cypress-esbuild-preprocessor": "^2.2.0",
-    "@cypress/webpack-preprocessor": "^5.17.1",
-    "@shelex/cypress-allure-plugin": "^2.39.1",
-    "@testing-library/cypress": "^9.0.0",
-    "cypress": "^12.12.0",
-    "cypress-cucumber-preprocessor": "^4.3.1",
-    "cypress-mochawesome-reporter": "^3.2.3",
-    "cypress-multi-reporters": "^1.6.2",
-    "cypress-split": "^1.2.0",
-    "esbuild": "^0.17.18",
-    "mocha": "^10.2.0",
-    "mochawesome": "^7.1.3",
-    "mochawesome-merge": "^4.2.2",
-    "mochawesome-report-generator": "^6.2.0",
-    "newman-reporter-htmlextra": "^1.22.11"
+    "@playwright/test": "^1.35.1",
+    "allure-playwright": "^2.4.0"
+  },
+  "dependencies": {
+    "json-server": "^0.17.3",
+    "standard": "^17.1.0"
   }
 }
