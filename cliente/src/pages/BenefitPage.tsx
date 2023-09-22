@@ -1,109 +1,89 @@
+import { ComponentType, SVGProps, useEffect, useRef, useState } from 'react';
 import HeaderBackButton from '@/components/HeaderBackButton'
-import { Card, Col, Flex, Grid, Icon, Subtitle, TextInput, Title, Text } from '@tremor/react'
-import { FilmIcon, SearchIcon, ShoppingBagIcon, ShoppingCartIcon } from '@heroicons/react/outline'
-import { ComponentType, SVGProps } from 'react';
+import { Card, Col, Icon, Text, TextInput, Title } from '@tremor/react'
 import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
+import useBenefice from '@/hooks/useBenefice';
+import { FilmIcon, SearchIcon, ShoppingBagIcon, ShoppingCartIcon, GlobeIcon } from '@heroicons/react/outline'
+
+import DescountAndReintegro from '@/components/DescountAndReintegro';
+import TheBestComponent from '@/components/TheBestComponent';
 
 interface ListItemType {
-  title: string;
+  category: string;
   ListIcon: ComponentType<SVGProps<SVGSVGElement>>;
 }
 
 
 const CATEGORY_ITEMS: ListItemType[] = [
   {
-    title: "Entrenamiento",
+    category: "diversion",
     ListIcon: FilmIcon
   },
   {
-    title: "Compras",
+    category: "shopping",
     ListIcon: ShoppingBagIcon
   },
   {
-    title: "Supermercado",
+    category: "compras",
     ListIcon: ShoppingCartIcon
+  },
+  {
+    category: "viajes",
+    ListIcon: GlobeIcon
   }
 ]
-
-
-const benefit = [
-  {
-    company: "Coto",
-    benefit: "8% descount"
-  },
-  {
-    company: "Mc Donal",
-    benefit: "28% descount"
-  },
-  {
-    company: "Burger King",
-    benefit: "18% descount"
-  },
-  {
-    company: "Vea Supermarket",
-    benefit: "18% descount"
-  },
-  {
-    company: "Vea Supermarket",
-    benefit: "18% descount"
-  }
-]
-
-
 
 export default function BenefitPage() {
+
+  const { handdleCategory, TheBest, Refound, Descount } = useBenefice();
+  function OnCategory(event: React.MouseEvent<HTMLSpanElement, MouseEvent>) {
+    handdleCategory(event.currentTarget.id)
+  }
+
+  useEffect(() => {
+    handdleCategory('compras')
+  }, [])
+
   return (
-    <div className='p-1 w-96'>
-      <HeaderBackButton title="Beneficios"/>
-      <Grid numColsSm={12} className='mt-8'>
-        <Col numColSpan={12} className='flex justify-center'>
-          <TextInput icon={SearchIcon} placeholder='Busco un veneficio' className='bg-slate-300 p-2' />
-        </Col>
+    <div>
+      <HeaderBackButton title="Beneficios" />
+      <div>
 
-        <Col numColSpan={11} className='mt-10'>
-          <Title className='mb-6'> Selecinar la categoria</Title>
-          <Flex className='justify-around my-4 '>
-            {CATEGORY_ITEMS.map((item, index) => (
-              <div className='flex flex-col items-center'>
-                <Card key={index} className='w-16 h-16 flex justify-center bg-slate-600'>
-                  <Icon icon={item.ListIcon} />
-                </Card>
-                <Subtitle className='w-full text-center'>
-                  {item.title}
-                </Subtitle>
-              </div>
-            ))}
-          </Flex>
-        </Col>
-        <Col numColSpan={12} className='mt-10'>
-          <Title  className='mb-6'> Lo mas frecuente</Title>
-          <div>
-
-            <Swiper
-              className='select-none'
-              spaceBetween={-80}
-              slidesPerView={1}
-              onSlideChange={() => console.log('slide change')}
-              onSwiper={(swiper) => console.log(swiper)}
-            >
-
-              {benefit.map((card) => (
-                <SwiperSlide>
-                  <Card
-                    className="w-64 h-auto mt-2"
-                    decoration="left"
-                    decorationColor="indigo"
-                  >
-                    <Text>{card.company}</Text>
-                    <Text>{card.benefit}</Text>
-                  </Card>
-                </SwiperSlide>
-              ))}
-            </Swiper>
+        <Col numColSpan={12} className='flex justify-center mt-4'>
+          <div className=' p-1  outline outline-1 outline-black rounded-md'>
+            <TextInput icon={SearchIcon} placeholder='Buscá un beneficio' className=' border-none bg-primary-50 p-2 w-[320px] text-[14px]' />
           </div>
         </Col>
-      </Grid>
+
+        <Col className='p-4'>
+          <Title className='mb-4'>Busca por categoria</Title>
+          <div className='flex justify-center  w-full gap-6'>
+            {CATEGORY_ITEMS.map((item, index) => (
+              <div key={index} className='w-20 h-auto flex items-center justify-center  '>
+                <button className=' h-16  w-16  text-center  text-[#3B1B80] bg-secondary-200 rounded-xl'>
+                  <Icon id={item.category} icon={item.ListIcon} className='text-[#3B1B80]' onClick={OnCategory} />
+                </button>
+              </div>
+            ))}
+          </div>
+        </Col>
+
+        <Col className=' h-full z-10'>
+          {<DescountAndReintegro title="Reintegros" Benefice={Refound} />}
+          {<DescountAndReintegro title="Descuentos" Benefice={Descount} />}
+          {
+            (TheBest?.length === 0) ? (
+              <Col numColSpan={12} className=' mx-2'>
+                <Title className='ml-2 mb-4'>'Los mejores descuentos & reitegros' </Title>
+                <div className='w-full h-20  ml-2 flex justify-center items-center'>
+                  <h1 className='text-center '>  NO HAY POR EL MOMENTO</h1>
+                </div>
+              </Col>
+            ) :
+              <TheBestComponent title='Los mejores descuentos & reitegros' Benefice={TheBest} />}
+        </Col>
+      </div>
     </div>
   )
 }

@@ -50,13 +50,10 @@ const Category = (): JSX.Element => {
     <>
       <HeaderBackButton title="Transferencia" />
       <form className="mx-5 mt-5" onSubmit={submitHandler}>
-        <h2 className="mb-2">¿Cual es el motivo?</h2>
+        <h2 className="mb-2">¿Cuál es el motivo?</h2>
         <Select
           name="reference"
-          defaultValue={{
-            label: transferData?.reference,
-            value: transferData?.reference,
-          }}
+          defaultValue={options[0]}
           options={options}
           className="w-4/5 mb-56"
           styles={customStyles}
@@ -69,9 +66,6 @@ const Category = (): JSX.Element => {
           Continuar
         </button>
       </form>
-      {/*  <Buttonc styled={true} action="continuar" href="/newTransfer/send">
-        Continuar
-      </Buttonc> */}
       <Buttonc styled={false} href="/home">
         Cancelar
       </Buttonc>
