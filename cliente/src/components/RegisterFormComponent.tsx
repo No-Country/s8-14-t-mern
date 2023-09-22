@@ -1,11 +1,12 @@
-import eyesOn from '../assets/eye.svg';
-import eyesOff from '../assets/eyeslash.svg';
+import { useState } from 'react';
 import useRegister from "@/hooks/useRegister";
-
+import { EyeIcon, EyeOffIcon } from '@heroicons/react/outline'
+import { Link } from 'react-router-dom';
 // nECESITAMOS CREAR BOTON VOLVER A ELEGIR
 const RegisterForm = (): JSX.Element => {
-
-  const { RepassType, errors, handleChange, handlePassword, handleSubmit, passType, touched, values } = useRegister();
+  const [ShowPass, setShowPass] = useState(false)
+  const [ShowRepeatPass, setShowRepeatPass] = useState(false)
+  const { errors, handleChange, handleSubmit, touched, values } = useRegister();
 
   return (
     <div className="w-full flex justify-center">
@@ -101,22 +102,17 @@ const RegisterForm = (): JSX.Element => {
             text-black"
             name="password"
             id="password"
-            type={passType}
+            type={ShowPass ? "text" : "password"}
             placeholder="Contraseña"
             onChange={handleChange}
             value={values.password}
           />
           <div className="absolute w-12 h-12 flex justify-center items-center right-0 text-primary-400"
           >
-            {
-              passType === 'password' ?
-                <img id="eyepass" className="w-8 h-8 " src={eyesOff} alt="showContrasena2"
-                  onMouseEnter={handlePassword}
-                  />
-                  :
-                  <img id="eyepass2" className="w-8 h-8 " src={eyesOn} alt="hiddenContrasena2"
-                  onMouseOut={handlePassword}
-                />
+            {ShowPass ?
+              <EyeIcon width={30} onClick={() => setShowPass(!ShowPass)} />
+              :
+              <EyeOffIcon width={30} onClick={() => setShowPass(!ShowPass)} />
             }
           </div>
           {errors.password && touched.password && (
@@ -138,21 +134,16 @@ const RegisterForm = (): JSX.Element => {
             text-black"
             name="repeatPassword"
             id="repeatPassword"
-            type={RepassType}
+            type={ShowRepeatPass ? "text" : "password"}
             placeholder="Confirmar contraseña"
             onChange={handleChange}
             value={values.repeatPassword}
           />
           <div className="absolute w-12 h-12 flex justify-center items-center right-0 text-primary-400">
-            {
-              RepassType === 'password' ?
-                <img id="reeyepass" className="w-8 h-8 " src={eyesOff} alt="showContrasena"
-                  onMouseEnter={handlePassword}
-                />
-                :
-                <img id="reeyepass2"  className="w-8 h-8 " src={eyesOn} alt="hiddenContrasena"
-                  onMouseOut={handlePassword}
-                />
+            {ShowRepeatPass ?
+              <EyeIcon width={30} onClick={() => setShowRepeatPass(!ShowRepeatPass)} />
+              :
+              <EyeOffIcon width={30} onClick={() => setShowRepeatPass(!ShowRepeatPass)} />
             }
           </div>
           {errors.repeatPassword && touched.repeatPassword && (
@@ -182,9 +173,11 @@ const RegisterForm = (): JSX.Element => {
         </div>
 
         <button type="submit"
-          className="bg-primary-300  text-white w-[328px] h-12 p-2 rounded-lg mt-4">
+          disabled={!values.aceptarTerminos}
+          className={`text-white w-[328px] h-12 p-2 rounded-lg mt-4 ${!values.aceptarTerminos ? "bg-primary-200 cursor-auto" : "bg-primary-500 cursor-pointer"}`}>
           Registrarme
         </button>
+        <Link className='underline' to={"/auth/login"}>Iniciar sesión</Link>
       </form>
     </div>
   );

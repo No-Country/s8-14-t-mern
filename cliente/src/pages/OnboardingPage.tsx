@@ -63,7 +63,7 @@ export default function OnboardingPage(): ReactElement {
       {!intro &&
         <Grid>
           <Col>
-            <div className='flex w-full overflow-hidden'>
+            <div className='flex w-full max-w-[450px] overflow-hidden'>
               <div className={`w-full flex flex-col items-center gap-6 `}>
                 <div className='w-full mb-5 flex flex-col items-center relative'>
                   <img className='w-full' src={ONBOARDING[currentSlide].image} alt="" />

@@ -5,11 +5,11 @@ import apiUsers from "@/services/users";
 
 const userContextInitialState = {
   user: {},
-  setUser: () => {},
+  setUser: () => { },
   isAuthenticated: false,
-  setUserData: () => {},
-  deleteUserData: () => {},
-  fetchUserData: () => {},
+  setUserData: () => { },
+  deleteUserData: () => { },
+  fetchUserData: () => { },
 };
 interface UserContextType {
   user: Partial<IUser>;
@@ -23,13 +23,14 @@ interface UserContextType {
 const USER_INITIAL_STATE: Partial<IUser> = localStorage.getItem("user")
   ? JSON.parse(localStorage.user)
   : {
-      email: "",
-      id: "",
-      firstName: "",
-      lastname: "",
-      alias: "",
-      token: "",
-    };
+    email: "usuario@example.com",
+    id: "",
+    firstName: "Usuario",
+    lastname: "Invitado",
+    alias: "usuario.invitado.usua",
+    token: "sda",
+    balance: 0
+  };
 
 const UserContext = createContext<UserContextType>(userContextInitialState);
 

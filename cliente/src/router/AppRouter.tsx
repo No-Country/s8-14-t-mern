@@ -78,86 +78,88 @@ const CriptoPage: React.LazyExoticComponent<() => JSX.Element> = lazy(
 export default function AppRouter(): JSX.Element {
   const { isAuthenticated } = useUserData();
   return (
-    <Suspense fallback={
-      <div className="w-screen h-screen  flex justify-center items-center bg-primary-500">
-        <Loader />
-      </div>
-    }>
-      <BrowserRouter>
-        <Routes>
-          {!isAuthenticated && (
-            <>
-              <Route path="/" element={<OnboardingPage />} />
-              <Route path="/auth/:slug" element={<AuthPage />} />
-              <Route
-                path="/resetPassword/request"
-                element={<ResetPasswordRequestPage />}
-              />
-              <Route
-                path="/olvide-password/:token"
-                element={<ResetPasswordPage />}
-              />
-              <Route path="/confirmar/:token" element={<VerifyAccountPage />} />
-              <Route path="*" element={<Navigate to="/" />} />
-            </>
-          )}
-          {isAuthenticated && (
-            <>
-              <Route path="/" element={<MainLayout />}>
-                <Route index element={<HomePage />} />
-                <Route path="/home" element={<HomePage />} />
-                <Route path="/transactions" element={<TransactionsPage />} />
-                <Route path="/profile" element={<ProfilePage />} />
-                <Route path="/personalData" element={<PersonalDataPage />} />
-                <Route path="/changename" element={<ChangeName />} />
-                <Route path="/benefit" element={<BenefitPage />} />
-              </Route>
+    <div className="max-w-[450px] w-full m-auto">
+      <Suspense fallback={
+        <div className="h-screen w-full  flex justify-center items-center bg-primary-500">
+          <Loader />
+        </div>
+      }>
+        <BrowserRouter>
+          <Routes>
+            {!isAuthenticated && (
+              <>
+                <Route path="/" element={<OnboardingPage />} />
+                <Route path="/auth/:slug" element={<AuthPage />} />
+                <Route
+                  path="/resetPassword/request"
+                  element={<ResetPasswordRequestPage />}
+                />
+                <Route
+                  path="/olvide-password/:token"
+                  element={<ResetPasswordPage />}
+                />
+                <Route path="/confirmar/:token" element={<VerifyAccountPage />} />
+                <Route path="*" element={<Navigate to="/" />} />
+              </>
+            )}
+            {isAuthenticated && (
+              <>
+                <Route path="/" element={<MainLayout />}>
+                  <Route index element={<HomePage />} />
+                  <Route path="/home" element={<HomePage />} />
+                  <Route path="/transactions" element={<TransactionsPage />} />
+                  <Route path="/profile" element={<ProfilePage />} />
+                  <Route path="/personalData" element={<PersonalDataPage />} />
+                  <Route path="/changename" element={<ChangeName />} />
+                  <Route path="/benefit" element={<BenefitPage />} />
+                </Route>
 
-              <Route element={<NewTransferProvider />}>
-                <Route
-                  path="/newTransfer/receiver"
-                  element={<NewTransferReceiverPage />}
-                />
-                <Route
-                  path="/newTransfer/amount"
-                  element={<NewTransferAmountPage />}
-                />
-                <Route
-                  path="/newTransfer/category"
-                  element={<NewTransferCategoryPage />}
-                />
-                <Route
-                  path="/newTransfer/send"
-                  element={<NewTransferSendPage />}
-                />
-                <Route path="/scanner" element={<ScannerQrPage />} />
-              </Route>
+                <Route element={<NewTransferProvider />}>
+                  <Route
+                    path="/newTransfer/receiver"
+                    element={<NewTransferReceiverPage />}
+                  />
+                  <Route
+                    path="/newTransfer/amount"
+                    element={<NewTransferAmountPage />}
+                  />
+                  <Route
+                    path="/newTransfer/category"
+                    element={<NewTransferCategoryPage />}
+                  />
+                  <Route
+                    path="/newTransfer/send"
+                    element={<NewTransferSendPage />}
+                  />
+                  <Route path="/scanner" element={<ScannerQrPage />} />
+                </Route>
 
-              <Route path="/addFunds" element={<AddFundsMenuPage />} />
-              <Route
-                path="/addFunds/transfer"
-                element={<AddMoneyPage />}
-              />
-              <Route
-                path="/addFunds/cash"
-                element={<AddFundsByTransferPage />}
-              />
-              <Route path="/recharge" element={<RechargePage />} />
-              <Route
-                path="/recharge/cardnumber/"
-                element={<RechargeCardNumberPage />}
-              />
-              <Route path="/recharge/amount/" element={<RechargeAmountPage />} />
-              <Route path="/recharge/send/" element={<RechargeSendPage />} />
-              <Route path="/cripto" element={<CriptoPage />} />
+                <Route path="/addFunds" element={<AddFundsMenuPage />} />
+                <Route
+                  path="/addFunds/transfer"
+                  element={<AddMoneyPage />}
+                />
+                <Route
+                  path="/addFunds/cash"
+                  element={<AddFundsByTransferPage />}
+                />
+                <Route path="/recharge" element={<RechargePage />} />
+                <Route
+                  path="/recharge/cardnumber/"
+                  element={<RechargeCardNumberPage />}
+                />
+                <Route path="/recharge/amount/" element={<RechargeAmountPage />} />
+                <Route path="/recharge/send/" element={<RechargeSendPage />} />
+                <Route path="/cripto" element={<CriptoPage />} />
 
-              <Route path="*" element={<Navigate to="/home" />} />
-              <Route path="/response" element={<ResponsPage />} />
-            </>
-          )}
-          <Route path="*" element={<h1>404</h1>} />
-        </Routes>
-      </BrowserRouter>
-    </Suspense>
+                <Route path="*" element={<Navigate to="/home" />} />
+                <Route path="/response" element={<ResponsPage />} />
+              </>
+            )}
+            <Route path="*" element={<h1>404</h1>} />
+          </Routes>
+        </BrowserRouter>
+      </Suspense>
+    </div>
   );
 }

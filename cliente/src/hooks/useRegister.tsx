@@ -5,8 +5,6 @@ import apiUsers from "@/services/users";
 import toast from "react-hot-toast";
 
 export default function useRegister() {
-  const [passType, setpassType] = useState("password");
-  const [RepassType, setRepassType] = useState("password");
 
   const { values, handleChange, handleSubmit, errors, touched } = useFormik({
     initialValues: {
@@ -64,35 +62,14 @@ export default function useRegister() {
     },
   });
 
-  const handlePassword = (event: React.MouseEvent<HTMLImageElement>) => {
-    if (
-      (event.currentTarget.id === "eyepass" && event.type === "mouseenter") ||
-      (event.currentTarget.id === "eyepass2" && event.type === "mouseout")
-    ) {
-      setpassType((prevType) =>
-        prevType === "password" ? "text" : "password"
-      );
-    }
-    if (
-      (event.currentTarget.id == "reeyepass" && event.type === "mouseenter") ||
-      (event.currentTarget.id == "reeyepass2" && event.type === "mouseout")
-    ) {
-      setRepassType((prevType) =>
-        prevType === "password" ? "text" : "password"
-      );
-    }
-  };
 
   return {
     //properties
     values,
     errors,
     touched,
-    RepassType,
-    passType,
     // method
     handleChange,
-    handleSubmit,
-    handlePassword,
+    handleSubmit
   };
 }
