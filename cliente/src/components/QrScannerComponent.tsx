@@ -6,8 +6,10 @@ import { useNavigate } from 'react-router-dom';
 import { QrScanner } from '@yudiel/react-qr-scanner';
 import HeaderBackButton from './HeaderBackButton';
 import { QrcodeIcon } from '@heroicons/react/outline';
+import { useState } from 'react';
 
 export default function QrScannerComponent({ setScannerOpen }: { setScannerOpen: React.Dispatch<React.SetStateAction<boolean>> }) {
+  const [onErrorDevice, setOnErrorDevice] = useState(false)
   const { setTransferData } = useNewTranferData();
   const navigate = useNavigate()
   const codeSucces = async (result: string) => {
@@ -24,7 +26,9 @@ export default function QrScannerComponent({ setScannerOpen }: { setScannerOpen:
     }
   }
   const codeError = (error: Error) => {
-    console.log(error.message)
+    error.message.includes("Requested device not found") && setOnErrorDevice(true)
+    // console.log(error.message)
+    // console.log(error)
   }
   return (
     <>
@@ -35,17 +39,23 @@ export default function QrScannerComponent({ setScannerOpen }: { setScannerOpen:
         containerStyle={{ padding: 0, margin: "auto", height: "100vh" }}
         videoStyle={{ maxWidth: "none", width: "auto", zIndex: -1 }}
         viewFinder={() =>
-          <div className='flex flex-col w-[100vw]  bg-[#0008] pb-[80px] h-[100vh]'>
+          <div className='flex flex-col  bg-[#0008] pb-[80px] h-[100vh]'>
             <HeaderBackButton title='Escaneá el código QR para pagar' />
-            <div className='w-[87%] max-h-[80vh] aspect-square grid grid-cols-2 grid-rows-2  m-auto relative backdrop-brightness-[1.8]'>
-              <span className='w-[40%] block aspect-square border-t-4 border-l-4 relative '></span>
-              <span className='w-[40%] block aspect-square border-t-4 border-r-4 relative justify-self-end'></span>
-              <span className='w-[40%] block aspect-square border-b-4 border-l-4 relative self-end'></span>
-              <span className='w-[40%] block aspect-square border-b-4 border-r-4 relative self-end justify-self-end'></span>
-              <span
-                className='w-[110%] justify-self-center h-[4px] absolute animate-[upDown_1s_infinite_ease-in-out_alternate-reverse] bg-[#49DC7B]'></span>
-            </div>
-            <span className='w-full bg-white h-auto rounded-t-3xl fixed bottom-0 flex flex-col border-t-2 py-3 animate__fadeInUp animate__animated'>
+            {onErrorDevice ?
+              <div className='flex bg-slate-100 w-[70%] aspect-square m-auto rounded-xl justify-center items-center'>
+                <p>No se encontró una cámara</p>
+              </div>
+              :
+              <div className='w-[87%] max-h-[80vh] aspect-square grid grid-cols-2 grid-rows-2  m-auto relative backdrop-brightness-[1.8]'>
+                <span className='w-[40%] block aspect-square border-t-4 border-l-4 relative '></span>
+                <span className='w-[40%] block aspect-square border-t-4 border-r-4 relative justify-self-end'></span>
+                <span className='w-[40%] block aspect-square border-b-4 border-l-4 relative self-end'></span>
+                <span className='w-[40%] block aspect-square border-b-4 border-r-4 relative self-end justify-self-end'></span>
+                <span
+                  className='w-[110%] justify-self-center h-[4px] absolute animate-[upDown_1s_infinite_ease-in-out_alternate-reverse] bg-[#49DC7B]'></span>
+              </div>
+            }
+            <span className='max-w-[450px] w-full bg-white h-auto rounded-t-3xl fixed bottom-0 flex flex-col border-t-2 py-3 animate__fadeInUp animate__animated'>
               <span className='flex w-[50px] bg-gray-500 h-[4px] absolute left-[50%] translate-x-[-50%] top-1 rounded-2xl mx-auto'></span>
               <button
                 onClick={() => setScannerOpen(false)}

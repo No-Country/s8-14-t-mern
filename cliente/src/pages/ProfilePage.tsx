@@ -57,7 +57,7 @@ function ProfilePage(): ReactElement {
             {user?.firstName}
             {user?.lastname}
           </Title>
-          <ul className="flex flex-col gap-0 px-4 w-screen  [&>li:not(:last-child)]:border-b-2">
+          <ul className="flex flex-col gap-0 px-4 max-w-[400px] w-[90%] [&>li:not(:last-child)]:border-b-2">
             {MENU_ITEMS.map((item, i) => (
               <ListItem
                 key={i}

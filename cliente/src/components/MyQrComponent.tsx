@@ -26,7 +26,7 @@ export default function MyQrComponent({ setScannerOpen }: { setScannerOpen: Reac
   }
   return (
     <div
-      className={`w-full flex flex-col bg-white `}>
+      className={`flex flex-col bg-white `}>
       <header className='flex p-[25px]  gap-[40px] items-center'>
         <ArrowLeftIcon className='w-6 h-6' onClick={() => setScannerOpen(true)} />
         <h2 className='text-[20px] font-medium'>Mi QR</h2>
@@ -39,7 +39,7 @@ export default function MyQrComponent({ setScannerOpen }: { setScannerOpen: Reac
           <QRCodeSVG
             className='mx-auto rounded-xl'
             value={JSON.stringify(userQr)}
-            size={window.screen.width / 1.3}
+            size={330}
             fgColor='rgb(117,49,202)'
             bgColor='rgb(250,232,255)'
             includeMargin

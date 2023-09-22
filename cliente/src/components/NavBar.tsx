@@ -9,7 +9,7 @@ export default function NavBar(): JSX.Element {
   const openScreen = (value: string) => navigate(value)
   return (
     <TabList
-      className="flex-1 fixed bottom-0 items-end justify-center w-screen bg-white space-x-0 overflow-visible h-[70px] border-t z-50"
+      className="flex-1 fixed bottom-0 items-end justify-center max-w-[450px] w-full m-auto bg-white space-x-0 overflow-visible h-[70px] border-t"
       defaultValue='/home'
       onValueChange={(value) => {
         openScreen(value)

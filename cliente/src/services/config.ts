@@ -1,6 +1,6 @@
 import axios, { AxiosInstance } from "axios";
 
-const BASE_URL = "http://localhost:9000/api/v1/pigmeo";
+const BASE_URL = "https://pigmeo-server.onrender.com/api/v1/pigmeo";
 
 export const axiosInstance: AxiosInstance = axios.create({
   baseURL: BASE_URL,

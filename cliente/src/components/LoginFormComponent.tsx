@@ -10,8 +10,10 @@ import logo from "../assets/logo-light.svg";
 import eyesOn from '../assets/eye.svg';
 import eyesOff from '../assets/eyeslash.svg';
 import Loader from "./Loader";
+import { EyeIcon, EyeOffIcon } from "@heroicons/react/outline";
 
 const LoginForm = (): JSX.Element => {
+  const [ShowPass, setShowPass] = useState(false)
   const [passType, setpassType] = useState('password');
   const { setUserData } = useUserData();
   const [isLoading, setIsLoading] = useState(false);
@@ -108,7 +110,7 @@ const LoginForm = (): JSX.Element => {
             placeholder="Contraseña"
             name="password"
             id="password"
-            type={passType}
+            type={ShowPass ? "text" : "password"}
             onChange={handleChange}
             value={values.password}
           />
@@ -116,11 +118,10 @@ const LoginForm = (): JSX.Element => {
             onMouseEnter={handlePassword}
             onMouseOut={handlePassword}
           >
-            {
-              passType === 'password' ?
-                <img className="w-8 h-8 " src={eyesOff} alt="showContrasena" />
-                :
-                <img className="w-8 h-8 " src={eyesOn} alt="hiddenContrasena" />
+            {ShowPass ?
+              <EyeIcon width={30} onClick={() => setShowPass(!ShowPass)} />
+              :
+              <EyeOffIcon width={30} onClick={() => setShowPass(!ShowPass)} />
             }
           </div>
           {errors.password && touched.password && errors.password}
@@ -143,6 +144,7 @@ const LoginForm = (): JSX.Element => {
             Iniciar sesión
           </button>
         )}
+        <Link className='underline' to={"/auth/register"}>Registrarse</Link>
       </form>
     </div>
   );
