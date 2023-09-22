@@ -10,7 +10,7 @@ import { RechargeContext } from "@/context/RechargeContext";
 import toast from "react-hot-toast";
 
 
-function Inputs({ handleNumberChange }) {
+function Inputs({ handleNumberChange }: {handleNumberChange: any}) {
   const { user } = useUserData();
 
   return (

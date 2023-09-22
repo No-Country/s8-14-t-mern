@@ -7,7 +7,7 @@ import { RechargeContext } from "@/context/RechargeContext";
 
 const Cards: React.FC<{ cards: any[] }> = ({ cards }) => {
   const { handleCardClick } = useContext(RechargeContext);
-  
+
   return (
     <div className="drop-shadow-[0_4px_4px_rgba(0,0,0,0.25)]">
       <div className="grid grid-cols-2 gap-4">
@@ -50,12 +50,12 @@ const Recharge: React.FC = () => {
         setCards(response.data);
 
         const transportCardsData = response.data.filter(
-          (card) => card.cardType === "transport"
+          (card: any) => card.cardType === "transport"
         );
         setTransportCards(transportCardsData);
 
         const phoneCardsData = response.data.filter(
-          (card) => card.cardType === "cell phone"
+          (card: any) => card.cardType === "cell phone"
         );
         setPhoneCards(phoneCardsData);
       } catch (error) {
@@ -81,21 +81,19 @@ const Recharge: React.FC = () => {
         <div className="flex flex-row justify-between w-52 mt-5">
           <h1
             onClick={toggleTransportContent}
-            className={`w-full text-center cursor-pointer pb-2  ${
-              activeSection === "transport"
+            className={`w-full text-center cursor-pointer pb-2  ${activeSection === "transport"
                 ? " text-[#3B1B80] border-b-2 border-[#08258C]"
                 : "border-b-2 text-gray-500"
-            }`}
+              }`}
           >
             Transporte
           </h1>
           <h2
             onClick={togglePhoneContent}
-            className={`w-full text-center cursor-pointer ${
-              activeSection === "phone"
+            className={`w-full text-center cursor-pointer ${activeSection === "phone"
                 ? "text-[#3B1B80] border-b-2 border-[#08258C]"
                 : "border-b-2 text-gray-500"
-            }`}
+              }`}
           >
             Celular
           </h2>
