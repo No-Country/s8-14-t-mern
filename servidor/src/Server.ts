@@ -2,9 +2,13 @@ import express, { Application } from 'express'
 import fileUpload from 'express-fileupload'
 import cors from 'cors'
 import morgan from 'morgan'
+const swaqqerUi = require('swagger-ui-express')
+const YAML = require('yamljs')
 import config from './config'
 import dataBase from './utils/database'
 import mainRouter from './routes'
+
+const openapiPrueba = YAML.load('openapiDoc/openapi.yaml')
 
 class Server {
   private app: Application
@@ -33,6 +37,7 @@ class Server {
   private routes(): void {
     // Aquí se pueden agregar más rutas o middlewares si es necesario
     this.app.use('/api/v1/pigmeo', mainRouter)
+    this.app.use('/api-docs', swaqqerUi.serve, swaqqerUi.setup(openapiPrueba))
   }
 
   public listen(): void {

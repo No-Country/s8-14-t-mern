@@ -17,6 +17,10 @@ const AddMoneyPage: React.LazyExoticComponent<() => JSX.Element> = lazy(
   () => import("../pages/AddMoneyPage")
 );
 
+const BeneficeDetailPage:React.LazyExoticComponent<() => JSX.Element> = lazy(
+  () => import("../pages/BeneficeDetailPage")
+);
+
 const AuthPage: React.LazyExoticComponent<() => JSX.Element> = lazy(
   () => import("../pages/AuthPage")
 );
@@ -94,6 +98,28 @@ export default function AppRouter(): JSX.Element {
                   path="/resetPassword/request"
                   element={<ResetPasswordRequestPage />}
                 />
+              <Route
+                path="/olvide-password/:token"
+                element={<ResetPasswordPage />}
+              />
+              <Route path="/confirmar/:token" element={<VerifyAccountPage />} />
+              <Route path="*" element={<Navigate to="/" />} />
+            </>
+          )}
+          {isAuthenticated && (
+            <>
+              <Route path="/" element={<MainLayout />}>
+                <Route index element={<HomePage />} />
+                <Route path="/home" element={<HomePage />} />
+                <Route path="/transactions" element={<TransactionsPage />} />
+                <Route path="/profile" element={<ProfilePage />} />
+                <Route path="/personalData" element={<PersonalDataPage />} />
+                <Route path="/changename" element={<ChangeName />} />
+                <Route path="/benefit" element={<BenefitPage />} />
+                <Route path="/benefice/:id" element={<BeneficeDetailPage />} />
+              </Route>
+
+              <Route element={<NewTransferProvider />}>
                 <Route
                   path="/olvide-password/:token"
                   element={<ResetPasswordPage />}

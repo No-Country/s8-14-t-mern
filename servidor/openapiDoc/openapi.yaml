@@ -1,0 +1,162 @@
+openapi: 3.0.3
+
+info:
+  title: Pigmeo
+  version: 1.0.0
+
+servers:
+  - url: https://pigmeo-server.onrender.com/api/v1/pigmeo
+
+tags: 
+  - name: cards
+  - name: cards of user 
+  - name: top-up cards service 
+
+paths:
+  /cards/create:
+    post:
+      tags:
+        - cards
+      summary: Create new card 
+      requestBody: 
+        description: Create a card
+        content:
+          multipart/form-data:
+            schema: 
+              $ref: '#/components/schemas/Card'
+        required: true
+      responses:
+        '201':
+          description: Successful proces.
+        '400': 
+          description: Missing data / Validation error
+  /cards/: 
+    get: 
+      tags:
+        - cards
+      summary: Returns a list of cards
+      responses:
+        '200':
+          description: A JSON array of cards. The image is a link from cloudinary.
+        '400':
+          description: Validation error
+  /cardsOfUser/add-card:
+    post: 
+      tags:
+        - cards of user
+      summary: Create a new card of a user
+      requestBody: 
+        description: Create a card
+        content:
+          aplication/json:
+            schema:
+              $ref: '#/components/schemas/CardsOfUser'
+        required: true
+      responses:
+        '201':
+          description: Successful proces.
+        '400': 
+          description: Missing data / Validation error
+  /cardsOfUser/: 
+    get: 
+      tags:
+        - cards of user 
+      summary: Return a list of cards created by users
+      responses:
+        '200':
+          description: A JSON array of cards.
+        '400':
+          description: Validation error
+  /cardsOfUser/:id:
+    get:
+      tags:
+        - cards of user
+      summary: Return a card added by user.
+      parameters:
+        [$ref: '#/components/parameters/cardOfUserId']
+      responses:
+        '200':
+          description: A JSON array of card od a user.
+        '400':
+          description: Validation error
+        '404':
+          description: Id does not exist
+    patch:
+      tags:
+        - cards of user
+      summary: Update a card od user by Id.
+      parameters:
+        [$ref: '#/components/parameters/cardOfUserId']
+      requestBody:
+        description: Update a card
+        content:
+          aplication/json:
+            schema:
+              $ref: '#/components/schemas/CardsOfUser'
+        required: true
+      responses:
+        '200':
+          description: Card whith id edited succesfully
+        '400':
+          description: "This data can not be edited: 'firstName' and 'lastname' " 
+        '404':
+          description: Invalid Id
+  /topUpCardsSrvice/top-up:
+    post: 
+      tags:
+        - top-up cards service
+      summary: The user made a top-up card 
+      responses:
+        '201':
+          description: Successful proces.
+        '400': 
+          description: Missing data / Validation error
+
+components:
+  schemas:
+    Card: 
+      required:
+        - cardType
+        - image
+        - name 
+      type: object
+      properties: 
+        cardType:
+          type: string
+          example: transport or cell phone (only)
+        image:
+          type: string
+          format: binary
+          example: |
+            Content-Type: image/jpg - image/jpeg - image/png
+            Content-Disposition: form-data; name='image'; filename='example.jpg'
+            (Binary file content)
+        name: 
+          type: string
+          example: Sube
+    CardsOfUser:
+      required:
+        - numberCard
+        - CardOptions
+        - userId 
+      type: object
+      properties:
+        balanceCard: 
+          type: number
+          example: 20000
+        CardOptions:
+          type: object
+          example: 'id: 647e915aca3500e7cfccfd90'
+        numberCard:
+          type: number
+          example: 555678984567 or 5567789889665434
+        userId: 
+          type: object
+          example: 'id: 647e915aca3500e7cfccfd90'
+  parameters:
+    cardOfUserId:
+      name: cardOfUserId
+      in: query
+      required: true
+      schema: 
+        type: string

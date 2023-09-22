@@ -27,7 +27,7 @@ function Inputs({ handleNumberChange }) {
         <div className="flex flex-row w-full">
           <img className="mr-4 " src={moneylogo} alt="moneylogo" />
           <Text className="text-sm  font-normal">
-            Pagaras con tu saldo de Pigmeo
+            Pagarás con tu saldo de Pigmeo
           </Text>
         </div>
         <Text className="text-black">Disponible</Text>

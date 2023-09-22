@@ -3,16 +3,23 @@ import Handlebars from 'handlebars'
 import * as nodemailer from 'nodemailer'
 import path from 'path'
 import config from '../config'
+import { currentDate } from './helpers'
 
-enum Project {
-  URL_FRONTEND = 'http://localhost:3000',
-  NAME_PROJECT = 'Pigmeo'
+const Project = {
+  URL_FRONTEND: process.env.FRONTEND_URL || 'http://localhost:3000',
+  NAME_PROJECT: 'Pigmeo',
+  LOGO: 'https://res.cloudinary.com/dftu7s8cf/image/upload/v1685387399/pigmeo/logo-light.png',
+  FROM: function () {
+    return `${this.NAME_PROJECT} <${this.NAME_PROJECT}-mern@gmail.com>`
+  }
 }
+
 enum templateFiles {
   RESET_PSW = 'forgotPassword.hbs',
   CONFIRM = 'confirmAccount.hbs',
   MYTRANSF = 'transferSent.hbs',
-  RECERANSF = 'transferReceiver.hbs'
+  RECERANSF = 'transferReceiver.hbs',
+  DEPOSIT = 'deposit.hbs'
 }
 
 const initTransport = () => {
@@ -32,7 +39,7 @@ const generateHbsTemplate = (fileHbs: string, data: object) => {
   const contextData = {
     ...data,
     projectName: Project.NAME_PROJECT,
-    logo: 'https://res.cloudinary.com/dftu7s8cf/image/upload/v1685387399/pigmeo/logo-light.png'
+    logo: Project.LOGO
   }
   const compiled = Handlebars.compile(template)
   return compiled(contextData)
@@ -51,7 +58,7 @@ export const sendVerifyMail = async (
   const htmlContent = generateHbsTemplate(templateFiles.CONFIRM, data)
 
   await transport.sendMail({
-    from: `${Project.NAME_PROJECT} <${Project.NAME_PROJECT}-mern@gmail.com>`,
+    from: Project.FROM(),
     to: email,
     subject: 'Comprueba tu cuenta',
     text: 'Comprueba tu cuenta',
@@ -72,7 +79,7 @@ export const sendMailForgotPassword = async (
   const htmlContent = generateHbsTemplate(templateFiles.RESET_PSW, data)
 
   await transport.sendMail({
-    from: `${Project.NAME_PROJECT} <${Project.NAME_PROJECT}-mern@gmail.com>`,
+    from: Project.FROM(),
     to: email,
     subject: 'Reestablece tu contraseña',
     text: 'Reestablece tu contraseña',
@@ -95,7 +102,7 @@ export const sendMailMyTransfer = async (
   const htmlContent = generateHbsTemplate(templateFiles.MYTRANSF, data)
 
   await transport.sendMail({
-    from: `${Project.NAME_PROJECT} <${Project.NAME_PROJECT}-mern@gmail.com>`,
+    from: Project.FROM(),
     to: emailSender,
     subject: 'Transferencia realizada',
     text: 'Transferencia realizada',
@@ -118,10 +125,26 @@ export const sendMailReceiverTransfer = async (
   const htmlContent = generateHbsTemplate(templateFiles.RECERANSF, data)
 
   await transport.sendMail({
-    from: `${Project.NAME_PROJECT} <${Project.NAME_PROJECT}-mern@gmail.com>`,
+    from: Project.FROM(),
     to: emailReceiver,
     subject: 'Recibiste una transferencia',
     text: 'Recibiste una transferencia',
+    html: htmlContent
+  })
+}
+
+export const sendMailDeposit = async (email: string, amount: number) => {
+  const transport = initTransport()
+  const data = {
+    amount,
+    fecha: currentDate()
+  }
+  const htmlContent = generateHbsTemplate(templateFiles.DEPOSIT, data)
+  await transport.sendMail({
+    from: Project.FROM(),
+    to: email,
+    subject: 'Realizaste un deposito',
+    text: 'Realizaste un deposito',
     html: htmlContent
   })
 }

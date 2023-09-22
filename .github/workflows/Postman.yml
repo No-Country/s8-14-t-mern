@@ -1,4 +1,4 @@
-name: Api Test con Postman
+name: Automated API tests using Postman CLI
 
 on: push
 
@@ -14,4 +14,5 @@ jobs:
         run: postman login --with-api-key ${{ secrets.POSTMAN_API_KEY }}
       - name: Run API tests
         run: |
-          postman collection run "25254146-7775402a-4452-4469-affb-0bcba3ac6145" -e "25254146-60da1f58-f7c2-496c-9083-d2e0a5e7087b"
+          postman collection run "22531503-8dc98f86-17bb-4d07-bb12-76b21bd325ec" -e "22531503-ee49f841-6c46-4958-9835-73fe94b8e0c9"
+
