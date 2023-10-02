@@ -23,13 +23,12 @@ interface UserContextType {
 const USER_INITIAL_STATE: Partial<IUser> = localStorage.getItem("user")
   ? JSON.parse(localStorage.user)
   : {
-    email: "usuario@example.com",
+    email: "",
     id: "",
-    firstName: "Usuario",
-    lastname: "Invitado",
-    alias: "usuario.invitado.usua",
-    token: "sda",
-    balance: 0
+    firstName: "",
+    lastname: "",
+    alias: "",
+    token: "",
   };
 
 const UserContext = createContext<UserContextType>(userContextInitialState);
@@ -49,7 +48,7 @@ function UserProvider({ children }: { children: ReactNode }): JSX.Element {
       lastname: userData?.lastName || userData?.lastname,
     };
     setUser(user);
-    localStorage.setItem("user", JSON.stringify(user));
+    localStorage.setItem("user", JSON.stringify(user));    
   };
   const deleteUserData = () => {
     setUser({});
@@ -58,7 +57,7 @@ function UserProvider({ children }: { children: ReactNode }): JSX.Element {
   const fetchUserData = async () => {
     try {
       if (user.id) {
-        const { data } = await apiUsers.getUser(user?.id);
+        const { data } = await apiUsers.getUser(user?.id);        
         setUserData({ ...data, token: user?.token });
       }
     } catch (error: any) {

@@ -4,7 +4,7 @@ import { v4 as uuidv4 } from 'uuid'
 import { ICardsOfUser } from '../interfaces/cardsOfUser.interface'
 import CardsOfUser from '../models/cardsOfUser.models'
 import User from '../models/users.models'
-import { sendMailForgotPassword, sendVerifyMail } from '../utils/handleEmail'
+import { sendMailForgotPassword } from '../utils/handleEmail'
 import { encrypt, verifyHash } from '../utils/handlePassword'
 import { IUser } from './../interfaces/user.interface'
 const secretKey = 'pigmeo123'
@@ -34,7 +34,7 @@ const fetchGet = async () => {
 const fetchDelete = async (user?: IUser) => {
   if (user) {
     user.isActive = false
-    return await user.save()
+    return await user.deleteOne()
   }
 }
 
@@ -49,11 +49,10 @@ const fetchPost = async (user: IUser) => {
   try {
     const newUser = await User.create({ ...user, password: passwordHash })
     if (newUser === null) throw new Error('Error al registrar el usuario')
-    //enviar email para verificacion de cuenta
-    await sendVerifyMail(newUser.email, newUser.firstName, newUser.token)
-
+    verifyUserAccount(newUser)
     return {
-      msg: 'Usuario creado correctamente. Por favor, verifique su correo para activar su cuenta.'
+      msg: 'Usuario creado correctamente.',
+      newUser
     }
   } catch (e) {
     throw new Error(e as string)

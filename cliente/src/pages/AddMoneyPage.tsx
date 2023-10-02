@@ -2,7 +2,7 @@ import StripeCheckout from 'react-stripe-checkout';
 import HeaderBackButton from '@/components/HeaderBackButton';
 import { Grid, Title } from '@tremor/react';
 import useAddMoney from '@/hooks/useAddMoney';
-
+const STRIPE_KEY = import.meta.env.VITE_STRIPE_KEY  
 export default function AddMoneyPage() {
   const { monto, onToken, handleChange, setMonto } = useAddMoney()
   return (
@@ -29,7 +29,7 @@ export default function AddMoneyPage() {
               currency="USD"
               amount={monto * 100}
               shippingAddress
-              stripeKey="pk_test_51MsERVA0z17wfrUBPE1SATDMvcwgpreFXvKC8DeYJObu9WMaikTL2NLbtPX1aeJMWQQXY88V68NemhzEKqMOoiJR00BxKuX7L9"
+              stripeKey={STRIPE_KEY}
             />
           </div>
         </div>

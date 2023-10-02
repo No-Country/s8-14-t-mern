@@ -7,11 +7,6 @@ import {
 } from '../interfaces/transaction.interface'
 import Transaction from '../models/transactions.models'
 import User from '../models/users.models'
-import {
-  sendMailDeposit,
-  sendMailMyTransfer,
-  sendMailReceiverTransfer
-} from '../utils/handleEmail'
 
 config()
 const stripeSecretKey = process.env.STRIPE_KEY
@@ -126,19 +121,6 @@ const fecthTransfer = async (transaction: ITransactions) => {
               lastname: lastSender
             }
           } = newTransactionPop
-
-          //send email transfer
-          const fullname_receiver = `${nameRece} ${lastRece}`
-          const fullname_sender = `${nameSender} ${lastSender}`
-          //correo comprobante del sender
-          sendMailMyTransfer(fullname_receiver, amount, emailSender, alias)
-          //corrreo comprobante del receiver
-          sendMailReceiverTransfer(
-            fullname_sender,
-            amount,
-            emailSender,
-            emailRece
-          )
         }
 
         return newTransactionPop
@@ -238,8 +220,6 @@ const fecthDepositStripe = async (
       await User.findByIdAndUpdate(id, {
         $inc: { balance: amount * valueRate }
       })
-      //send mail deposit
-      sendMailDeposit(token.email, amount)
       return newTransaction
     } else {
       return { message: 'Transaction failed', charge: charge }

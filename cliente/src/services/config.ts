@@ -1,6 +1,5 @@
 import axios, { AxiosInstance } from "axios";
-
-const BASE_URL = "https://pigmeo-server.onrender.com/api/v1/pigmeo";
+const BASE_URL = import.meta.env.VITE_BASE_URL;
 
 export const axiosInstance: AxiosInstance = axios.create({
   baseURL: BASE_URL,
@@ -19,7 +18,7 @@ axiosInstance.interceptors.request.use(
     return config;
   },
   (error) => {
-    console.log("Interceptor de peticion Axios error", error);
+    console.log("Interceptor de petición Axios error", error);
     return Promise.reject(error);
   }
 );

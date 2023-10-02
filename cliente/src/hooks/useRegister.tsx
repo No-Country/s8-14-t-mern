@@ -3,9 +3,10 @@ import { useFormik } from "formik";
 import * as Yup from "yup";
 import apiUsers from "@/services/users";
 import toast from "react-hot-toast";
+import { useNavigate } from "react-router-dom";
 
 export default function useRegister() {
-
+const navigate = useNavigate()
   const { values, handleChange, handleSubmit, errors, touched } = useFormik({
     initialValues: {
       firstName: "",
@@ -50,11 +51,14 @@ export default function useRegister() {
           repeatPassword: values.repeatPassword,
         };
         const response = await apiUsers.registerUser(payload);
-        console.log(response);
+        if (response.status === 201) {
+          localStorage.setItem("user", JSON.stringify(response.data.newUser))
+        }
         toast.success(
-          response?.data?.msg || "Registro existoso, verifica tu cuenta",
+          response?.data?.msg || "Registro exitoso",
           { duration: 10000 }
         );
+        navigate("/auth/login")
       } catch (error: any) {
         console.log(error);
         toast.error("Error al Registrar");
@@ -64,11 +68,9 @@ export default function useRegister() {
 
 
   return {
-    //properties
     values,
     errors,
     touched,
-    // method
     handleChange,
     handleSubmit
   };
